@@ -1,2 +1,11 @@
-{
-    }
+#Service Name
+
+spring:
+  application:
+    name: WESHOPIFY-USER_MGMT-SVC
+
+# Server Port
+server:
+  port: 8061
+
+
