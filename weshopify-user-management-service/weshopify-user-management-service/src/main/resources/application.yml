@@ -2,10 +2,53 @@
 
 spring:
   application:
-    name: WESHOPIFY-USER_MGMT-SVC
+    name: ${APP_NAME:WESHOPIFY-USER_MGMT-SVC}
+
+#Profile
+
+  profiles:
+    default: ${DB_PROFILE:qa}
+
+#Datasource
+  datasource:
+    driver-class-name:
+    url:
+    username:
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+
 
 # Server Port
 server:
   port: 8061
 
 
+---
+#Dev Profile
+spring:
+  datasource:
+    driver-class-name: ${DB_DRIVER_NAME:com.mysql.cj.jdbc.Driver}
+    url: ${DB_PROTOCOL:jdbc}:${DB_TYPE:mysql}://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_SCHEMA:weshopify-users}
+    username: ${DB_USER:root}
+    password: ${DB_PASS:root}
+  profiles:
+    active:
+      - dev
+
+---
+#QA Profile
+spring:
+  datasource:
+    driver-class-name: ${DB_DRIVER_NAME:org.h2.Driver}
+    url: ${DB_PROTOCOL:jdbc}:${DB_TYPE:h2}:${DB_HOST:mem}:${DB_SCHEMA:weshopify-users}
+    username: ${DB_USER:sa}
+    password:
+  profiles:
+    active:
+      - qa
+  h2:
+    console:
+      enabled: true
+      path: /h2console
