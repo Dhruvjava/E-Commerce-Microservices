@@ -7,22 +7,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Roles implements Serializable {
+public class RoleToPermission implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="roleid")
     private int id;
 
-    private String name;
+    @ManyToOne
+    private Roles roles;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roles")
-    private List<RoleToPermission> permissions;
+    @ManyToOne
+    private Permissions permissions;
 }
