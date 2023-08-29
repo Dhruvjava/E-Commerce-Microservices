@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -20,5 +21,13 @@ public class Permissions implements Serializable {
     private int id;
 
     private String name;
+
+    private String createdBy;
+
+    private LocalDateTime createdOn;
+
+    private String updatedBy;
+
+    private LocalDateTime updatedOn;
 
 }

@@ -7,7 +7,7 @@ spring:
 #Profile
 
   profiles:
-    active: ${DB_PROFILE:qa}
+    active: ${DB_PROFILE:dev}
 
 #Datasource
 
