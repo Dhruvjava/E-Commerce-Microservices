@@ -7,9 +7,15 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Builder
-public class PermissionsNotFoundException extends Exception{
+public class PermissionsNotFoundException extends RuntimeException {
 
     private String code;
 
-    private String detail;
+    private String errorMessage;
+
+    public PermissionsNotFoundException(String code, String errorMessage, String message) {
+        super(message);
+        this.code = code;
+        this.errorMessage = errorMessage;
+    }
 }

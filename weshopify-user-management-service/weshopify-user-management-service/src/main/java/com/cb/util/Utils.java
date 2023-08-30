@@ -21,7 +21,11 @@ public class Utils {
         return !isEmpty(string);
     }
 
-    public ErrorRs populateErrorRSs(String codes, Messages message) {
+    public static boolean isNotEmpty(List list) {
+        return !isEmpty(list);
+    }
+
+    public static ErrorRs populateErrorRSs(String codes, Messages message) {
         if (log.isDebugEnabled()) {
             log.debug("Executing populateErrorRs(List<String>) -> ");
         }

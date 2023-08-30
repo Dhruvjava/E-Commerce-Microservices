@@ -11,7 +11,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PermissionsRq implements Serializable {
+public class UpdatePermissionsRq implements Serializable {
+
+    private Integer id;
 
     private String name;
 
