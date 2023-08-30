@@ -1,8 +1,9 @@
-package com.cb.users;
+package com.cb;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
@@ -10,6 +11,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 @SpringBootApplication
+@OpenAPIDefinition(info = @Info(title = "Weshopify User management SVC", version = "1.0",
+        description = "This is the Weshopify User management SVC API is for internal use",
+        contact = @Contact(name = "CodeBrain Pvt. Ltd.",
+                url = "http://www.codebrain.com/",
+                email = "mailto:info@codebrain.com")))
 public class WeshopifyUserManagementServiceApplication{
 
     public static void main(String[] args) {

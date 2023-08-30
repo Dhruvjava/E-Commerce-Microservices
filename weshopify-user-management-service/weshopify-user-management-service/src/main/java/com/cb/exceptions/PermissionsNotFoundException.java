@@ -1,4 +1,4 @@
-package com.cb.users.exceptions;
+package com.cb.exceptions;
 
 import lombok.*;
 

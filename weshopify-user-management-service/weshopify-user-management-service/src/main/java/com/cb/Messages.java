@@ -1,4 +1,4 @@
-package com.cb.users;
+package com.cb;
 
 import java.util.Locale;
 

@@ -1,20 +1,23 @@
 package com.cb.users.service;
 
-import com.cb.users.bean.PermissionsBean;
+import com.cb.base.data.rs.BaseDataRs;
+import com.cb.exceptions.PermissionsException;
+import com.cb.users.rq.PermissionsRq;
 
 import java.util.List;
 
 public interface PermissionsService {
 
-    PermissionsBean createPermission(PermissionsBean rq) throws Exception;
 
-    PermissionsBean updatePermission(PermissionsBean rq);
+    BaseDataRs createPermission(PermissionsRq rq) throws PermissionsException;
 
-    PermissionsBean findPermission(int id);
+    PermissionsRq updatePermission(PermissionsRq rq);
 
-    List<PermissionsBean> deletePermission(int id);
+    PermissionsRq findPermission(int id);
 
-    List<PermissionsBean> findAllPermission(int id);
-    List<PermissionsBean> SearchPermission(int id);
+    List<PermissionsRq> deletePermission(int id);
+
+    List<PermissionsRq> findAllPermission(int id);
+    List<PermissionsRq> SearchPermission(int id);
 
 }

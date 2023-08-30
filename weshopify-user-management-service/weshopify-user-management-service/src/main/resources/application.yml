@@ -14,6 +14,9 @@ spring:
 # Server Port
 server:
   port: 8061
+# context-path
+  servlet:
+    context-path: /dev
 
 
 ---
