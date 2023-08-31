@@ -1,6 +1,7 @@
 package com.cb.handlers;
 
 import com.cb.exceptions.PermissionsException;
+import com.cb.exceptions.PermissionsNotFoundException;
 import com.cb.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,16 @@ public class PermissionsExceptionHandler extends ResponseEntityExceptionHandler 
         if (Utils.isNotEmpty(pe.getErrors())) {
             problemDetail.setProperty("errors", pe.getErrors());
         }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(problemDetail);
+    }
+    @ExceptionHandler(PermissionsNotFoundException.class)
+    public ResponseEntity<ProblemDetail> handlePermissionsNotFoundException(PermissionsNotFoundException pe) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        problemDetail.setTitle(pe.getCode());
+        problemDetail.setDetail(pe.getErrorMessage());
+//        if (Utils.isNotEmpty(pe.getErrors())) {
+//            problemDetail.setProperty("errors", pe.getErrors());
+//        }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(problemDetail);
     }
 }

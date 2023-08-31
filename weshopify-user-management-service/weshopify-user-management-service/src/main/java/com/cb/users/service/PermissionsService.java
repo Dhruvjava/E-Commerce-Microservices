@@ -17,7 +17,7 @@ public interface PermissionsService {
 
     BaseDataRs deletePermission(int id);
 
-    BaseDataRs findAllPermission(int id);
+    BaseDataRs findAllPermission();
 
     BaseDataRs SearchPermission(int id);
 

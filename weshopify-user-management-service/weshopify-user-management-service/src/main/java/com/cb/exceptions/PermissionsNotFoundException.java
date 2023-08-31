@@ -3,7 +3,7 @@ package com.cb.exceptions;
 import lombok.*;
 
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Builder
@@ -13,8 +13,8 @@ public class PermissionsNotFoundException extends RuntimeException {
 
     private String errorMessage;
 
-    public PermissionsNotFoundException(String code, String errorMessage, String message) {
-        super(message);
+    public PermissionsNotFoundException(String code, String errorMessage) {
+        super(errorMessage);
         this.code = code;
         this.errorMessage = errorMessage;
     }

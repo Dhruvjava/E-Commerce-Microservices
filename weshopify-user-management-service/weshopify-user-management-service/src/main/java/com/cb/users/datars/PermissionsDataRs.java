@@ -22,4 +22,8 @@ public class PermissionsDataRs extends BaseDataRs {
         this.permission = permission;
     }
 
+    public PermissionsDataRs(String message) {
+        super(message);
+    }
+
 }

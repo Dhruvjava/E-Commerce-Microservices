@@ -60,4 +60,22 @@ public class PermissionsMapper {
         }
     }
 
+    public static Permissions mapToPermissions(PermissionsRs permissionsRq, ModelMapper mapper) {
+        if (log.isDebugEnabled()) {
+            log.debug("mapToPermissions(PermissionsBean) ->");
+        }
+        try {
+            Permissions permissions = mapper.map(permissionsRq, Permissions.class);
+            LocalDateTime date = LocalDateTime.now();
+            permissions.setCreatedBy("Admin");
+            permissions.setCreatedOn(date);
+            permissions.setUpdatedBy("Admin");
+            permissions.setUpdatedOn(date);
+            return permissions;
+        } catch (Exception e) {
+            log.error("Exception in mapToPermissions(PermissionsBean permissionsBean) -> {0}", e);
+            throw e;
+        }
+    }
+
 }

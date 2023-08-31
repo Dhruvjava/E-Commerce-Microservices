@@ -153,4 +153,6 @@ public class ErrorCodes {
 
     public static final String EC_PERMISSIONS_NOT_FOUND = "EC_PERMISSIONS_NOT_FOUND";
 
+    public static final String EC_PERMISSIONS_ALREADY_EXISTS = "EC_PERMISSIONS_ALREADY_EXISTS";
+
 }

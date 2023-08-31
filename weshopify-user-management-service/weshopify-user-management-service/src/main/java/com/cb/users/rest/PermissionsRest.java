@@ -18,9 +18,7 @@ public class PermissionsRest {
     private PermissionsService permissionsService;
 
     @PostMapping
-    public ResponseEntity<BaseDataRs> createPermissions(
-            @RequestBody CreatePermissionsRq rq
-    ) {
+    public ResponseEntity<BaseDataRs> createPermissions(@RequestBody CreatePermissionsRq rq) {
         if (log.isDebugEnabled()) {
             log.debug("Executing RESTfull Services : [ /api/permissions] ->");
         }
@@ -33,9 +31,7 @@ public class PermissionsRest {
     }
 
     @PutMapping
-    public ResponseEntity<BaseDataRs> updatePermissions(
-            @RequestBody UpdatePermissionsRq rq
-    ) {
+    public ResponseEntity<BaseDataRs> updatePermissions(@RequestBody UpdatePermissionsRq rq) {
         if (log.isDebugEnabled()) {
             log.debug("Executing RESTfull Services : [POST: /api/permissions] ->");
         }
@@ -43,6 +39,45 @@ public class PermissionsRest {
             return ResponseEntity.ok(permissionsService.updatePermission(rq));
         } catch (RuntimeException e) {
             log.error("Exception in RESTfull Services : [PUT: /api/permissions] -> {0}", e);
+            throw e;
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BaseDataRs> updatePermissions(@PathVariable int id) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing RESTfull Services : [GET: /api/permissions/{id}] ->");
+        }
+        try {
+            return ResponseEntity.ok(permissionsService.findPermission(id));
+        } catch (RuntimeException e) {
+            log.error("Exception in RESTfull Services : [GET: /api/permissions/{id}] -> {0}", e);
+            throw e;
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BaseDataRs> deletePermissions(@PathVariable int id) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing RESTfull Services : [DELETE: /api/permissions/{id}] ->");
+        }
+        try {
+            return ResponseEntity.ok(permissionsService.deletePermission(id));
+        } catch (RuntimeException e) {
+            log.error("Exception in RESTfull Services : [DELETE: /api/permissions/{id}] -> {0}", e);
+            throw e;
+        }
+    }
+
+    @GetMapping()
+    public ResponseEntity<BaseDataRs> findPermissions() {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing RESTfull Services : [GET: /api/permissions] ->");
+        }
+        try {
+            return ResponseEntity.ok(permissionsService.findAllPermission());
+        } catch (RuntimeException e) {
+            log.error("Exception in RESTfull Services : [GET: /api/permissions] -> {0}", e);
             throw e;
         }
     }

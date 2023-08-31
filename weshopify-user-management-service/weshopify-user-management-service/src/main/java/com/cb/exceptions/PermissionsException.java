@@ -19,13 +19,14 @@ public class PermissionsException extends RuntimeException {
 
     private List<ErrorRs> errors;
 
-    public PermissionsException(String code, String errorMessage, String message) {
-        super(message);
+    public PermissionsException(String code, String errorMessage) {
+        super(errorMessage);
         this.code = code;
         this.errorMessage = errorMessage;
     }
 
     public PermissionsException(String code, String errorMessage, List<ErrorRs> errors) {
+        super(errorMessage);
         this.code = code;
         this.errorMessage = errorMessage;
         this.errors = errors;
