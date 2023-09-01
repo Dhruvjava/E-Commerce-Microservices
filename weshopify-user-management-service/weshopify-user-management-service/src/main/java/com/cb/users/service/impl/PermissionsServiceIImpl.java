@@ -16,7 +16,7 @@ import com.cb.users.repo.PermissionsRepo;
 import com.cb.users.rq.CreatePermissionsRq;
 import com.cb.users.rq.UpdatePermissionsRq;
 import com.cb.users.rs.PermissionsRs;
-import com.cb.users.service.PermissionsService;
+import com.cb.users.service.IPermissionsService;
 import com.cb.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -29,7 +29,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class PermissionsServiceImpl implements PermissionsService {
+public class PermissionsServiceIImpl implements IPermissionsService {
 
     @Autowired
     private PermissionsRepo permissionsRepo;

@@ -3,7 +3,7 @@ package com.cb.users.rest;
 import com.cb.base.data.rs.BaseDataRs;
 import com.cb.users.rq.CreatePermissionsRq;
 import com.cb.users.rq.UpdatePermissionsRq;
-import com.cb.users.service.PermissionsService;
+import com.cb.users.service.IPermissionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class PermissionsRest {
 
     @Autowired
-    private PermissionsService permissionsService;
+    private IPermissionsService permissionsService;
 
     @PostMapping
     public ResponseEntity<BaseDataRs> createPermissions(@RequestBody CreatePermissionsRq rq) {

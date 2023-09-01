@@ -6,7 +6,7 @@ import com.cb.exceptions.PermissionsNotFoundException;
 import com.cb.users.rq.CreatePermissionsRq;
 import com.cb.users.rq.UpdatePermissionsRq;
 
-public interface PermissionsService {
+public interface IPermissionsService {
 
 
     BaseDataRs createPermission(CreatePermissionsRq rq) throws PermissionsException;

@@ -4,7 +4,7 @@ import com.cb.users.datars.PermissionsDataRSs;
 import com.cb.users.datars.PermissionsDataRs;
 import com.cb.users.rq.CreatePermissionsRq;
 import com.cb.users.rq.UpdatePermissionsRq;
-import com.cb.users.service.PermissionsService;
+import com.cb.users.service.IPermissionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
-class PermissionsServiceImplTest extends WeshopifyUserManagementServiceApplicationTests {
+class ImplTestPermissionsService extends WeshopifyUserManagementServiceApplicationTests {
 
     @Autowired
-    private PermissionsService permissionsService;
+    private IPermissionsService permissionsService;
     
     private static final int PERMISSION_ID = 1;
 
