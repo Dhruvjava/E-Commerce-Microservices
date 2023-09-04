@@ -5,6 +5,8 @@ public class ErrorCodes {
     // GENERAL
     public static final String EC_UNKNOWN_ERROR = "EC_UNKNOWN_ERROR";
 
+    public static final String EC_UNKNOWN_DATABASE_ERROR = "EC_UNKNOWN_DATABASE_ERROR";
+
     public static final String EC_INVALID_CONTEXT = "EC_INVALID_CONTEXT";
 
     public static final String EC_INVALID_INPUT = "EC_INVALID_INPUT";
@@ -149,10 +151,28 @@ public class ErrorCodes {
 
     public static final String EC_REQUIRED_PERMISSIONS_NAME = "EC_REQUIRED_PERMISSIONS_NAME";
 
+    public static final String EC_REQUIRED_PERMISSIONS = "EC_REQUIRED_PERMISSIONS";
+
     public static final String EC_REQUIRED_PERMISSIONS_ID = "EC_REQUIRED_PERMISSIONS_ID";
 
     public static final String EC_PERMISSIONS_NOT_FOUND = "EC_PERMISSIONS_NOT_FOUND";
 
     public static final String EC_PERMISSIONS_ALREADY_EXISTS = "EC_PERMISSIONS_ALREADY_EXISTS";
+
+    // Roles
+
+    public static final String EC_REQUIRED_ROLES_NAME = "EC_REQUIRED_ROLES_NAME";
+
+    public static final String EC_ROLE_ALREADY_EXISTS = "EC_ROLE_ALREADY_EXISTS";
+
+    public static final String EC_ROLE_CREATED_FAILED = "EC_ROLE_CREATED_FAILED";
+
+    public static final String EC_ROLE_UPDATE_FAILED = "EC_ROLE_UPDATE_FAILED";
+
+    public static final String EC_ROLE_FIND_FAILED = "EC_ROLE_FIND_FAILED";
+
+    public static final String EC_ROLE_NOT_FOUND = "EC_ROLE_NOT_FOUND";
+
+    public static final String EC_REQUIRED_ROLES_ID = "EC_REQUIRED_ROLES_ID";
 
 }

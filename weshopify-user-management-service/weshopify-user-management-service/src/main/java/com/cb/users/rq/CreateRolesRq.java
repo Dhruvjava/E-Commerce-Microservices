@@ -1,6 +1,5 @@
 package com.cb.users.rq;
 
-import com.cb.users.rs.PermissionsRs;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +16,6 @@ public class CreateRolesRq implements Serializable {
 
     private String name;
 
-    private List<PermissionsRs> permissions;
+    private List<RolesTOPermissionsRq> permissions;
 
 }

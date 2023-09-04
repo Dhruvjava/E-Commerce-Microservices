@@ -14,6 +14,8 @@ public interface IRolesService {
 
     BaseDataRs findRole(int id);
 
+    BaseDataRs findRole(String name);
+
     BaseDataRs deleteRole(int id);
 
     BaseDataRs findAllRole();

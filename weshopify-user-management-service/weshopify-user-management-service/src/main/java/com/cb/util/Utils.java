@@ -2,6 +2,7 @@ package com.cb.util;
 
 import com.cb.Messages;
 import com.cb.base.rs.ErrorRs;
+import com.cb.constants.StringConstants;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -41,6 +42,10 @@ public class Utils {
             log.error("Exception in populateErrorRs(List<String>) -> {0}", e);
             return null;
         }
+    }
+
+    public static String getValidString(String str) {
+        return ((null == str) ? StringConstants.EMPTY : str.trim());
     }
 
 }

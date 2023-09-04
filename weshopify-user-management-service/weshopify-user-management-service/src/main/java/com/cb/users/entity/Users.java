@@ -34,8 +34,11 @@ public class Users implements Serializable {
     @Column(name = "mobile", nullable = false, unique = true)
     private String mobile;
 
-    @Column(name = "active", nullable = false)
-    private boolean active;
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled;
+
+    @Column(name = "enabled", nullable = true)
+    private boolean locked;
 
     @OneToOne
     private Roles role;

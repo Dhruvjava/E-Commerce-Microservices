@@ -7,20 +7,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RolesDataRs extends BaseDataRs {
+public class RolesDataRSs extends BaseDataRs {
 
-    private RolesRs roles;
+    private List<RolesRs> roles;
 
-    public RolesDataRs(String message, RolesRs roles) {
+    public RolesDataRSs(String message, List<RolesRs> roles) {
         super(message);
         this.roles = roles;
     }
 
-    public RolesDataRs(String message) {
+    public RolesDataRSs(String message) {
         super(message);
     }
 

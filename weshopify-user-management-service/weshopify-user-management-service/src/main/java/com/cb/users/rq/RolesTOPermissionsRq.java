@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PermissionsRq {
+public class RolesTOPermissionsRq {
 
     private Integer id;
 

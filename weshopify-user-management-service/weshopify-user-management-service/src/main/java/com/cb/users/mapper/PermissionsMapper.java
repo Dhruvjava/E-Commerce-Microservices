@@ -49,8 +49,6 @@ public class PermissionsMapper {
         try {
             Permissions permissions = mapper.map(permissionsRq, Permissions.class);
             LocalDateTime date = LocalDateTime.now();
-            permissions.setCreatedBy("Admin");
-            permissions.setCreatedOn(date);
             permissions.setUpdatedBy("Admin");
             permissions.setUpdatedOn(date);
             return permissions;

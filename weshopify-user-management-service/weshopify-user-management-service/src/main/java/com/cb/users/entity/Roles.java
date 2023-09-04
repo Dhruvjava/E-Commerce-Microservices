@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -21,8 +22,17 @@ public class Roles implements Serializable {
     @Column(name="roleid")
     private int id;
 
+    @Column(nullable = false, unique = true, updatable = true)
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roles")
     private List<RoleToPermission> permissions;
+
+    private String createdBy;
+
+    private LocalDateTime createdOn;
+
+    private String updatedBy;
+
+    private LocalDateTime updatedOn;
 }
