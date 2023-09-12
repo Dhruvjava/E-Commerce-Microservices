@@ -1,6 +1,7 @@
 package com.cb.users.rest;
 
 import com.cb.base.data.rs.BaseDataRs;
+import com.cb.config.openapi.CustomApiResponses;
 import com.cb.users.rq.CreatePermissionsRq;
 import com.cb.users.rq.UpdatePermissionsRq;
 import com.cb.users.service.IPermissionsService;
@@ -22,6 +23,7 @@ public class PermissionsRest {
 
     @PostMapping
     @Operation(summary = "CREATE PERMISSIONS", description = "Create Weshopify Permissions")
+    @CustomApiResponses
     public ResponseEntity<BaseDataRs> createPermissions(@RequestBody CreatePermissionsRq rq) {
         if (log.isDebugEnabled()) {
             log.debug("Executing RESFull Services : [ /api/permissions] ->");
@@ -36,6 +38,7 @@ public class PermissionsRest {
 
     @PutMapping
     @Operation(summary = "UPDATE PERMISSIONS", description = "Update Weshopify Permissions")
+    @CustomApiResponses
     public ResponseEntity<BaseDataRs> updatePermissions(@RequestBody UpdatePermissionsRq rq) {
         if (log.isDebugEnabled()) {
             log.debug("Executing RESFull Services : [POST: /api/permissions] ->");
@@ -50,6 +53,7 @@ public class PermissionsRest {
 
     @GetMapping("/{id}")
     @Operation(summary = "FIND PERMISSIONS", description = "Find Weshopify Permissions using id")
+    @CustomApiResponses
     public ResponseEntity<BaseDataRs> findPermissions(@PathVariable int id) {
         if (log.isDebugEnabled()) {
             log.debug("Executing RESFull Services : [GET: /api/permissions/{id}] ->");
@@ -64,6 +68,7 @@ public class PermissionsRest {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "DELETE PERMISSIONS", description = "Delete Weshopify Permissions using id")
+    @CustomApiResponses
     public ResponseEntity<BaseDataRs> deletePermissions(@PathVariable int id) {
         if (log.isDebugEnabled()) {
             log.debug("Executing RESFull Services : [DELETE: /api/permissions/{id}] ->");
@@ -78,6 +83,7 @@ public class PermissionsRest {
 
     @GetMapping()
     @Operation(summary = "RETRIEVE ALL PERMISSIONS", description = "Retrieve All Weshopify Permissions")
+    @CustomApiResponses
     public ResponseEntity<BaseDataRs> findPermissions() {
         if (log.isDebugEnabled()) {
             log.debug("Executing RESFull Services : [GET: /api/permissions] ->");

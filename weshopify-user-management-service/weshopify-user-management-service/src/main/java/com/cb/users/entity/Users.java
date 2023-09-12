@@ -37,7 +37,7 @@ public class Users implements Serializable {
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
-    @Column(name = "enabled", nullable = true)
+    @Column(name = "locked", nullable = true)
     private boolean locked;
 
     @OneToOne

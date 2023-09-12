@@ -29,5 +29,5 @@ public class CreateUsersRq implements Serializable {
 
     private boolean locked;
 
-    private List<RolesRs> role;
+    private RolesRs role;
 }

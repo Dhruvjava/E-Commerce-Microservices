@@ -12,6 +12,7 @@ import com.cb.users.datars.RolesDataRs;
 import com.cb.users.entity.Roles;
 import com.cb.users.helper.RolesHelper;
 import com.cb.users.mapper.RolesMapper;
+import com.cb.users.repo.PermissionsRepo;
 import com.cb.users.repo.RolesRepo;
 import com.cb.users.rq.CreateRolesRq;
 import com.cb.users.rq.UpdateRolesRq;
@@ -32,6 +33,9 @@ public class RolesServiceImpl implements IRolesService {
 
     @Autowired
     private RolesRepo rolesRepo;
+
+    @Autowired
+    private PermissionsRepo permissionsRepo;
 
     @Autowired
     private Messages messages;
@@ -58,7 +62,7 @@ public class RolesServiceImpl implements IRolesService {
                 log.warn(errorMessage);
                 throw new RolesException(ErrorCodes.EC_ROLE_ALREADY_EXISTS, errorMessage);
             }
-            Roles roles = RolesMapper.mapToRoles(rq, mapper);
+            Roles roles = RolesMapper.mapToRolesOld(rq, mapper, permissionsRepo);
             roles = Optional.of(rolesRepo.save(roles))
                     .orElseThrow(
                             () -> new RolesException
@@ -88,7 +92,7 @@ public class RolesServiceImpl implements IRolesService {
                 throw new RolesException(ErrorCodes.EC_INVALID_INPUT, errorMessage);
             }
             int id = rq.getId();
-            Roles roles = RolesMapper.mapToRoles(rq, mapper);
+            Roles roles = RolesMapper.mapToRoles(rq, mapper, permissionsRepo);
             if (id != 0 && rolesRepo.existsById(id)) {
                 roles = Optional.of(rolesRepo.save(roles))
                         .orElseThrow(

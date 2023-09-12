@@ -29,5 +29,5 @@ public class UpdateUsersRq {
 
     private boolean locked;
 
-    private List<RolesRs> role;
+    private RolesRs role;
 }

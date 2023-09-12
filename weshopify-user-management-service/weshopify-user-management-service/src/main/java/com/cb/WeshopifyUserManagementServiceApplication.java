@@ -1,8 +1,19 @@
 package com.cb;
 
+import com.cb.users.rq.CreateRolesRq;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.info.License;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.servers.Server;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,13 +21,41 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
+import java.awt.print.Book;
+
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(title = "Weshopify User management SVC", version = "1.0",
         description = "This is the Weshopify User management SVC API is for internal use",
         contact = @Contact(name = "CodeBrain Pvt. Ltd.",
                 url = "http://www.codebrain.com/",
-                email = "mailto:info@codebrain.com")))
-public class WeshopifyUserManagementServiceApplication{
+                email = "mailto:info@codebrain.com"),
+        license = @License(
+                name = "MIT License",
+                url = "http://www.opensource.org/licenses/mit-license"
+        ),
+        termsOfService = "Weshopify Term & Condkitions"
+),
+        servers = {
+                @Server(
+                        description = "Weshopify Local Environment",
+                        url = "http://localhost:8061/dev"
+                )
+        },
+        security = {
+                @SecurityRequirement(
+                        name = "BearerAuth"
+                )
+        }
+)
+@SecurityScheme(
+        name = "BearerAuth",
+        description = "JWT Authorization",
+        bearerFormat = "JWT",
+        scheme = "bearer",
+        type = SecuritySchemeType.HTTP,
+        in = SecuritySchemeIn.HEADER
+)
+public class WeshopifyUserManagementServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(WeshopifyUserManagementServiceApplication.class, args);

@@ -16,6 +16,6 @@ public class CreateRolesRq implements Serializable {
 
     private String name;
 
-    private List<RolesTOPermissionsRq> permissions;
+    private List<UpdatePermissionsRq> permissions;
 
 }

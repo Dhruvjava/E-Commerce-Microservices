@@ -2,6 +2,10 @@ package com.cb.users.service.impl;
 
 import com.cb.Messages;
 import com.cb.base.data.rs.BaseDataRs;
+import com.cb.exceptions.RolesException;
+import com.cb.users.constants.ErrorCodes;
+import com.cb.users.entity.Roles;
+import com.cb.users.entity.Users;
 import com.cb.users.repo.RolesRepo;
 import com.cb.users.repo.UsersRepo;
 import com.cb.users.rq.CreateUsersRq;
@@ -30,6 +34,9 @@ public class UsersServiceImpl implements IUsersSerice {
 
     @Autowired
     private IRolesService rolesService;
+
+    @Autowired
+    private RolesRepo rolesRepo;
 
     @Override
     public BaseDataRs createUsers(CreateUsersRq rq) {
@@ -72,18 +79,30 @@ public class UsersServiceImpl implements IUsersSerice {
     }
 
     @Override
-    public BaseDataRs provisioning(int roleId) {
-        Optional.of(rolesService.findRole(roleId));
+    public BaseDataRs provisioning(Users userBO) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing provisioning(int roleId) ->");
+        }
+        try {
+
+        } catch (Exception e) {
+            log.error("Exception in provisioning(int roleId) -> {0}", e);
+        }
         return null;
     }
 
     @Override
-    public BaseDataRs deProvisioning(int roleId) {
+    public BaseDataRs deProvisioning(Users userB) {
         return null;
     }
 
     @Override
     public BaseDataRs enableUser(String role) {
+        return null;
+    }
+
+    @Override
+    public BaseDataRs unlockUser(String role) {
         return null;
     }
 }

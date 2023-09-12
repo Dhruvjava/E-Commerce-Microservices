@@ -1,9 +1,11 @@
 package com.cb.users.rest;
 
 import com.cb.base.data.rs.BaseDataRs;
+import com.cb.config.openapi.CustomApiResponses;
 import com.cb.users.rq.CreateRolesRq;
 import com.cb.users.rq.UpdateRolesRq;
 import com.cb.users.service.IRolesService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class RolesRest {
     private IRolesService rolesService;
 
     @PostMapping()
+    @Operation(summary = "CREATE ROLES", description = "Create Weshopify Roles")
+    @CustomApiResponses
     public ResponseEntity<BaseDataRs> createRoles(
             @RequestBody CreateRolesRq rq
     ) {
@@ -35,6 +39,8 @@ public class RolesRest {
     }
 
     @PutMapping()
+    @Operation(summary = "UPDATE ROLES", description = "Update Weshopify Roles")
+    @CustomApiResponses
     public ResponseEntity<BaseDataRs> updateRoles(
             @RequestBody UpdateRolesRq rq
     ) {
@@ -50,6 +56,8 @@ public class RolesRest {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "FIND ROLES", description = "Find Weshopify Roles Using role id")
+    @CustomApiResponses
     public ResponseEntity<BaseDataRs> findRoles(
             @PathVariable Integer id
     ) {
@@ -65,6 +73,8 @@ public class RolesRest {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "DELETE ROLES", description = "Delete Weshopify Roles using role id")
+    @CustomApiResponses
     public ResponseEntity<BaseDataRs> deleteRoles(
             @PathVariable Integer id
     ) {
@@ -80,6 +90,8 @@ public class RolesRest {
     }
 
     @GetMapping
+    @Operation(summary = "RETRIEVE ROLES", description = "Retrieve Weshopify Roles")
+    @CustomApiResponses
     public ResponseEntity<BaseDataRs> retrieveRoles(
     ) {
         if (log.isDebugEnabled()) {

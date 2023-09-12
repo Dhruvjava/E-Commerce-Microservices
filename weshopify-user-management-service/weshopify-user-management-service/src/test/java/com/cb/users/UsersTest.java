@@ -21,7 +21,7 @@ public class UsersTest extends RolesTest {
         Roles roles = rolesRepo.findById(1)
                 .orElse(null);
         Users users = Users.builder().email("abc@gmail.com").firstname("ab").lastname("c")
-                .mobile("9149175183").active(true).userid("Dhruvjava").role(roles).build();
+                .mobile("9149175183").enabled(false).locked(true).userid("Dhruvjava").role(roles).build();
 
         usersRepo.save(users);
         Assertions.assertNotNull(users.getUserid());

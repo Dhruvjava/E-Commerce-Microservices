@@ -1,6 +1,7 @@
 package com.cb.users.service;
 
 import com.cb.base.data.rs.BaseDataRs;
+import com.cb.users.entity.Users;
 import com.cb.users.rq.CreateUsersRq;
 import com.cb.users.rq.UpdateUsersRq;
 
@@ -31,15 +32,17 @@ public interface IUsersSerice {
      * @param role
      * @return
      */
-    public BaseDataRs provisioning(int roleId);
+    public BaseDataRs provisioning(Users usersBO);
 
     /**
      * removing role to user is called deprovisioning
      * @param role
      * @return
      */
-    public BaseDataRs deProvisioning(int roleId);
+    public BaseDataRs deProvisioning(Users usersBO);
 
     public BaseDataRs enableUser(String role);
+
+    public BaseDataRs unlockUser(String role);
 
 }
