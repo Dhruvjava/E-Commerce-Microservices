@@ -62,7 +62,7 @@ public class RolesServiceImpl implements IRolesService {
                 log.warn(errorMessage);
                 throw new RolesException(ErrorCodes.EC_ROLE_ALREADY_EXISTS, errorMessage);
             }
-            Roles roles = RolesMapper.mapToRolesOld(rq, mapper, permissionsRepo);
+            Roles roles = RolesMapper.mapToRoles(rq, mapper, permissionsRepo, messages);
             roles = Optional.of(rolesRepo.save(roles))
                     .orElseThrow(
                             () -> new RolesException
@@ -92,7 +92,7 @@ public class RolesServiceImpl implements IRolesService {
                 throw new RolesException(ErrorCodes.EC_INVALID_INPUT, errorMessage);
             }
             int id = rq.getId();
-            Roles roles = RolesMapper.mapToRoles(rq, mapper, permissionsRepo);
+            Roles roles = RolesMapper.mapToRoles(rq, mapper, permissionsRepo, messages);
             if (id != 0 && rolesRepo.existsById(id)) {
                 roles = Optional.of(rolesRepo.save(roles))
                         .orElseThrow(

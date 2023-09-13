@@ -1,5 +1,8 @@
 package com.cb.users.mapper;
 
+import com.cb.Messages;
+import com.cb.exceptions.PermissionsNotFoundException;
+import com.cb.users.constants.ErrorCodes;
 import com.cb.users.entity.Permissions;
 import com.cb.users.entity.RoleToPermission;
 import com.cb.users.entity.Roles;
@@ -14,14 +17,17 @@ import org.modelmapper.ModelMapper;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class RolesMapper {
 
-    public static Roles mapToRolesOld(CreateRolesRq rq, ModelMapper mapper, PermissionsRepo perRepo) {
+    private RolesMapper() {
+    }
+
+    public static Roles mapToRoles(CreateRolesRq rq, ModelMapper mapper, PermissionsRepo perRepo, Messages messages) {
         if (log.isDebugEnabled()) {
             log.debug("Executing mapToRoles(CreateRolesRq rq, ModelMapper mapper) -> ");
         }
@@ -37,7 +43,11 @@ public class RolesMapper {
                 rq.getPermissions().forEach(permissionsBean -> {
                     RoleToPermission roleToPermissions = new RoleToPermission();
 
-                    Permissions permissionsEntity = perRepo.findById(permissionsBean.getId()).get();
+                    Permissions permissionsEntity = perRepo.findById(permissionsBean.getId()).orElseThrow(() -> {
+                        String errorMessage = messages.getErrorProperty(ErrorCodes.EC_PERMISSIONS_NOT_FOUND);
+                        log.warn(errorMessage);
+                        return new PermissionsNotFoundException(ErrorCodes.EC_PERMISSIONS_NOT_FOUND, errorMessage);
+                    });
                     roleToPermissions.setPermissions(permissionsEntity);
                     roleToPermissions.setRoles(roles);
                     roleToPermissionsList.add(roleToPermissions);
@@ -51,7 +61,7 @@ public class RolesMapper {
         }
     }
 
-    public static Roles mapToRoles(UpdateRolesRq rq, ModelMapper mapper, PermissionsRepo perRepo) {
+    public static Roles mapToRoles(UpdateRolesRq rq, ModelMapper mapper, PermissionsRepo perRepo, Messages messages) {
         if (log.isDebugEnabled()) {
             log.debug("Executing mapToRoles(UpdateRolesRq rq, ModelMapper mapper) -> ");
         }
@@ -65,7 +75,11 @@ public class RolesMapper {
                 rq.getPermissions().forEach(permissionsBean -> {
                     RoleToPermission roleToPermissions = new RoleToPermission();
 
-                    Permissions permissionsEntity = perRepo.findById(permissionsBean.getId()).get();
+                    Permissions permissionsEntity = perRepo.findById(permissionsBean.getId()).orElseThrow(() -> {
+                        String errorMessage = messages.getErrorProperty(ErrorCodes.EC_PERMISSIONS_NOT_FOUND);
+                        log.warn(errorMessage);
+                        return new PermissionsNotFoundException(ErrorCodes.EC_PERMISSIONS_NOT_FOUND, errorMessage);
+                    });
                     roleToPermissions.setPermissions(permissionsEntity);
                     roleToPermissions.setRoles(roles);
                     roleToPermissionsList.add(roleToPermissions);
@@ -85,10 +99,10 @@ public class RolesMapper {
         }
         try {
             RolesRs rs = mapper.map(roles, RolesRs.class);
-            List<PermissionsRs> permissionsList = Optional.ofNullable(roles.getRoleToPermissions()).get().stream()
+            List<PermissionsRs> permissionsList = Optional.ofNullable(roles.getRoleToPermissions()).map(list -> list.stream()
                     .map(RoleToPermission::getPermissions)
                     .map(permissions -> mapper.map(permissions, PermissionsRs.class))
-                    .collect(Collectors.toList());
+                    .toList()).orElse(Collections.emptyList());
             rs.setPermissions(permissionsList);
             return rs;
         } catch (Exception e) {
