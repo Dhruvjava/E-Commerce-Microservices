@@ -8,6 +8,7 @@ import com.cb.users.repo.PermissionsRepo;
 import com.cb.users.repo.RolesRepo;
 import com.cb.users.rq.CreateRolesRq;
 import com.cb.users.rq.UpdatePermissionsRq;
+import com.cb.users.rs.PermissionsRs;
 import com.cb.users.rs.RolesRs;
 import com.cb.users.service.IRolesService;
 import org.junit.jupiter.api.Assertions;
@@ -31,7 +32,7 @@ public class RolesTest extends PermissionsTest {
     public void createRoles() {
         CreateRolesRq rq = new CreateRolesRq();
         rq.setName("Admin");
-        UpdatePermissionsRq roleToPermission = UpdatePermissionsRq.builder().name("View").id(1).build();
+        PermissionsRs roleToPermission = PermissionsRs.builder().name("View").id(1).build();
         rq.setPermissions(List.of(roleToPermission));
 
         RolesDataRs baseRs= (RolesDataRs) rolesService.createRole(rq);

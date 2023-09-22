@@ -2,14 +2,13 @@ package com.cb.users.service;
 
 import com.cb.base.data.rs.BaseDataRs;
 import com.cb.users.entity.Users;
-import com.cb.users.rq.CreateUsersRq;
-import com.cb.users.rq.UpdateUsersRq;
+import com.cb.users.rq.UsersRq;
 
 public interface IUsersSerice {
 
-    public BaseDataRs createUsers(CreateUsersRq rq);
+    public BaseDataRs createUsers(UsersRq rq);
 
-    public BaseDataRs updateUsers(UpdateUsersRq rq);
+    public BaseDataRs updateUsers(UsersRq rq);
 
     public BaseDataRs findUser(int id);
 

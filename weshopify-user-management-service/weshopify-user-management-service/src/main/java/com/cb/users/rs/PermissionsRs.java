@@ -7,9 +7,10 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class PermissionsRs implements Serializable {
 
-    private int id;
+    private Integer id;
 
     private String name;
 

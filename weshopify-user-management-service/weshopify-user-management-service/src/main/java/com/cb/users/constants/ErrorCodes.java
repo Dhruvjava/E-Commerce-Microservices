@@ -175,4 +175,22 @@ public class ErrorCodes {
 
     public static final String EC_REQUIRED_ROLES_ID = "EC_REQUIRED_ROLES_ID";
 
+    // USERS
+
+    public static final String EC_REQUIRED_USERS_USERID = "EC_REQUIRED_USERS_USERID";
+
+    public static final String EC_REQUIRED_USERS_FIRSTNAME = "EC_REQUIRED_USERS_FIRSTNAME";
+
+    public static final String EC_REQUIRED_USERS_LASTNAME = "EC_REQUIRED_USERS_LASTNAME";
+
+    public static final String EC_REQUIRED_USERS_MOBILE = "EC_REQUIRED_USERS_MOBILE";
+
+    public static final String EC_REQUIRED_USERS_EMAIL = "EC_REQUIRED_USERS_EMAIL";
+
+    public static final String EC_INVALID_USERS_EMAIL = "EC_INVALID_USERS_EMAIL";
+
+    public static final String EC_REQUIRED_USERS_ROLE = "EC_REQUIRED_USERS_ROLE";
+
+    public static final String EC_REQUIRED_ROLE_PERMISSIONS = "EC_REQUIRED_ROLE_PERMISSIONS";
+
 }

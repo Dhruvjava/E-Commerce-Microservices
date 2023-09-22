@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 public class RolesRs implements Serializable {
 
-    private int id;
+    private Integer id;
 
     private String name;
 

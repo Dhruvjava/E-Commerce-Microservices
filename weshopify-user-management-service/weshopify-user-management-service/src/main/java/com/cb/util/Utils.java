@@ -6,9 +6,13 @@ import com.cb.constants.StringConstants;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 public class Utils {
+
+    private static final Pattern EMAIL_PATTERN_REGIX = Pattern.compile("^([a-z0-9_.-]+)@([\\da-z\\.-]+)\\.([a-z]{2,})$");
 
     public static boolean isEmpty(List list) {
         return null == list || list.isEmpty();
@@ -46,6 +50,11 @@ public class Utils {
 
     public static String getValidString(String str) {
         return ((null == str) ? StringConstants.EMPTY : str.trim());
+    }
+
+    public static boolean isValidEmail(final String email){
+        Matcher matcher = EMAIL_PATTERN_REGIX.matcher(email);
+        return matcher.matches();
     }
 
 }

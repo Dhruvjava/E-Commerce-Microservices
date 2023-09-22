@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
-class ImplTestPermissionsService extends WeshopifyUserManagementServiceApplicationTests {
+class PermissionsServiceImplTest extends WeshopifyUserManagementServiceApplicationTests {
 
     @Autowired
     private IPermissionsService permissionsService;
@@ -40,7 +40,7 @@ class ImplTestPermissionsService extends WeshopifyUserManagementServiceApplicati
 
     @Test
     @DisplayName("UPDATE PERMISSION TEST")
-    @Order(2)
+    @Order(3)
     void updatePermission() {
         UpdatePermissionsRq rq = UpdatePermissionsRq.builder().id(PERMISSION_ID).name("EDIT").build();
         PermissionsDataRs permissions = (PermissionsDataRs) permissionsService.updatePermission(rq);
@@ -50,7 +50,7 @@ class ImplTestPermissionsService extends WeshopifyUserManagementServiceApplicati
 
     @Test
     @DisplayName("FIND PERMISSION TEST")
-    @Order(3)
+    @Order(4)
     void findPermission() {
         int id = PERMISSION_ID;
         PermissionsDataRs rs = (PermissionsDataRs) permissionsService.findPermission(id);
@@ -63,7 +63,7 @@ class ImplTestPermissionsService extends WeshopifyUserManagementServiceApplicati
 
     @Test
     @DisplayName("DELETE PERMISSION TEST")
-    @Order(5)
+    @Order(6)
     void deletePermission() {
         int id = PERMISSION_ID;
         PermissionsDataRs rs = (PermissionsDataRs) permissionsService.deletePermission(id);
@@ -72,7 +72,7 @@ class ImplTestPermissionsService extends WeshopifyUserManagementServiceApplicati
 
     @Test
     @DisplayName("DISPLAY PERMISSION TEST")
-    @Order(4)
+    @Order(5)
     void findAllPermission() {
 
         PermissionsDataRSs rs = (PermissionsDataRSs) permissionsService.findAllPermission();
