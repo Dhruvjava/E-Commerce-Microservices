@@ -3,8 +3,7 @@ package com.cb.users.helper;
 import com.cb.Messages;
 import com.cb.base.rs.ErrorRs;
 import com.cb.users.constants.ErrorCodes;
-import com.cb.users.rq.CreateRolesRq;
-import com.cb.users.rq.UpdateRolesRq;
+import com.cb.users.rq.RolesRq;
 import com.cb.users.rs.RolesRs;
 import com.cb.util.Utils;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +14,7 @@ import java.util.List;
 @Slf4j
 public class RolesHelper {
 
-    public static List<ErrorRs> validateCreateRole(CreateRolesRq rq, Messages messages) {
+    public static List<ErrorRs> validateCreateRole(RolesRq rq, Messages messages) {
         if (log.isDebugEnabled()) {
             log.debug("Executing validateCreateRole(CreateRolesRq rq) ->");
         }
@@ -37,7 +36,7 @@ public class RolesHelper {
         }
     }
 
-    public static List<ErrorRs> validateUpdateRole(UpdateRolesRq rq, Messages messages) {
+    public static List<ErrorRs> validateUpdateRole(RolesRq rq, Messages messages) {
         if (log.isDebugEnabled()) {
             log.debug("Executing validateCreateRole(UpdateRolesRq rq, Messages messages) ->");
         }

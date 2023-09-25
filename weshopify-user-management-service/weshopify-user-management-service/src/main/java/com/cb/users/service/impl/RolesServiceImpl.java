@@ -14,8 +14,7 @@ import com.cb.users.helper.RolesHelper;
 import com.cb.users.mapper.RolesMapper;
 import com.cb.users.repo.PermissionsRepo;
 import com.cb.users.repo.RolesRepo;
-import com.cb.users.rq.CreateRolesRq;
-import com.cb.users.rq.UpdateRolesRq;
+import com.cb.users.rq.RolesRq;
 import com.cb.users.rs.RolesRs;
 import com.cb.users.service.IRolesService;
 import com.cb.util.Utils;
@@ -44,7 +43,7 @@ public class RolesServiceImpl implements IRolesService {
     private ModelMapper mapper;
 
     @Override
-    public BaseDataRs createRole(CreateRolesRq rq) throws RolesException {
+    public BaseDataRs createRole(RolesRq rq) throws RolesException {
         if (log.isDebugEnabled()) {
             log.debug("Executing createRole(CreateRolesRq rq) -> ");
         }
@@ -80,7 +79,7 @@ public class RolesServiceImpl implements IRolesService {
     }
 
     @Override
-    public BaseDataRs updateRole(UpdateRolesRq rq) throws RolesNotFoundException {
+    public BaseDataRs updateRole(RolesRq rq) throws RolesNotFoundException {
         if (log.isDebugEnabled()) {
             log.debug("Executing updateRole(UpdateRolesRq rq) ->");
         }

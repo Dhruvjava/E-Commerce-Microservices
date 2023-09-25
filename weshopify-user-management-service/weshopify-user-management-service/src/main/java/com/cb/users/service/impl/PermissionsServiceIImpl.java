@@ -13,8 +13,7 @@ import com.cb.users.entity.Permissions;
 import com.cb.users.helper.PermissionsHelper;
 import com.cb.users.mapper.PermissionsMapper;
 import com.cb.users.repo.PermissionsRepo;
-import com.cb.users.rq.CreatePermissionsRq;
-import com.cb.users.rq.UpdatePermissionsRq;
+import com.cb.users.rq.PermissionsRq;
 import com.cb.users.rs.PermissionsRs;
 import com.cb.users.service.IPermissionsService;
 import com.cb.util.Utils;
@@ -41,9 +40,9 @@ public class PermissionsServiceIImpl implements IPermissionsService {
     private ModelMapper modelMapper;
 
     @Override
-    public BaseDataRs createPermission(CreatePermissionsRq rq) throws PermissionsException {
+    public BaseDataRs createPermission(PermissionsRq rq) throws PermissionsException {
         if (log.isDebugEnabled()) {
-            log.debug("Executing createPermission(CreatePermissionsRq) ->");
+            log.debug("Executing createPermission(PermissionsRq) ->");
         }
         try {
             List<ErrorRs> errors = PermissionsHelper.validateCreatePermissions(rq, messages);
@@ -70,7 +69,7 @@ public class PermissionsServiceIImpl implements IPermissionsService {
     }
 
     @Override
-    public BaseDataRs updatePermission(UpdatePermissionsRq rq) throws PermissionsNotFoundException {
+    public BaseDataRs updatePermission(PermissionsRq rq) throws PermissionsNotFoundException {
         if (log.isDebugEnabled()) {
             log.debug("Executing updatePermission(UpdatePermissionsRq) -> ");
         }

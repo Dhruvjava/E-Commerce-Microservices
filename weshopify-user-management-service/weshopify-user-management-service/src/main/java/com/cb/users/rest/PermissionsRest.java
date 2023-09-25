@@ -2,8 +2,7 @@ package com.cb.users.rest;
 
 import com.cb.base.data.rs.BaseDataRs;
 import com.cb.config.openapi.CustomApiResponses;
-import com.cb.users.rq.CreatePermissionsRq;
-import com.cb.users.rq.UpdatePermissionsRq;
+import com.cb.users.rq.PermissionsRq;
 import com.cb.users.service.IPermissionsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,7 +23,7 @@ public class PermissionsRest {
     @PostMapping
     @Operation(summary = "CREATE PERMISSIONS", description = "Create Weshopify Permissions")
     @CustomApiResponses
-    public ResponseEntity<BaseDataRs> createPermissions(@RequestBody CreatePermissionsRq rq) {
+    public ResponseEntity<BaseDataRs> createPermissions(@RequestBody PermissionsRq rq) {
         if (log.isDebugEnabled()) {
             log.debug("Executing RESFull Services : [ /api/permissions] ->");
         }
@@ -39,7 +38,7 @@ public class PermissionsRest {
     @PutMapping
     @Operation(summary = "UPDATE PERMISSIONS", description = "Update Weshopify Permissions")
     @CustomApiResponses
-    public ResponseEntity<BaseDataRs> updatePermissions(@RequestBody UpdatePermissionsRq rq) {
+    public ResponseEntity<BaseDataRs> updatePermissions(@RequestBody PermissionsRq rq) {
         if (log.isDebugEnabled()) {
             log.debug("Executing RESFull Services : [POST: /api/permissions] ->");
         }

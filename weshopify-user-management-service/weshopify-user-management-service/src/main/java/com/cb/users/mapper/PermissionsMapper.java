@@ -1,8 +1,7 @@
 package com.cb.users.mapper;
 
 import com.cb.users.entity.Permissions;
-import com.cb.users.rq.CreatePermissionsRq;
-import com.cb.users.rq.UpdatePermissionsRq;
+import com.cb.users.rq.PermissionsRq;
 import com.cb.users.rs.PermissionsRs;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -24,7 +23,7 @@ public class PermissionsMapper {
         }
     }
 
-    public static Permissions mapToPermissions(CreatePermissionsRq permissionsRq, ModelMapper mapper) {
+    public static Permissions mapToPermissions(PermissionsRq permissionsRq, ModelMapper mapper) {
         if (log.isDebugEnabled()) {
             log.debug("mapToPermissions(PermissionsBean) ->");
         }
@@ -42,21 +41,21 @@ public class PermissionsMapper {
         }
     }
 
-    public static Permissions mapToPermissions(UpdatePermissionsRq permissionsRq, ModelMapper mapper) {
-        if (log.isDebugEnabled()) {
-            log.debug("mapToPermissions(PermissionsBean) ->");
-        }
-        try {
-            Permissions permissions = mapper.map(permissionsRq, Permissions.class);
-            LocalDateTime date = LocalDateTime.now();
-            permissions.setUpdatedBy("Admin");
-            permissions.setUpdatedOn(date);
-            return permissions;
-        } catch (Exception e) {
-            log.error("Exception in mapToPermissions(PermissionsBean permissionsBean) -> {0}", e);
-            throw e;
-        }
-    }
+//    public static Permissions mapToPermissions(PermissionsRq permissionsRq, ModelMapper mapper) {
+//        if (log.isDebugEnabled()) {
+//            log.debug("mapToPermissions(PermissionsBean) ->");
+//        }
+//        try {
+//            Permissions permissions = mapper.map(permissionsRq, Permissions.class);
+//            LocalDateTime date = LocalDateTime.now();
+//            permissions.setUpdatedBy("Admin");
+//            permissions.setUpdatedOn(date);
+//            return permissions;
+//        } catch (Exception e) {
+//            log.error("Exception in mapToPermissions(PermissionsBean permissionsBean) -> {0}", e);
+//            throw e;
+//        }
+//    }
 
     public static Permissions mapToPermissions(PermissionsRs permissionsRq, ModelMapper mapper) {
         if (log.isDebugEnabled()) {
@@ -70,6 +69,18 @@ public class PermissionsMapper {
             permissions.setUpdatedBy("Admin");
             permissions.setUpdatedOn(date);
             return permissions;
+        } catch (Exception e) {
+            log.error("Exception in mapToPermissions(PermissionsBean permissionsBean) -> {0}", e);
+            throw e;
+        }
+    }
+
+    public static PermissionsRq mapToPermissionsRq(PermissionsRs permissionsRq, ModelMapper mapper) {
+        if (log.isDebugEnabled()) {
+            log.debug("mapToPermissions(PermissionsBean) ->");
+        }
+        try {
+            return  mapper.map(permissionsRq, PermissionsRq.class);
         } catch (Exception e) {
             log.error("Exception in mapToPermissions(PermissionsBean permissionsBean) -> {0}", e);
             throw e;

@@ -8,12 +8,15 @@ import com.cb.exceptions.UsersException;
 import com.cb.users.constants.ErrorCodes;
 import com.cb.users.constants.MessageCodes;
 import com.cb.users.datars.UserProvisioningDataRs;
+import com.cb.users.datars.UsersDataRSs;
 import com.cb.users.entity.Roles;
 import com.cb.users.entity.Users;
 import com.cb.users.helper.UsersHelper;
+import com.cb.users.mapper.UsersMapper;
 import com.cb.users.repo.RolesRepo;
 import com.cb.users.repo.UsersRepo;
 import com.cb.users.rq.UsersRq;
+import com.cb.users.rs.UsersRs;
 import com.cb.users.service.IRolesService;
 import com.cb.users.service.IUsersSerice;
 import com.cb.util.Utils;
@@ -22,6 +25,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,7 +60,11 @@ public class UsersServiceImpl implements IUsersSerice {
                 log.warn(errorMessage);
                 throw new UsersException(ErrorCodes.EC_INVALID_INPUT, errorMessage);
             }
-
+//            String userId = Utils.getValidString(rq.getUserid());
+            Users users = UsersMapper.mapToUsers(rq, mapper);
+            provisioning(users);
+            users = usersRepo.save(users);
+            UsersRs userRs = UsersMapper.maptoUsers(users, mapper);
         } catch (Exception e) {
             log.error("Exception in createUsers(UsersRq rq) -> {0}", e);
             throw e;
@@ -86,7 +94,24 @@ public class UsersServiceImpl implements IUsersSerice {
 
     @Override
     public BaseDataRs findUsers() {
-        return null;
+        if (log.isDebugEnabled()) {
+            log.debug("Executing findUsers() ->");
+        }
+        try {
+            List<Users> users = usersRepo.findAll();
+            List<UsersRs> usersRs = new ArrayList<>();
+            users.forEach(user -> {
+                UsersRs rs = UsersMapper.maptoUsers(user, mapper);
+                if (rs != null) {
+                    usersRs.add(rs);
+                }
+            });
+            String message = messages.getMessageProperty(MessageCodes.MC_RETRIEVED_SUCCESSFUL);
+            return new UsersDataRSs(message, usersRs);
+        } catch (Exception e) {
+            log.error("Exception in findUsers() -> {0}", e);
+            throw e;
+        }
     }
 
     @Override

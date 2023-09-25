@@ -1,13 +1,8 @@
 package com.cb.users;
 
-import com.cb.base.data.rs.BaseDataRs;
 import com.cb.users.datars.RolesDataRs;
-import com.cb.users.entity.RoleToPermission;
-import com.cb.users.entity.Roles;
 import com.cb.users.repo.PermissionsRepo;
 import com.cb.users.repo.RolesRepo;
-import com.cb.users.rq.CreateRolesRq;
-import com.cb.users.rq.UpdatePermissionsRq;
 import com.cb.users.rs.PermissionsRs;
 import com.cb.users.rs.RolesRs;
 import com.cb.users.service.IRolesService;
@@ -30,7 +25,7 @@ public class RolesTest extends PermissionsTest {
 
     @Test
     public void createRoles() {
-        CreateRolesRq rq = new CreateRolesRq();
+        RolesRq rq = new RolesRq();
         rq.setName("Admin");
         PermissionsRs roleToPermission = PermissionsRs.builder().name("View").id(1).build();
         rq.setPermissions(List.of(roleToPermission));

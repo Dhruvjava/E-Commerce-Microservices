@@ -2,8 +2,7 @@ package com.cb.users;
 
 import com.cb.users.datars.PermissionsDataRSs;
 import com.cb.users.datars.PermissionsDataRs;
-import com.cb.users.rq.CreatePermissionsRq;
-import com.cb.users.rq.UpdatePermissionsRq;
+import com.cb.users.rq.PermissionsRq;
 import com.cb.users.service.IPermissionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
@@ -42,7 +41,7 @@ class PermissionsServiceImplTest extends WeshopifyUserManagementServiceApplicati
     @DisplayName("UPDATE PERMISSION TEST")
     @Order(3)
     void updatePermission() {
-        UpdatePermissionsRq rq = UpdatePermissionsRq.builder().id(PERMISSION_ID).name("EDIT").build();
+        PermissionsRq rq = PermissionsRq.builder().id(PERMISSION_ID).name("EDIT").build();
         PermissionsDataRs permissions = (PermissionsDataRs) permissionsService.updatePermission(rq);
         log.info("Updated permissions : " + permissions.getPermission().toString());
         assertEquals("EDIT", permissions.getPermission().getName());

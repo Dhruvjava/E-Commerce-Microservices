@@ -7,8 +7,7 @@ import com.cb.users.entity.Permissions;
 import com.cb.users.entity.RoleToPermission;
 import com.cb.users.entity.Roles;
 import com.cb.users.repo.PermissionsRepo;
-import com.cb.users.rq.CreateRolesRq;
-import com.cb.users.rq.UpdateRolesRq;
+import com.cb.users.rq.RolesRq;
 import com.cb.users.rs.PermissionsRs;
 import com.cb.users.rs.RolesRs;
 import com.cb.util.Utils;
@@ -27,7 +26,7 @@ public class RolesMapper {
     private RolesMapper() {
     }
 
-    public static Roles mapToRoles(CreateRolesRq rq, ModelMapper mapper, PermissionsRepo perRepo, Messages messages) {
+    public static Roles mapToRoles(RolesRq rq, ModelMapper mapper, PermissionsRepo perRepo, Messages messages) {
         if (log.isDebugEnabled()) {
             log.debug("Executing mapToRoles(CreateRolesRq rq, ModelMapper mapper) -> ");
         }
@@ -61,37 +60,37 @@ public class RolesMapper {
         }
     }
 
-    public static Roles mapToRoles(UpdateRolesRq rq, ModelMapper mapper, PermissionsRepo perRepo, Messages messages) {
-        if (log.isDebugEnabled()) {
-            log.debug("Executing mapToRoles(UpdateRolesRq rq, ModelMapper mapper) -> ");
-        }
-        try {
-            Roles roles = mapper.map(rq, Roles.class);
-            LocalDateTime createdOn = LocalDateTime.now();
-            roles.setUpdatedBy("Admin");
-            roles.setUpdatedOn(createdOn);
-            List<RoleToPermission> roleToPermissionsList = new ArrayList<>();
-            if (rq.getPermissions() != null && !Utils.isEmpty(rq.getPermissions())) {
-                rq.getPermissions().forEach(permissionsBean -> {
-                    RoleToPermission roleToPermissions = new RoleToPermission();
-
-                    Permissions permissionsEntity = perRepo.findById(permissionsBean.getId()).orElseThrow(() -> {
-                        String errorMessage = messages.getErrorProperty(ErrorCodes.EC_PERMISSIONS_NOT_FOUND);
-                        log.warn(errorMessage);
-                        return new PermissionsNotFoundException(ErrorCodes.EC_PERMISSIONS_NOT_FOUND, errorMessage);
-                    });
-                    roleToPermissions.setPermissions(permissionsEntity);
-                    roleToPermissions.setRoles(roles);
-                    roleToPermissionsList.add(roleToPermissions);
-                });
-            }
-            roles.setRoleToPermissions(roleToPermissionsList);
-            return roles;
-        } catch (Exception e) {
-            log.error("Exception in mapToRoles(UpdateRolesRq rq, ModelMapper mapper) -> {0}", e);
-            throw e;
-        }
-    }
+//    public static Roles mapToRoles(RolesRq rq, ModelMapper mapper, PermissionsRepo perRepo, Messages messages) {
+//        if (log.isDebugEnabled()) {
+//            log.debug("Executing mapToRoles(UpdateRolesRq rq, ModelMapper mapper) -> ");
+//        }
+//        try {
+//            Roles roles = mapper.map(rq, Roles.class);
+//            LocalDateTime createdOn = LocalDateTime.now();
+//            roles.setUpdatedBy("Admin");
+//            roles.setUpdatedOn(createdOn);
+//            List<RoleToPermission> roleToPermissionsList = new ArrayList<>();
+//            if (rq.getPermissions() != null && !Utils.isEmpty(rq.getPermissions())) {
+//                rq.getPermissions().forEach(permissionsBean -> {
+//                    RoleToPermission roleToPermissions = new RoleToPermission();
+//
+//                    Permissions permissionsEntity = perRepo.findById(permissionsBean.getId()).orElseThrow(() -> {
+//                        String errorMessage = messages.getErrorProperty(ErrorCodes.EC_PERMISSIONS_NOT_FOUND);
+//                        log.warn(errorMessage);
+//                        return new PermissionsNotFoundException(ErrorCodes.EC_PERMISSIONS_NOT_FOUND, errorMessage);
+//                    });
+//                    roleToPermissions.setPermissions(permissionsEntity);
+//                    roleToPermissions.setRoles(roles);
+//                    roleToPermissionsList.add(roleToPermissions);
+//                });
+//            }
+//            roles.setRoleToPermissions(roleToPermissionsList);
+//            return roles;
+//        } catch (Exception e) {
+//            log.error("Exception in mapToRoles(UpdateRolesRq rq, ModelMapper mapper) -> {0}", e);
+//            throw e;
+//        }
+//    }
 
     public static RolesRs mapToRoles(Roles roles, ModelMapper mapper) {
         if (log.isDebugEnabled()) {

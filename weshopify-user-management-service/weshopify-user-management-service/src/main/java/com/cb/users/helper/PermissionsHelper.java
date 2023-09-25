@@ -3,8 +3,7 @@ package com.cb.users.helper;
 import com.cb.Messages;
 import com.cb.base.rs.ErrorRs;
 import com.cb.users.constants.ErrorCodes;
-import com.cb.users.rq.CreatePermissionsRq;
-import com.cb.users.rq.UpdatePermissionsRq;
+import com.cb.users.rq.PermissionsRq;
 import com.cb.users.rs.PermissionsRs;
 import com.cb.util.Utils;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +13,7 @@ import java.util.List;
 
 @Slf4j
 public class PermissionsHelper {
-    public static List<ErrorRs> validateCreatePermissions(CreatePermissionsRq rq, Messages messages) {
+    public static List<ErrorRs> validateCreatePermissions(PermissionsRq rq, Messages messages) {
         if (log.isDebugEnabled()) {
             log.debug("Executing validateCreatePermissions(PermissionsRq) -> ");
         }
@@ -31,7 +30,7 @@ public class PermissionsHelper {
         }
     }
 
-    public static List<ErrorRs> validateUpdatePermissions(UpdatePermissionsRq rq, Messages messages) {
+    public static List<ErrorRs> validateUpdatePermissions(PermissionsRq rq, Messages messages) {
         if (log.isDebugEnabled()) {
             log.debug("Executing validateUpdatePermissions(PermissionsRq) -> ");
         }

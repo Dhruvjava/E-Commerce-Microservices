@@ -3,15 +3,14 @@ package com.cb.users.service;
 import com.cb.base.data.rs.BaseDataRs;
 import com.cb.exceptions.PermissionsException;
 import com.cb.exceptions.PermissionsNotFoundException;
-import com.cb.users.rq.CreatePermissionsRq;
-import com.cb.users.rq.UpdatePermissionsRq;
+import com.cb.users.rq.PermissionsRq;
 
 public interface IPermissionsService {
 
 
-    BaseDataRs createPermission(CreatePermissionsRq rq) throws PermissionsException;
+    BaseDataRs createPermission(PermissionsRq rq) throws PermissionsException;
 
-    BaseDataRs updatePermission(UpdatePermissionsRq rq) throws PermissionsNotFoundException;
+    BaseDataRs updatePermission(PermissionsRq rq) throws PermissionsNotFoundException;
 
     BaseDataRs findPermission(int id);
 

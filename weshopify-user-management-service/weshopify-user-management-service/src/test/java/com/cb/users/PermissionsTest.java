@@ -1,9 +1,7 @@
 package com.cb.users;
 
 import com.cb.users.datars.PermissionsDataRs;
-import com.cb.users.entity.Permissions;
 import com.cb.users.repo.PermissionsRepo;
-import com.cb.users.rq.CreatePermissionsRq;
 import com.cb.users.rs.PermissionsRs;
 import com.cb.users.service.IPermissionsService;
 import org.junit.jupiter.api.Assertions;

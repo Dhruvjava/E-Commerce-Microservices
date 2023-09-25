@@ -2,8 +2,7 @@ package com.cb.users.rest;
 
 import com.cb.base.data.rs.BaseDataRs;
 import com.cb.config.openapi.CustomApiResponses;
-import com.cb.users.rq.CreateRolesRq;
-import com.cb.users.rq.UpdateRolesRq;
+import com.cb.users.rq.RolesRq;
 import com.cb.users.service.IRolesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,7 +24,7 @@ public class RolesRest {
     @Operation(summary = "CREATE ROLES", description = "Create Weshopify Roles")
     @CustomApiResponses
     public ResponseEntity<BaseDataRs> createRoles(
-            @RequestBody CreateRolesRq rq
+            @RequestBody RolesRq rq
     ) {
         if (log.isDebugEnabled()) {
             log.debug("Executing RESTFullServices [POST: /api/roles] ->");
@@ -42,7 +41,7 @@ public class RolesRest {
     @Operation(summary = "UPDATE ROLES", description = "Update Weshopify Roles")
     @CustomApiResponses
     public ResponseEntity<BaseDataRs> updateRoles(
-            @RequestBody UpdateRolesRq rq
+            @RequestBody RolesRq rq
     ) {
         if (log.isDebugEnabled()) {
             log.debug("Executing RESTFullServices [POST: /api/roles] ->");
