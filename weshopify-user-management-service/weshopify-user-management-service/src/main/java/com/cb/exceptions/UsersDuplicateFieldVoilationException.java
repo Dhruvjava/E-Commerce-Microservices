@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-public class UsersException extends RuntimeException {
+public class UsersDuplicateFieldVoilationException extends RuntimeException {
 
     private String code;
 
@@ -18,13 +18,13 @@ public class UsersException extends RuntimeException {
 
     private List<ErrorRs> errors;
 
-    public UsersException(String code, String errorMessage) {
+    public UsersDuplicateFieldVoilationException(String code, String errorMessage) {
         super(errorMessage);
         this.code = code;
         this.errorMessage = errorMessage;
     }
 
-    public UsersException(String code, String errorMessage, List<ErrorRs> errors) {
+    public UsersDuplicateFieldVoilationException(String code, String errorMessage, List<ErrorRs> errors) {
         super(errorMessage);
         this.code = code;
         this.errorMessage = errorMessage;

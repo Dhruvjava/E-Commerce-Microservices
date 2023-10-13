@@ -20,7 +20,7 @@ public class UsersRest {
     private IUsersSerice usersSerice;
 
     @PostMapping()
-    @Operation(summary = "CREATE USERS", description = "CREATE WESHOPIFY USERS")
+    @Operation(summary = "CREATE USERS", description = "Create Weshopify Users")
     public ResponseEntity<BaseDataRs> createUser(@RequestBody UsersRq rq) {
         if (log.isDebugEnabled()) {
             log.debug("Executing RESTFull Services [ GET : /api/users] ->");
@@ -34,13 +34,27 @@ public class UsersRest {
     }
 
     @GetMapping()
-    @Operation(summary = "RETRIEVE USERS", description = "RETRIEVE WESHOPIFY USERS")
+    @Operation(summary = "RETRIEVE USERS", description = "Retrieve Weshopify Users")
     public ResponseEntity<BaseDataRs> findAllUser() {
         if (log.isDebugEnabled()) {
             log.debug("Executing RESTFull Services [ GET : /api/users] ->");
         }
         try {
             return ResponseEntity.ok(usersSerice.findUsers());
+        } catch (Exception e) {
+            log.error("Exception in RESTFull Services [ GET : /api/users] -> {0}", e);
+            throw e;
+        }
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "RETRIEVE USERS BY ID", description = "Retrieve Weshopify Users By Id")
+    public ResponseEntity<BaseDataRs> findUser(@PathVariable int id) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing RESTFull Services [ GET : /api/users] ->");
+        }
+        try {
+            return ResponseEntity.ok(usersSerice.findUser(id));
         } catch (Exception e) {
             log.error("Exception in RESTFull Services [ GET : /api/users] -> {0}", e);
             throw e;

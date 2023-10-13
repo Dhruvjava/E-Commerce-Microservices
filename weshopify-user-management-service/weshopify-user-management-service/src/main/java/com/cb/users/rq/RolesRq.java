@@ -18,4 +18,6 @@ public class RolesRq implements Serializable {
 
     private List<PermissionsRq> permissions;
 
+    private String provision;
+
 }

@@ -1,5 +1,7 @@
 package com.cb.users.rq;
 
+
+import com.cb.users.rs.RolesRs;
 import lombok.*;
 
 import java.io.Serializable;
@@ -27,5 +29,5 @@ public class UsersRq implements Serializable {
 
     private boolean locked;
 
-    private UserRoleRq role;
+    private RolesRq role;
 }

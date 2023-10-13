@@ -63,4 +63,23 @@ public class UsersHelper {
             return Collections.emptyList();
         }
     }
+
+    public static List<ErrorRs> validateUpdateUsers(UsersRq rq, Messages messages) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing validateCreateUsers(UsersRq rq, Messages messages) ->");
+        }
+        try {
+            List<ErrorRs> errors = new ArrayList<>();
+            if (rq.getId() == null) {
+                log.error(ErrorCodes.EC_REQUIRED_USERS_ID);
+                errors.add(Utils.populateErrorRSs(ErrorCodes.EC_REQUIRED_USERS_ID, messages));
+            }
+            List<ErrorRs> validateErrors = validateCreateUsers(rq, messages);
+            errors.addAll(validateErrors);
+            return errors;
+        } catch (Exception e) {
+            log.error("Exception in validateCreateUsers(UsersRq rq, Messages messages) -> {0}", e);
+            return Collections.emptyList();
+        }
+    }
 }

@@ -179,6 +179,8 @@ public class ErrorCodes {
 
     public static final String EC_REQUIRED_USERS_USERID = "EC_REQUIRED_USERS_USERID";
 
+    public static final String EC_REQUIRED_USERS_ID = "EC_REQUIRED_USERS_ID";
+
     public static final String EC_REQUIRED_USERS_FIRSTNAME = "EC_REQUIRED_USERS_FIRSTNAME";
 
     public static final String EC_REQUIRED_USERS_LASTNAME = "EC_REQUIRED_USERS_LASTNAME";
@@ -192,5 +194,13 @@ public class ErrorCodes {
     public static final String EC_REQUIRED_USERS_ROLE = "EC_REQUIRED_USERS_ROLE";
 
     public static final String EC_REQUIRED_ROLE_PERMISSIONS = "EC_REQUIRED_ROLE_PERMISSIONS";
+
+    public static final String EC_USER_EMAIL_ALREADY_EXISTS = "EC_USER_EMAIL_ALREADY_EXISTS";
+
+    public static final String EC_USER_USERID_ALREADY_EXISTS = "EC_USER_USERID_ALREADY_EXISTS";
+
+    public static final String EC_USER_MOBILE_ALREADY_EXISTS = "EC_USER_USERID_ALREADY_EXISTS";
+
+    public static final String EC_USER_NOT_FOUND = "EC_USER_NOT_FOUND";
 
 }

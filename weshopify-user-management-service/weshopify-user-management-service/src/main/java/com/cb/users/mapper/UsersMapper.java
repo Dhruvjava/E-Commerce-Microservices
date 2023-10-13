@@ -2,9 +2,13 @@ package com.cb.users.mapper;
 
 import com.cb.users.entity.Users;
 import com.cb.users.rq.UsersRq;
+import com.cb.users.rs.PermissionsRs;
 import com.cb.users.rs.UsersRs;
+import com.cb.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+
+import java.util.List;
 
 @Slf4j
 public class UsersMapper {
@@ -31,6 +35,10 @@ public class UsersMapper {
         }
         try {
             UsersRs usersRs = mapper.map(users, UsersRs.class);
+            if (Utils.isNotEmpty(users.getRole().getRoleToPermissions())) {
+                List<PermissionsRs> permissions = users.getRole().getRoleToPermissions().stream().map(role -> PermissionsMapper.mapToPermissionsRs(role.getPermissions(), mapper)).toList();
+                usersRs.getRole().setPermissions(permissions);
+            }
 //            users
             return usersRs;
         } catch (Exception e) {
