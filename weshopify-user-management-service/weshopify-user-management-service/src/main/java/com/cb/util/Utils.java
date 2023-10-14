@@ -52,9 +52,17 @@ public class Utils {
         return ((null == str) ? StringConstants.EMPTY : str.trim());
     }
 
-    public static boolean isValidEmail(final String email){
-        Matcher matcher = EMAIL_PATTERN_REGIX.matcher(email);
-        return matcher.matches();
+    public static boolean isValidEmail(final String email) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing isValidEmail(final String email) ->");
+        }
+        try {
+            Matcher matcher = EMAIL_PATTERN_REGIX.matcher(email);
+            return matcher.matches();
+        } catch (Exception e) {
+            log.error("Exception in isValidEmail(final String email) -> {}", e);
+            throw e;
+        }
     }
 
 }

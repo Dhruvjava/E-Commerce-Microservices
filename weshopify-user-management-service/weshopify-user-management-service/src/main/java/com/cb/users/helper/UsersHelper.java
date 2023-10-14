@@ -60,7 +60,7 @@ public class UsersHelper {
             return errors;
         } catch (Exception e) {
             log.error("Exception in validateCreateUsers(UsersRq rq, Messages messages) -> {0}", e);
-            return Collections.emptyList();
+            throw e;
         }
     }
 

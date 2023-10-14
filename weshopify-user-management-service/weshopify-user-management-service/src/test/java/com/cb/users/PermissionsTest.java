@@ -2,6 +2,7 @@ package com.cb.users;
 
 import com.cb.users.datars.PermissionsDataRs;
 import com.cb.users.repo.PermissionsRepo;
+import com.cb.users.rq.PermissionsRq;
 import com.cb.users.rs.PermissionsRs;
 import com.cb.users.service.IPermissionsService;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +19,7 @@ public class PermissionsTest extends WeshopifyUserManagementServiceApplicationTe
 
     @Test
     public void createPermissions() {
-        CreatePermissionsRq rq = CreatePermissionsRq.builder().name("View").build();
+        PermissionsRq rq = PermissionsRq.builder().name("View").build();
 //        Permissions view = Permissions.builder().name("View").build();
 //        permissionsRepo.save(view);
         PermissionsDataRs dataRs = (PermissionsDataRs) permissionsService.createPermission(rq);

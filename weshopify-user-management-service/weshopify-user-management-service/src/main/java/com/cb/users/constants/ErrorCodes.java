@@ -199,7 +199,7 @@ public class ErrorCodes {
 
     public static final String EC_USER_USERID_ALREADY_EXISTS = "EC_USER_USERID_ALREADY_EXISTS";
 
-    public static final String EC_USER_MOBILE_ALREADY_EXISTS = "EC_USER_USERID_ALREADY_EXISTS";
+    public static final String EC_USER_MOBILE_ALREADY_EXISTS = "EC_USER_MOBILE_ALREADY_EXISTS";
 
     public static final String EC_USER_NOT_FOUND = "EC_USER_NOT_FOUND";
 

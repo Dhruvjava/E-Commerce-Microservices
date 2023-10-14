@@ -62,7 +62,7 @@ public class UsersServiceImpl implements IUsersSerice {
             if (Utils.isNotEmpty(errors)) {
                 String errorMessage = messages.getErrorProperty(ErrorCodes.EC_INVALID_INPUT);
                 log.warn(errorMessage);
-                throw new UsersException(ErrorCodes.EC_INVALID_INPUT, errorMessage);
+                throw new UsersException(ErrorCodes.EC_INVALID_INPUT, errorMessage, errors);
             }
             Users users = UsersMapper.mapToUsers(rq, mapper);
             provisioning(users);
@@ -74,34 +74,35 @@ public class UsersServiceImpl implements IUsersSerice {
             String message = messages.getMessageProperty(MessageCodes.MC_CREATED_SUCCESSFUL);
             return new UsersDataRs(message, userRs);
         } catch (DataIntegrityViolationException ex) {
+            ex.printStackTrace();
             String errorMessage = messages.getErrorProperty(ErrorCodes.EC_INVALID_INPUT);
             log.error(errorMessage);
-            List<ErrorRs> duplicateFields = new ArrayList<>();
-            if (ex.getMessage().contains("email")) {
-                ErrorRs errors = new ErrorRs();
+            List<ErrorRs> errors = new ArrayList<>();
+            if (ex.getMessage().contains(rq.getEmail())) {
+                ErrorRs error = new ErrorRs();
                 String errorMessages = messages.getErrorProperty(ErrorCodes.EC_USER_EMAIL_ALREADY_EXISTS);
                 log.info(errorMessages);
-                errors.setCode(ErrorCodes.EC_USER_EMAIL_ALREADY_EXISTS);
-                errors.setMessage(errorMessages);
-                duplicateFields.add(errors);
+                error.setCode(ErrorCodes.EC_USER_EMAIL_ALREADY_EXISTS);
+                error.setMessage(errorMessages);
+                errors.add(error);
             }
-            if (ex.getMessage().contains("userid")) {
-                ErrorRs errors = new ErrorRs();
+            if (ex.getMessage().contains(rq.getUserid())) {
+                ErrorRs error = new ErrorRs();
                 String errorMessages = messages.getErrorProperty(ErrorCodes.EC_USER_USERID_ALREADY_EXISTS);
                 log.info(errorMessages);
-                errors.setCode(ErrorCodes.EC_USER_USERID_ALREADY_EXISTS);
-                errors.setMessage(errorMessages);
-                duplicateFields.add(errors);
+                error.setCode(ErrorCodes.EC_USER_USERID_ALREADY_EXISTS);
+                error.setMessage(errorMessages);
+                errors.add(error);
             }
-            if (ex.getMessage().contains("mobile")) {
-                ErrorRs errors = new ErrorRs();
+            if (ex.getMessage().contains(rq.getMobile())) {
+                ErrorRs error = new ErrorRs();
                 String errorMessages = messages.getErrorProperty(ErrorCodes.EC_USER_MOBILE_ALREADY_EXISTS);
                 log.info(errorMessages);
-                errors.setCode(ErrorCodes.EC_USER_MOBILE_ALREADY_EXISTS);
-                errors.setMessage(errorMessages);
-                duplicateFields.add(errors);
+                error.setCode(ErrorCodes.EC_USER_MOBILE_ALREADY_EXISTS);
+                error.setMessage(errorMessages);
+                errors.add(error);
             }
-            throw new UsersDuplicateFieldVoilationException(ErrorCodes.EC_INVALID_INPUT, errorMessage, duplicateFields);
+            throw new UsersDuplicateFieldVoilationException(ErrorCodes.EC_INVALID_INPUT, errorMessage, errors);
         } catch (Exception e) {
             log.error("Exception in createUsers(UsersRq rq) -> {0}", e);
             throw e;
@@ -121,15 +122,19 @@ public class UsersServiceImpl implements IUsersSerice {
                 throw new UsersException(ErrorCodes.EC_INVALID_INPUT, errorMessage, errors);
             }
             Users users = UsersMapper.mapToUsers(rq, mapper);
-            if ("deprovision".contentEquals(rq.getRole().getProvision())){
+            if ("deprovision".contentEquals(rq.getRole().getProvision())) {
                 deProvisioning(users);
             }
-            usersRepo.save(users);
-
+            if (usersRepo.existsById(users.getId()) && users.getId() != 0) {
+                users = usersRepo.save(users);
+            }
+            UsersRs rs = UsersMapper.maptoUsers(users, mapper);
+            String message = messages.getMessageProperty(MessageCodes.MC_UPDATED_SUCCESSFUL);
+            return new UsersDataRs(message, rs);
         } catch (Exception e) {
             log.error("Exception in updateUsers(UsersRq rq) -> " + e);
+            throw e;
         }
-        return null;
     }
 
     @Override
@@ -226,15 +231,11 @@ public class UsersServiceImpl implements IUsersSerice {
             log.debug("Executing deProvisioning(int roleId) ->");
         }
         try {
-            Optional<Roles> rolesOpt = Optional.of(userBO.getRole()).map(role -> rolesRepo.findById(role.getId())).get();
-            Roles role = null;
-            if (rolesOpt.isPresent()) {
-                role = rolesOpt.get();
-            } else {
+            Optional.of(userBO.getRole()).map(role -> rolesRepo.findById(role.getId())).orElseThrow(() -> {
                 String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
                 log.warn(errorMessage);
-                throw new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
-            }
+                return new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
+            });
             userBO.setRole(null);
             String message = messages.getMessageProperty(MessageCodes.MC_USER_WITH_ROLE_PROVISIONING_SUCCESSFUL);
             return new UserProvisioningDataRs(message, userBO);

@@ -35,7 +35,7 @@ public class UsersMapper {
         }
         try {
             UsersRs usersRs = mapper.map(users, UsersRs.class);
-            if (Utils.isNotEmpty(users.getRole().getRoleToPermissions())) {
+            if (users.getRole() != null && Utils.isNotEmpty(users.getRole().getRoleToPermissions())) {
                 List<PermissionsRs> permissions = users.getRole().getRoleToPermissions().stream().map(role -> PermissionsMapper.mapToPermissionsRs(role.getPermissions(), mapper)).toList();
                 usersRs.getRole().setPermissions(permissions);
             }

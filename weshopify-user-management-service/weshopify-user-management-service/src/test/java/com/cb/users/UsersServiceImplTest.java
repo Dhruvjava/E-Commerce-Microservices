@@ -1,9 +1,11 @@
 package com.cb.users;
 
 import com.cb.base.data.rs.BaseDataRs;
+import com.cb.users.datars.UsersDataRs;
 import com.cb.users.entity.Roles;
 import com.cb.users.mapper.RolesMapper;
 import com.cb.users.repo.RolesRepo;
+import com.cb.users.rq.UserRoleRq;
 import com.cb.users.rq.UsersRq;
 import com.cb.users.rs.RolesRs;
 import com.cb.users.service.IUsersSerice;
@@ -31,17 +33,25 @@ class UsersServiceImplTest extends RolesServiceImplTest {
     @DisplayName("CREATE USER TEST")
     void createUsers() {
 
-        Roles roles = rolesRepo.findById(1).orElse(null);
-        RolesRs rolesRs = RolesMapper.mapToRoles(roles, mapper);
+        UserRoleRq roleRq = UserRoleRq.builder().id(1).name("User").build();
         UsersRq users = UsersRq.builder().userid("dhruvjava").firstname("Dhruv")
                 .lastname("Kumar").email("dhruv@gmail.com").mobile("9149175183")
-                .enabled(false).locked(true).role(rolesRs).build();
+                .enabled(false).locked(true).role(roleRq).build();
         BaseDataRs users1 = usersService.createUsers(users);
 
     }
 
     @Test
+    @Order(4)
+    @DisplayName("UPDATE USER TEST")
     void updateUsers() {
+        UserRoleRq roleRq = UserRoleRq.builder().id(1).name("User").provision("deprovision").build();
+        UsersRq users = UsersRq.builder().id(1).userid("dhruvjava").firstname("Dhruv")
+                .lastname("Kumar").email("dhruv@gmail.com").mobile("9149175183")
+                .enabled(false).locked(true).role(roleRq).build();
+        UsersDataRs usersRs = (UsersDataRs) usersService.updateUsers(users);
+        Assertions.assertNotNull(usersRs);
+        Assertions.assertNotNull(usersRs.getUser());
     }
 
     @Test
