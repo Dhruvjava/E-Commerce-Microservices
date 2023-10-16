@@ -21,7 +21,6 @@ public class UsersMapper {
             log.debug("Executing mapToUsers(UsersRq rq)");
         }
         try {
-//            Users users = mapper.map(rq, Users.class);
             return mapper.map(rq, Users.class);
         } catch (Exception e) {
             log.error("Exception in mapToUsers(UsersRq rq) -> {0}", e);

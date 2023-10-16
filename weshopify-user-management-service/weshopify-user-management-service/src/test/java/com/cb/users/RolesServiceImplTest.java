@@ -52,6 +52,9 @@ class RolesServiceImplTest extends PermissionsServiceImplTest {
         RolesDataRs role = (RolesDataRs) rolesService.createRole(rolesRq);
         Assertions.assertNotNull(role);
         Assertions.assertNotNull(role.getRoles());
+        Assertions.assertNotNull(role.getRoles().getId());
+        Assertions.assertNotNull(role.getRoles().getName());
+        Assertions.assertNotNull(role.getRoles().getPermissions());
     }
 
     @Test

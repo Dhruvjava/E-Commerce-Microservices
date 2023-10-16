@@ -40,8 +40,8 @@ public interface IUsersSerice {
      */
     public BaseDataRs deProvisioning(Users usersBO);
 
-    public BaseDataRs enableUser(String role);
+    public BaseDataRs enableUser(int id);
 
-    public BaseDataRs unlockUser(String role);
+    public BaseDataRs unlockUser(int id);
 
 }

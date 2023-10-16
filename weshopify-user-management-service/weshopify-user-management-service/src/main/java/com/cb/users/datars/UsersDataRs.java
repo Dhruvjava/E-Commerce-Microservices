@@ -22,4 +22,8 @@ public class UsersDataRs extends BaseDataRs {
         this.user = user;
     }
 
+    public UsersDataRs(String message) {
+        super(message);
+    }
+
 }

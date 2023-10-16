@@ -28,6 +28,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,7 +123,8 @@ public class UsersServiceImpl implements IUsersSerice {
                 throw new UsersException(ErrorCodes.EC_INVALID_INPUT, errorMessage, errors);
             }
             Users users = UsersMapper.mapToUsers(rq, mapper);
-            if ("deprovision".contentEquals(rq.getRole().getProvision())) {
+            String operation = rq.getRole().getProvision();
+            if (StringUtils.hasText(operation) && "deprovision".contentEquals(operation)) {
                 deProvisioning(users);
             }
             if (usersRepo.existsById(users.getId()) && users.getId() != 0) {
@@ -146,7 +148,7 @@ public class UsersServiceImpl implements IUsersSerice {
             Users users = usersRepo.findById(id).orElseThrow(() -> {
                 String errorMessage = messages.getErrorProperty(ErrorCodes.EC_USER_NOT_FOUND);
                 log.info(errorMessage);
-                throw new UsersNotFoundException(ErrorCodes.EC_USER_NOT_FOUND, errorMessage);
+                return new UsersNotFoundException(ErrorCodes.EC_USER_NOT_FOUND, errorMessage);
             });
             UsersRs rs = UsersMapper.maptoUsers(users, mapper);
             String message = messages.getMessageProperty(MessageCodes.MC_RETRIEVED_SUCCESSFUL);
@@ -159,12 +161,48 @@ public class UsersServiceImpl implements IUsersSerice {
 
     @Override
     public BaseDataRs findUserByEmail(String email) {
-        return null;
+        if (log.isDebugEnabled()) {
+            log.debug("Executing findUserByEmail(String email) ->");
+        }
+        try {
+            if (Utils.isEmpty(email)) {
+                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_REQUIRED_EMAIL);
+                log.error(errorMessage);
+                throw new UsersException(ErrorCodes.EC_REQUIRED_EMAIL, errorMessage);
+            }
+            Users users = usersRepo.findByEmail(email).orElseThrow(() -> {
+                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_USER_NOT_FOUND);
+                log.info(errorMessage);
+                return new UsersNotFoundException(ErrorCodes.EC_USER_NOT_FOUND, errorMessage);
+            });
+            UsersRs rs = UsersMapper.maptoUsers(users, mapper);
+            String message = messages.getMessageProperty(MessageCodes.MC_RETRIEVED_SUCCESSFUL);
+            return new UsersDataRs(message, rs);
+        } catch (Exception e) {
+            log.error("Exception in findUserByEmail(String email) -> {}", e);
+            throw e;
+        }
     }
 
     @Override
     public BaseDataRs deleteUsers(int id) {
-        return null;
+        if (log.isDebugEnabled()) {
+            log.debug("Executing deleteUsers(int id) ->");
+        }
+        try {
+            if (id != 0 && usersRepo.existsById(id)) {
+                usersRepo.deleteById(id);
+            } else {
+                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_USER_NOT_FOUND);
+                log.info(errorMessage + " with id : " + id);
+                throw new UsersException(ErrorCodes.EC_USER_NOT_FOUND, errorMessage + " with id : " + id);
+            }
+            String message = messages.getMessageProperty(MessageCodes.MC_DELETED_SUCCESSFUL);
+            return new UsersDataRs(message);
+        } catch (Exception e) {
+            log.error("Exception in deleteUsers(int id) -> {}", e);
+            throw e;
+        }
     }
 
     @Override
@@ -246,12 +284,49 @@ public class UsersServiceImpl implements IUsersSerice {
     }
 
     @Override
-    public BaseDataRs enableUser(String role) {
-        return null;
+    public BaseDataRs enableUser(int id) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing enableUser(int id) ->");
+        }
+        try {
+            Optional.of(usersRepo.findById(id)).get().ifPresentOrElse(users -> {
+                        users.setEnabled(true);
+                        usersRepo.save(users);
+                    },
+                    () -> {
+                        String errorMessage = messages.getErrorProperty(ErrorCodes.EC_USER_NOT_FOUND);
+                        log.info(errorMessage);
+                        throw new UsersException(ErrorCodes.EC_USER_NOT_FOUND, errorMessage);
+                    });
+            return findUser(id);
+        } catch (Exception e) {
+            log.error("Exception in enableUser(int id) -> {}", e);
+            throw e;
+        }
     }
 
     @Override
-    public BaseDataRs unlockUser(String role) {
-        return null;
+    public BaseDataRs unlockUser(int id) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing unlockUser(int id) -> ");
+        }
+        try {
+            Optional.of(usersRepo.findById(id)).get().ifPresentOrElse(users -> {
+                        users.setLocked(false);
+                        usersRepo.save(users);
+                    },
+                    () -> {
+                        String errorMessage = messages.getErrorProperty("EC_USER_NOT_FOUND");
+                        log.info(errorMessage);
+                        throw new UsersException(ErrorCodes.EC_USER_NOT_FOUND, errorMessage);
+                    });
+            String message = messages.getMessageProperty(MessageCodes.MC_UNLOCKED_SUCCESSFUL);
+            UsersDataRs rs = (UsersDataRs) findUser(id);
+            rs.setMessage(message);
+            return rs;
+        } catch (Exception e) {
+            log.error("Exception in unlockUser(int id) -> {}", e);
+            throw e;
+        }
     }
 }

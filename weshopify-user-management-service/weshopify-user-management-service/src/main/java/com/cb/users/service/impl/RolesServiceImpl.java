@@ -128,16 +128,7 @@ public class RolesServiceImpl implements IRolesService {
                         String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
                         log.info(errorMessage);
                         return new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
-
                     });
-//            Roles roles = null;
-//            if (rolesOpt.isPresent()) {
-//                roles = rolesOpt.get();
-//            } else {
-//                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
-//                log.info(errorMessage);
-//                throw new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
-//            }
             RolesRs rs = RolesMapper.mapToRoles(roles, mapper);
             String message = messages.getMessageProperty(MessageCodes.MC_RETRIEVED_SUCCESSFUL);
             return new RolesDataRs(message, rs);

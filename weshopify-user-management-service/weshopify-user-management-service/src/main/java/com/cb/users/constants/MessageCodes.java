@@ -33,6 +33,8 @@ public class MessageCodes {
 
     public static final String MC_UPDATED_SUCCESSFUL = "MC_UPDATED_SUCCESSFUL";
 
+    public static final String MC_ENABLED_SUCCESSFUL = "MC_ENABLED_SUCCESSFUL";
+
     public static final String MC_UPLOAD_SUCCESSFUL = "MC_UPLOAD_SUCCESSFUL";
 
     public static final String MC_RETRIEVED_SUCCESSFUL = "MC_RETRIEVED_SUCCESSFUL";
