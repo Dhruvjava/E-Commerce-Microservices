@@ -31,14 +31,16 @@ public interface IUsersSerice {
      * @param role
      * @return
      */
-    public BaseDataRs provisioning(Users usersBO);
+//    public BaseDataRs provisioning(Users usersBO);
+    public void provisioning(Users usersBO);
 
     /**
      * removing role to user is called deprovisioning
      * @param role
      * @return
      */
-    public BaseDataRs deProvisioning(Users usersBO);
+//    public BaseDataRs deProvisioning(Users usersBO);
+    public void deProvisioning(Users usersBO);
 
     public BaseDataRs enableUser(int id);
 

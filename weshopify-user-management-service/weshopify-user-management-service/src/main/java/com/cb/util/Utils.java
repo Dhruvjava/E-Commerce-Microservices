@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 @Slf4j
 public class Utils {
 
-    private static final Pattern EMAIL_PATTERN_REGIX = Pattern.compile("^([a-z0-9_.-]+)@([\\da-z\\.-]+)\\.([a-z]{2,})$");
+    private static final Pattern EMAIL_PATTERN_REGIX = Pattern.compile("^([A-Za-z0-9_.-]+)@([\\da-z\\.-]+)\\.([a-z]{2,})$");
 
     public static boolean isEmpty(List list) {
         return null == list || list.isEmpty();

@@ -33,6 +33,20 @@ public class UsersRest {
         }
     }
 
+    @PutMapping()
+    @Operation(summary = "UPDATE USERS", description = "Update Weshopify Users")
+    public ResponseEntity<BaseDataRs> updateUser(@RequestBody UsersRq rq) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing RESTFull Services [ GET : /api/users] ->");
+        }
+        try {
+            return ResponseEntity.ok(usersSerice.updateUsers(rq));
+        } catch (Exception e) {
+            log.error("Exception in RESTFull Services [ GET : /api/users] -> {0}", e);
+            throw e;
+        }
+    }
+
     @GetMapping()
     @Operation(summary = "RETRIEVE USERS", description = "Retrieve Weshopify Users")
     public ResponseEntity<BaseDataRs> findAllUser() {
@@ -55,6 +69,62 @@ public class UsersRest {
         }
         try {
             return ResponseEntity.ok(usersSerice.findUser(id));
+        } catch (Exception e) {
+            log.error("Exception in RESTFull Services [ GET : /api/users] -> {0}", e);
+            throw e;
+        }
+    }
+
+    @GetMapping("/email/{email}")
+    @Operation(summary = "RETRIEVE USERS BY EMAIL", description = "Retrieve Weshopify Users By Email")
+    public ResponseEntity<BaseDataRs> findUserByEmail(@PathVariable String email) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing RESTFull Services [ GET : /api/users] ->");
+        }
+        try {
+            return ResponseEntity.ok(usersSerice.findUserByEmail(email));
+        } catch (Exception e) {
+            log.error("Exception in RESTFull Services [ GET : /api/users] -> {0}", e);
+            throw e;
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "DELETE USERS BY ID", description = "Delete Weshopify Users By Id")
+    public ResponseEntity<BaseDataRs> deleteUser(@PathVariable int id) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing RESTFull Services [ GET : /api/users] ->");
+        }
+        try {
+            return ResponseEntity.ok(usersSerice.deleteUsers(id));
+        } catch (Exception e) {
+            log.error("Exception in RESTFull Services [ GET : /api/users] -> {0}", e);
+            throw e;
+        }
+    }
+
+    @GetMapping("/enable/{id}")
+    @Operation(summary = "ENABLE USERS BY ID", description = "Enable Weshopify Users By Id")
+    public ResponseEntity<BaseDataRs> enableUser(@PathVariable int id) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing RESTFull Services [ GET : /api/users] ->");
+        }
+        try {
+            return ResponseEntity.ok(usersSerice.enableUser(id));
+        } catch (Exception e) {
+            log.error("Exception in RESTFull Services [ GET : /api/users] -> {0}", e);
+            throw e;
+        }
+    }
+
+    @GetMapping("/unlock/{id}")
+    @Operation(summary = "UNLOCK USERS BY ID", description = "Unlock Weshopify Users By Id")
+    public ResponseEntity<BaseDataRs> unlockUser(@PathVariable int id) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing RESTFull Services [ GET : /api/users] ->");
+        }
+        try {
+            return ResponseEntity.ok(usersSerice.unlockUser(id));
         } catch (Exception e) {
             log.error("Exception in RESTFull Services [ GET : /api/users] -> {0}", e);
             throw e;

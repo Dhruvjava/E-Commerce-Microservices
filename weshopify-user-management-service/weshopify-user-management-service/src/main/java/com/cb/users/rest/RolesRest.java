@@ -71,6 +71,23 @@ public class RolesRest {
         }
     }
 
+    @GetMapping("/name/{name}")
+    @Operation(summary = "FIND ROLES", description = "Find Weshopify Roles Using role id")
+    @CustomApiResponses
+    public ResponseEntity<BaseDataRs> findRolesByName(
+            @PathVariable String name
+    ) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing RESTFullServices [POST: /api/roles] ->");
+        }
+        try {
+            return ResponseEntity.ok(rolesService.findRole(name));
+        } catch (Exception e) {
+            log.error("Exception in RESTFullServices [POST: /api/roles] -> {0}", e);
+            throw e;
+        }
+    }
+
     @DeleteMapping("/{id}")
     @Operation(summary = "DELETE ROLES", description = "Delete Weshopify Roles using role id")
     @CustomApiResponses

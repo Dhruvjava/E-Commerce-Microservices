@@ -123,11 +123,11 @@ public class UsersServiceImpl implements IUsersSerice {
                 throw new UsersException(ErrorCodes.EC_INVALID_INPUT, errorMessage, errors);
             }
             Users users = UsersMapper.mapToUsers(rq, mapper);
-            String operation = rq.getRole().getProvision();
+            String operation = rq.getRole().getOperation();
             if (StringUtils.hasText(operation) && "deprovision".contentEquals(operation)) {
                 deProvisioning(users);
             }
-            if (usersRepo.existsById(users.getId()) && users.getId() != 0) {
+            if (users.getId() != 0 && usersRepo.existsById(users.getId())) {
                 users = usersRepo.save(users);
             }
             UsersRs rs = UsersMapper.maptoUsers(users, mapper);
@@ -238,25 +238,28 @@ public class UsersServiceImpl implements IUsersSerice {
     }
 
     @Override
-    public BaseDataRs provisioning(Users userBO) {
+    public void provisioning(Users userBO) {
         if (log.isDebugEnabled()) {
             log.debug("Executing provisioning(int roleId) ->");
         }
         try {
-            Optional<Roles> rolesOpt = Optional.of(userBO.getRole()).map(role -> rolesRepo.findById(role.getId())).get();
-            Roles role = null;
-            if (rolesOpt.isPresent()) {
-                role = rolesOpt.get();
-            } else {
-                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
-                log.warn(errorMessage);
-                throw new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
-            }
-//            userBO.getRole().setId(role.getId());
-//            userBO.getRole().setName(role.getName());
-            userBO.setRole(role);
-            String message = messages.getMessageProperty(MessageCodes.MC_USER_WITH_ROLE_PROVISIONING_SUCCESSFUL);
-            return new UserProvisioningDataRs(message, userBO);
+            Roles roles = Optional.of(userBO.getRole()).map(role -> rolesRepo.findById(role.getId())).get()
+                    .orElseThrow(() -> {
+                        String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
+                        log.warn(errorMessage);
+                        return new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
+                    });
+//            Roles role = null;
+//            if (rolesOpt.isPresent()) {
+//                role = rolesOpt.get();
+//            } else {
+//                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
+//                log.warn(errorMessage);
+//                throw new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
+//            }
+            userBO.setRole(roles);
+//            String message = messages.getMessageProperty(MessageCodes.MC_USER_WITH_ROLE_PROVISIONING_SUCCESSFUL);
+//            return new UserProvisioningDataRs(message, userBO);
         } catch (Exception e) {
             log.error("Exception in provisioning(int roleId) -> {0}", e);
             throw e;
@@ -264,7 +267,7 @@ public class UsersServiceImpl implements IUsersSerice {
     }
 
     @Override
-    public BaseDataRs deProvisioning(Users userBO) {
+    public void deProvisioning(Users userBO) {
         if (log.isDebugEnabled()) {
             log.debug("Executing deProvisioning(int roleId) ->");
         }
@@ -275,8 +278,8 @@ public class UsersServiceImpl implements IUsersSerice {
                 return new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
             });
             userBO.setRole(null);
-            String message = messages.getMessageProperty(MessageCodes.MC_USER_WITH_ROLE_PROVISIONING_SUCCESSFUL);
-            return new UserProvisioningDataRs(message, userBO);
+//            String message = messages.getMessageProperty(MessageCodes.MC_USER_WITH_ROLE_PROVISIONING_SUCCESSFUL);
+//            return new UserProvisioningDataRs(message, userBO);
         } catch (Exception e) {
             log.error("Exception in deProvisioning(int roleId) -> {0}", e);
             throw e;
@@ -290,15 +293,17 @@ public class UsersServiceImpl implements IUsersSerice {
         }
         try {
             Optional.of(usersRepo.findById(id)).get().ifPresentOrElse(users -> {
-                        users.setEnabled(true);
-                        usersRepo.save(users);
-                    },
-                    () -> {
-                        String errorMessage = messages.getErrorProperty(ErrorCodes.EC_USER_NOT_FOUND);
-                        log.info(errorMessage);
-                        throw new UsersException(ErrorCodes.EC_USER_NOT_FOUND, errorMessage);
-                    });
-            return findUser(id);
+                users.setEnabled(true);
+                usersRepo.save(users);
+            }, () -> {
+                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_USER_NOT_FOUND);
+                log.info(errorMessage);
+                throw new UsersException(ErrorCodes.EC_USER_NOT_FOUND, errorMessage);
+            });
+            String message = messages.getMessageProperty(MessageCodes.MC_ENABLED_SUCCESSFUL);
+            UsersDataRs dataRs = (UsersDataRs) findUser(id);
+            dataRs.setMessage(message);
+            return dataRs;
         } catch (Exception e) {
             log.error("Exception in enableUser(int id) -> {}", e);
             throw e;
@@ -312,14 +317,13 @@ public class UsersServiceImpl implements IUsersSerice {
         }
         try {
             Optional.of(usersRepo.findById(id)).get().ifPresentOrElse(users -> {
-                        users.setLocked(false);
-                        usersRepo.save(users);
-                    },
-                    () -> {
-                        String errorMessage = messages.getErrorProperty("EC_USER_NOT_FOUND");
-                        log.info(errorMessage);
-                        throw new UsersException(ErrorCodes.EC_USER_NOT_FOUND, errorMessage);
-                    });
+                users.setLocked(false);
+                usersRepo.save(users);
+            }, () -> {
+                String errorMessage = messages.getErrorProperty("EC_USER_NOT_FOUND");
+                log.info(errorMessage);
+                throw new UsersException(ErrorCodes.EC_USER_NOT_FOUND, errorMessage);
+            });
             String message = messages.getMessageProperty(MessageCodes.MC_UNLOCKED_SUCCESSFUL);
             UsersDataRs rs = (UsersDataRs) findUser(id);
             rs.setMessage(message);

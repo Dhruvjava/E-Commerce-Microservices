@@ -15,5 +15,5 @@ public class UserRoleRq implements Serializable {
 
     private String name;
     
-    private String provision;
+    private String operation;
 }

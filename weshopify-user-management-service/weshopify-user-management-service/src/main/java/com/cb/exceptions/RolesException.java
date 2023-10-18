@@ -1,9 +1,15 @@
 package com.cb.exceptions;
 
 import com.cb.base.rs.ErrorRs;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
+@Setter
+@Getter
+@NoArgsConstructor
 public class RolesException extends RuntimeException {
 
     private String code;

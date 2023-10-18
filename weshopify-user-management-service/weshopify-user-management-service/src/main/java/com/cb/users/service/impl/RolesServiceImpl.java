@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @Slf4j
@@ -118,13 +119,8 @@ public class RolesServiceImpl implements IRolesService {
             log.debug("Executing findRole(int id) ->");
         }
         try {
-            Roles roles = Optional.of(rolesRepo.findById(id))
-                    .orElseThrow(
-                            () -> {
-                                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_FIND_FAILED);
-                                log.info(errorMessage);
-                                return new RolesException(ErrorCodes.EC_UNKNOWN_DATABASE_ERROR, errorMessage);
-                            }).orElseThrow(() -> {
+            Roles roles = rolesRepo.findById(id)
+                    .orElseThrow(() -> {
                         String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
                         log.info(errorMessage);
                         return new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
@@ -144,20 +140,21 @@ public class RolesServiceImpl implements IRolesService {
             log.debug("Executing findRole(String name) ->");
         }
         try {
-
-            if (Utils.isEmpty(name)) {
+            AtomicReference<RolesRs> rs = new AtomicReference<>();
+            Optional.of(name).ifPresentOrElse(value -> {
+                Roles role = rolesRepo.findByName(value).orElseThrow(() -> {
+                    String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
+                    log.info(errorMessage);
+                    return new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
+                });
+                rs.set(RolesMapper.mapToRoles(role, mapper));
+            }, () -> {
                 String errorMessage = messages.getErrorProperty(ErrorCodes.EC_REQUIRED_ROLES_NAME);
                 log.info(errorMessage);
                 throw new RolesException(ErrorCodes.EC_REQUIRED_ROLES_NAME, errorMessage);
-            }
-            Roles role = rolesRepo.findByName(name).orElseThrow(() -> {
-                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
-                log.info(errorMessage);
-                return new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
             });
-            RolesRs rs = RolesMapper.mapToRoles(role, mapper);
             String message = messages.getMessageProperty(MessageCodes.MC_RETRIEVED_SUCCESSFUL);
-            return new RolesDataRs(message, rs);
+            return new RolesDataRs(message, rs.get());
         } catch (Exception e) {
             log.error("Exception in findRole(String name) -> {0}", e);
             throw e;
@@ -191,7 +188,7 @@ public class RolesServiceImpl implements IRolesService {
             log.debug("Executing findAllRole() ->");
         }
         try {
-            List<Roles> roles = Optional.of(rolesRepo.findAll()).orElseThrow(() -> {
+            List<Roles> roles = Optional.of(rolesRepo.findAll()).filter(Utils::isNotEmpty).orElseThrow(() -> {
                 String errorMessage = messages.getMessageProperty(MessageCodes.MC_NO_RECORDS_FOUND);
                 log.info(errorMessage);
                 return new RolesNotFoundException(MessageCodes.MC_NO_RECORDS_FOUND, errorMessage);

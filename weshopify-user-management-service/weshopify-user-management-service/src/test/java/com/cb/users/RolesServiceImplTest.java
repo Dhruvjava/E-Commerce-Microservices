@@ -67,6 +67,10 @@ class RolesServiceImplTest extends PermissionsServiceImplTest {
 
     @Test
     void testFindRole() {
+        RolesDataRs rolesDataRs = (RolesDataRs) rolesService.findRole("User");
+        Assertions.assertNotNull(rolesDataRs);
+        Assertions.assertNotNull(rolesDataRs.getRoles());
+        Assertions.assertNotNull(rolesDataRs.getRoles().getName());
     }
 
     @Test

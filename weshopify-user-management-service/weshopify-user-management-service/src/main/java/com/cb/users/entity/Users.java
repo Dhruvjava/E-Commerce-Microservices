@@ -40,6 +40,6 @@ public class Users implements Serializable {
     @Column(name = "locked", nullable = true)
     private boolean locked;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Roles role;
 }

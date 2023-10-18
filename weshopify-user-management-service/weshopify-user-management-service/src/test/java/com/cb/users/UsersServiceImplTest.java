@@ -57,7 +57,7 @@ class UsersServiceImplTest extends RolesServiceImplTest {
     @Order(4)
     @DisplayName("UPDATE USER TEST")
     void updateUsers() {
-        UserRoleRq roleRq = UserRoleRq.builder().id(1).name("User").provision("deprovision").build();
+        UserRoleRq roleRq = UserRoleRq.builder().id(1).name("User").operation("deprovision").build();
         UsersRq users = UsersRq.builder().id(1).userid("dhruvjava").firstname("Dhruv")
                 .lastname("Kumar").email("dhruv@gmail.com").mobile("9149175183")
                 .enabled(false).locked(true).role(roleRq).build();

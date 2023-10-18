@@ -25,7 +25,7 @@ public class Roles implements Serializable {
     @Column(nullable = false, unique = true, updatable = true)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roles", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roles", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<RoleToPermission> roleToPermissions;
 
     private String createdBy;

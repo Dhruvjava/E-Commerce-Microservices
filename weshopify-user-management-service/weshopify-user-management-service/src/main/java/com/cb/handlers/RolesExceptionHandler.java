@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class RolesExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(RolesException.class)
-    public ResponseEntity<ProblemDetail> handlePermissionsException(PermissionsException pe) {
+    public ResponseEntity<ProblemDetail> handlePermissionsException(RolesException pe) {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
         problemDetail.setTitle(pe.getCode());
         problemDetail.setDetail(pe.getErrorMessage());
@@ -28,7 +28,7 @@ public class RolesExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(problemDetail);
     }
     @ExceptionHandler(RolesNotFoundException.class)
-    public ResponseEntity<ProblemDetail> handlePermissionsNotFoundException(PermissionsNotFoundException pe) {
+    public ResponseEntity<ProblemDetail> handlePermissionsNotFoundException(RolesNotFoundException pe) {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
         problemDetail.setTitle(pe.getCode());
         problemDetail.setDetail(pe.getErrorMessage());
