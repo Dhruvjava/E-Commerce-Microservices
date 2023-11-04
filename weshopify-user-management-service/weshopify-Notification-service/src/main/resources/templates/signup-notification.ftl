@@ -498,33 +498,9 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                        <p>You've started a ${trial_length} day trial. You can upgrade to a paying account or cancel any time.</p>
-                                        <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                                            <tr>
-                                                <td class="attributes_content">
-                                                    <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                                                        <tr>
-                                                            <td class="attributes_item">
-                                    <span class="f-fallback">
-              <strong>Trial Start Date:</strong> ${trial_start_date}
-            </span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="attributes_item">
-                                    <span class="f-fallback">
-              <strong>Trial End Date:</strong> ${trial_end_date}
-            </span>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </table>
                                         <p>If you have any questions, feel free to <a href="mailto:${support_email}">email our customer success team</a>. (We're lightning quick at replying.) We also offer <a href="${live_chat_url}">live chat</a> during business hours.</p>
                                         <p>Thanks,
                                             <br>${sender} and the ${priductTeam} team</p>
-                                        <p><strong>P.S.</strong> Need immediate help getting started? Check out our <a href="${help_url}">help documentation</a>. Or, just reply to this email, the ${appname} support team is always ready to help!</p>
                                         <!-- Sub copy -->
                                         <table class="body-sub" role="presentation">
                                             <tr>
@@ -561,3 +537,4 @@
 </table>
 </body>
 </html>
+ß
