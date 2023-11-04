@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 @OpenAPIDefinition(info = @Info(title = "Weshopify Notification SVC", version = "1.0",
         description = "This is the Weshopify Notification SVC API is for internal use",
@@ -64,4 +67,32 @@ public class WeshopifyNotificationServiceApplication implements CommandLineRunne
         NotificationRq rq = new NotificationRq();
         service.sendNotification(rq);
     }
+
+    @Bean(name = "errorProperties")
+    public MessageSource errorProperties() {
+        ReloadableResourceBundleMessageSource messageSource =
+                new ReloadableResourceBundleMessageSource();
+        messageSource.setBasenames("classpath:/bundles/application_errors");
+        // messageSource.setCacheSeconds(10); //reload messages every 10 seconds
+        return messageSource;
+    }
+
+    @Bean(name = "messageProperties")
+    public MessageSource messageProperties() {
+        ReloadableResourceBundleMessageSource messageSource =
+                new ReloadableResourceBundleMessageSource();
+        messageSource.setBasenames("classpath:/bundles/application_messages");
+        // messageSource.setCacheSeconds(10); //reload messages every 10 seconds
+        return messageSource;
+    }
+
+    @Bean(name = "emailProperties")
+    public MessageSource emailProperties() {
+        ReloadableResourceBundleMessageSource messageSource =
+                new ReloadableResourceBundleMessageSource();
+        messageSource.setBasenames("classpath:/bundles/email_templates");
+        // messageSource.setCacheSeconds(10); //reload messages every 10 seconds
+        return messageSource;
+    }
+
 }

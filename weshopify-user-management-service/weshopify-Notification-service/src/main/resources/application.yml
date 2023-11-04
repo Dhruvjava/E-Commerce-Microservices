@@ -30,11 +30,15 @@ spring:
           auth: true
           starttls:
             enable: true
+  freemarker:
+    template-loader-path: classpath:/templates
+    suffix: .ftl
+  main:
+    allow-circular-references: true
 mail:
   from:
     email: jcodebrains@gmail.com
 
----
 ---
 # Profiles Config=========================
 spring:
@@ -46,7 +50,7 @@ spring:
     host: ${MAIL_HOST:smtp.gmail.com}
     port: ${MAIL_PORT:587}
     username: ${MAIL_USERNAME:jcodebrains@gmail.com}
-    password: ${MAIL_PASSWORD:Dk@8899082629}
+    password: ${MAIL_PASSWORD:rupd nqjq kmqa gpph}}
     properties:
       mail:
         smtp:
@@ -54,7 +58,10 @@ spring:
           starttls:
             enable: true
 
----
+mail:
+  from:
+    email: jcodebrains@gmail.com
+
 ---
 # Profiles Config=========================
 spring:
@@ -66,11 +73,15 @@ spring:
     host: ${MAIL_HOST:smtp.gmail.com}
     port: ${MAIL_PORT:587}
     username: ${MAIL_USERNAME:jcodebrains@gmail.com}
-    password: ${MAIL_PASSWORD:Dk@8899082629}
+    password: ${MAIL_PASSWORD:rupd nqjq kmqa gpph}}
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
+
+mail:
+  from:
+    email: jcodebrains@gmail.com
 
