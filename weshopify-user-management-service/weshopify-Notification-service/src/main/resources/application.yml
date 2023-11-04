@@ -1,0 +1,76 @@
+# Profiles Active ========================
+spring:
+  profiles:
+    active: ${DB_PROFILE:dev}
+  # APP NAME ===============================
+  application:
+    name: ${APP_NAME:WESHOPIFY-NOTIFICATION-SVC}
+
+# Server Port
+server:
+  port: ${APP_PORT:8062}
+  servlet:
+    context-path: /dev
+---
+# Profiles Config=========================
+spring:
+  config:
+    activate:
+      on-profile: dev
+  #  Email Config =========================
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:jcodebrains@gmail.com}
+#    username: ${MAIL_USERNAME:d.k.dhakarey1999@gmail.com}
+    password: ${MAIL_PASSWORD:rupd nqjq kmqa gpph}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+mail:
+  from:
+    email: jcodebrains@gmail.com
+
+---
+---
+# Profiles Config=========================
+spring:
+  config:
+    activate:
+      on-profile: qa
+  #  Email Config =========================
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:jcodebrains@gmail.com}
+    password: ${MAIL_PASSWORD:Dk@8899082629}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+---
+---
+# Profiles Config=========================
+spring:
+  config:
+    activate:
+      on-profile: prod
+  #  Email Config =========================
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:jcodebrains@gmail.com}
+    password: ${MAIL_PASSWORD:Dk@8899082629}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
