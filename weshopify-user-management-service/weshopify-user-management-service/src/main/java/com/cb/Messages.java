@@ -24,9 +24,9 @@ public class Messages {
 //    @Qualifier("reportProperties")
 //    private MessageSource reportProperties;
 //
-//    @Autowired
-//    @Qualifier("emailProperties")
-//    private MessageSource emailProperties;
+    @Autowired
+    @Qualifier("emailProperties")
+    private MessageSource emailProperties;
 
     private MessageSourceAccessor errorPropertiesAccessor;
 
@@ -34,7 +34,7 @@ public class Messages {
 
 //    private MessageSourceAccessor reportPropertiesAccessor;
 //
-//    private MessageSourceAccessor emailPropertiesAccessor;
+    private MessageSourceAccessor emailPropertiesAccessor;
 
     @PostConstruct
     private void init() {
@@ -56,8 +56,8 @@ public class Messages {
 //        return reportPropertiesAccessor.getMessage(code);
 //    }
 //
-//    public String getEmailProperty(String code) {
-//        return emailPropertiesAccessor.getMessage(code);
-//    }
+    public String getEmailProperty(String code) {
+        return emailPropertiesAccessor.getMessage(code);
+    }
 
 }

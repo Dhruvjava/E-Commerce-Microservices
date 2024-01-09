@@ -9,7 +9,6 @@ import com.cb.exceptions.UsersException;
 import com.cb.exceptions.UsersNotFoundException;
 import com.cb.users.constants.ErrorCodes;
 import com.cb.users.constants.MessageCodes;
-import com.cb.users.datars.UserProvisioningDataRs;
 import com.cb.users.datars.UsersDataRSs;
 import com.cb.users.datars.UsersDataRs;
 import com.cb.users.entity.Roles;
@@ -24,6 +23,8 @@ import com.cb.users.service.IRolesService;
 import com.cb.users.service.IUsersSerice;
 import com.cb.util.Utils;
 import lombok.extern.slf4j.Slf4j;
+import org.cb.commons.notification.rq.EmailRequest;
+import org.cb.commons.notification.rq.NotificationRq;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -32,6 +33,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -69,9 +71,22 @@ public class UsersServiceImpl implements IUsersSerice {
             provisioning(users);
 
             users = usersRepo.save(users);
-//            Roles roles = rolesRepo.findById(users.getRole().getId()).orElse(null);
-//            users.setRole(roles);
-            UsersRs userRs = UsersMapper.maptoUsers(users, mapper);
+            Optional.of(users).filter(user -> user.getId()>0).ifPresentOrElse(user->{
+                EmailRequest emailRq = EmailRequest.builder()
+                        .email(user.getEmail()).userId(user.getUserid())
+                        .id(user.getId()).build();
+                String contentType =messages.getEmailProperty("notification.email.contentType");
+                String subject = messages.getEmailProperty("notification.email.subject");
+                NotificationRq notificationRq = NotificationRq.builder()
+                        .contentType(contentType).subject(subject)
+                        .to(List.of(emailRq)).build();
+            },()->{
+
+            });
+            if (users.getId() != 0){
+
+            }
+            UsersRs userRs = UsersMapper.maptoUserRs(users, mapper);
             String message = messages.getMessageProperty(MessageCodes.MC_CREATED_SUCCESSFUL);
             return new UsersDataRs(message, userRs);
         } catch (DataIntegrityViolationException ex) {
@@ -130,7 +145,7 @@ public class UsersServiceImpl implements IUsersSerice {
             if (users.getId() != 0 && usersRepo.existsById(users.getId())) {
                 users = usersRepo.save(users);
             }
-            UsersRs rs = UsersMapper.maptoUsers(users, mapper);
+            UsersRs rs = UsersMapper.maptoUserRs(users, mapper);
             String message = messages.getMessageProperty(MessageCodes.MC_UPDATED_SUCCESSFUL);
             return new UsersDataRs(message, rs);
         } catch (Exception e) {
@@ -150,7 +165,7 @@ public class UsersServiceImpl implements IUsersSerice {
                 log.info(errorMessage);
                 return new UsersNotFoundException(ErrorCodes.EC_USER_NOT_FOUND, errorMessage);
             });
-            UsersRs rs = UsersMapper.maptoUsers(users, mapper);
+            UsersRs rs = UsersMapper.maptoUserRs(users, mapper);
             String message = messages.getMessageProperty(MessageCodes.MC_RETRIEVED_SUCCESSFUL);
             return new UsersDataRs(message, rs);
         } catch (Exception e) {
@@ -175,7 +190,7 @@ public class UsersServiceImpl implements IUsersSerice {
                 log.info(errorMessage);
                 return new UsersNotFoundException(ErrorCodes.EC_USER_NOT_FOUND, errorMessage);
             });
-            UsersRs rs = UsersMapper.maptoUsers(users, mapper);
+            UsersRs rs = UsersMapper.maptoUserRs(users, mapper);
             String message = messages.getMessageProperty(MessageCodes.MC_RETRIEVED_SUCCESSFUL);
             return new UsersDataRs(message, rs);
         } catch (Exception e) {
@@ -214,7 +229,7 @@ public class UsersServiceImpl implements IUsersSerice {
             List<Users> users = usersRepo.findAll();
             List<UsersRs> usersRs = new ArrayList<>();
             users.forEach(user -> {
-                UsersRs rs = UsersMapper.maptoUsers(user, mapper);
+                UsersRs rs = UsersMapper.maptoUserRs(user, mapper);
                 if (rs != null) {
                     usersRs.add(rs);
                 }

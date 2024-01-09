@@ -28,7 +28,7 @@ public class UsersMapper {
         }
     }
 
-    public static UsersRs maptoUsers(Users users, ModelMapper mapper) {
+    public static UsersRs maptoUserRs(Users users, ModelMapper mapper) {
         if (log.isDebugEnabled()) {
             log.debug("Executing maptoUsers(Users users, ModelMapper mapper) ->");
         }

@@ -1,16 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="x-apple-disable-message-reformatting" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="color-scheme" content="light dark" />
-    <meta name="supported-color-schemes" content="light dark" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="x-apple-disable-message-reformatting"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="color-scheme" content="light dark"/>
+    <meta name="supported-color-schemes" content="light dark"/>
     <title></title>
     <style type="text/css" rel="stylesheet" media="all">
         /* Base ------------------------------ */
 
         @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,700&display=swap");
+
         body {
             width: 100% !important;
             height: 100%;
@@ -41,6 +43,7 @@
             opacity: 0;
             overflow: hidden;
         }
+
         /* Type ------------------------------ */
 
         body,
@@ -90,6 +93,7 @@
         p.sub {
             font-size: 13px;
         }
+
         /* Utilities ------------------------------ */
 
         .align-right {
@@ -107,6 +111,7 @@
         .u-margin-bottom-none {
             margin-bottom: 0;
         }
+
         /* Buttons ------------------------------ */
 
         .button {
@@ -146,6 +151,7 @@
                 text-align: center !important;
             }
         }
+
         /* Attribute list ------------------------------ */
 
         .attributes {
@@ -160,6 +166,7 @@
         .attributes_item {
             padding: 0;
         }
+
         /* Related Items ------------------------------ */
 
         .related {
@@ -193,6 +200,7 @@
             text-align: center;
             padding: 25px 0 10px;
         }
+
         /* Discount Code ------------------------------ */
 
         .discount {
@@ -214,6 +222,7 @@
             text-align: center;
             font-size: 15px;
         }
+
         /* Social Icons ------------------------------ */
 
         .social {
@@ -230,6 +239,7 @@
             margin: 0 8px 10px 8px;
             padding: 0;
         }
+
         /* Data table ------------------------------ */
 
         .purchase {
@@ -311,6 +321,7 @@
             -premailer-cellpadding: 0;
             -premailer-cellspacing: 0;
         }
+
         /* Masthead ----------------------- */
 
         .email-masthead {
@@ -329,6 +340,7 @@
             text-decoration: none;
             text-shadow: 0 1px 0 white;
         }
+
         /* Body ------------------------------ */
 
         .email-body {
@@ -383,6 +395,7 @@
         .content-cell {
             padding: 45px;
         }
+
         /*Media Queries ------------------------------ */
 
         @media only screen and (max-width: 600px) {
@@ -403,6 +416,7 @@
                 background-color: #333333 !important;
                 color: #FFF !important;
             }
+
             p,
             ul,
             ol,
@@ -414,10 +428,12 @@
             .purchase_item {
                 color: #FFF !important;
             }
+
             .attributes_content,
             .discount {
                 background-color: #222 !important;
             }
+
             .email-masthead_name {
                 text-shadow: none !important;
             }
@@ -430,45 +446,52 @@
     </style>
     <!--[if mso]>
     <style type="text/css">
-        .f-fallback  {
+        .f-fallback {
             font-family: Arial, sans-serif;
         }
     </style>
     <![endif]-->
 </head>
 <body>
-<span class="preheader">Thanks for trying out ${appname}. We’ve pulled together some information and resources to help you get started.</span>
+<span class="preheader">Thanks for trying out CodeBrains. We’ve pulled together some information and resources to help you get started.</span>
 <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
     <tr>
         <td align="center">
             <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                 <tr>
                     <td class="email-masthead">
-                        <a href="${verificationUrl}" class="f-fallback email-masthead_name">
-                            ${appname}
+                        <a href="https://example.com" class="f-fallback email-masthead_name">
+                            [Code Brains]
                         </a>
                     </td>
                 </tr>
                 <!-- Email Body -->
                 <tr>
                     <td class="email-body" width="570" cellpadding="0" cellspacing="0">
-                        <table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
+                        <table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0"
+                               role="presentation">
                             <!-- Body content -->
                             <tr>
                                 <td class="content-cell">
                                     <div class="f-fallback">
-                                        <h1>Welcome, ${username}!</h1>
-                                        <p>Thanks for trying ${appname}. We’re thrilled to have you on board. To get the most out of ${appname}, do this primary next step:</p>
+                                        <h1>Email Verification</h1> <br>
+                                        <h2>Welcome, ${username}!</h2>
+                                        <p>Please click on the following link to verify your email address:</p>
                                         <!-- Action -->
-                                        <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                                        <table class="body-action" align="center" width="100%" cellpadding="0"
+                                               cellspacing="0" role="presentation">
                                             <tr>
                                                 <td align="center">
                                                     <!-- Border based button
                                  https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
-                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0"
+                                                           role="presentation">
                                                         <tr>
                                                             <td align="center">
-                                                                <a href="${verificationUrl}" class="f-fallback button" target="_blank">Do this Next</a>
+                                                                <a href="${action_url}" class="f-fallback button"
+                                                                   target="_blank"
+                                                                   style="width: 230px; font-family: 'Nunito Sans', Arial, Verdana, Helvetica, sans-serif;  font-size: 18px; line-height: 21px; font-weight: 600; text-decoration: none; text-align: center; display: inline-block;cursor: pointer;">Verify
+                                                                    Email</a>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -476,15 +499,17 @@
                                             </tr>
                                         </table>
                                         <p>For reference, here's your login information:</p>
-                                        <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                                        <table class="attributes" width="100%" cellpadding="0" cellspacing="0"
+                                               role="presentation">
                                             <tr>
                                                 <td class="attributes_content">
-                                                    <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                                                    <table width="100%" cellpadding="0" cellspacing="0"
+                                                           role="presentation">
                                                         <tr>
                                                             <td class="attributes_item">
                                     <span class="f-fallback">
-              <strong>Login Page:</strong> ${login_page}
-            </span>
+              <strong>Login Page:</strong> &nbsp; <a href="${login_page}" class="f-fallback button" target="_blank"> Click Here for Login </a>
+            </span><br><br>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -498,38 +523,19 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                        <p>You've started a ${trial_length} day trial. You can upgrade to a paying account or cancel any time.</p>
-                                        <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                                            <tr>
-                                                <td class="attributes_content">
-                                                    <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                                                        <tr>
-                                                            <td class="attributes_item">
-                                    <span class="f-fallback">
-              <strong>Trial Start Date:</strong> ${trial_start_date}
-            </span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="attributes_item">
-                                    <span class="f-fallback">
-              <strong>Trial End Date:</strong> ${trial_end_date}
-            </span>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <p>If you have any questions, feel free to <a href="mailto:${support_email}">email our customer success team</a>. (We're lightning quick at replying.) We also offer <a href="${live_chat_url}">live chat</a> during business hours.</p>
+                                        <p>If you have any questions, feel free to <a href="mailto:{{support_email}}">email
+                                                our customer success team</a>. (We're lightning quick at replying.) We
+                                            also offer <a href="{{live_chat_url}}">live chat</a> during business hours.
+                                        </p>
                                         <p>Thanks,
-                                            <br>${sender} and the ${priductTeam} team</p>
-                                        <p><strong>P.S.</strong> Need immediate help getting started? Check out our <a href="${help_url}">help documentation</a>. Or, just reply to this email, the ${appname} support team is always ready to help!</p>
+                                            <br>${sender_name} and the CodeBrains team</p>
+
                                         <!-- Sub copy -->
                                         <table class="body-sub" role="presentation">
                                             <tr>
                                                 <td>
-                                                    <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
+                                                    <p class="f-fallback sub">If you’re having trouble with the button
+                                                        above, copy and paste the URL below into your web browser.</p>
                                                     <p class="f-fallback sub">${action_url}</p>
                                                 </td>
                                             </tr>
@@ -542,7 +548,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
+                        <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0"
+                               role="presentation">
                             <tr>
                                 <td class="content-cell" align="center">
                                     <p class="f-fallback sub align-center">

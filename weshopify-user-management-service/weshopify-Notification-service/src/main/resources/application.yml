@@ -38,7 +38,23 @@ spring:
 mail:
   from:
     email: jcodebrains@gmail.com
+    name: Dhruv Kumar
 
+# Log Config
+logging:
+  file:
+    name: D:\logs\codebrains\log
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{5} [%file:%line] - %msg%n'
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{20} [%file:%line] - %msg%n'
+  level:
+    root: ERROR
+    org:
+      springframework: ERROR
+    com:
+      quartz: ERROR
+      cb: DEBUG
+    hibernate: ERROR
 ---
 # Profiles Config=========================
 spring:

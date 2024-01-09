@@ -87,13 +87,13 @@ public class WeshopifyUserManagementServiceApplication {
 //        return messageSource;
 //    }
 
-//    @Bean(name = "emailProperties")
-//    public MessageSource emailProperties() {
-//        ReloadableResourceBundleMessageSource messageSource =
-//                new ReloadableResourceBundleMessageSource();
-//        messageSource.setBasenames("classpath:/bundles/email_templates");
-//        // messageSource.setCacheSeconds(10); //reload messages every 10 seconds
-//        return messageSource;
-//    }
+    @Bean(name = "emailProperties")
+    public MessageSource emailProperties() {
+        ReloadableResourceBundleMessageSource messageSource =
+                new ReloadableResourceBundleMessageSource();
+        messageSource.setBasenames("classpath:/bundles/email_templates");
+        // messageSource.setCacheSeconds(10); //reload messages every 10 seconds
+        return messageSource;
+    }
 
 }

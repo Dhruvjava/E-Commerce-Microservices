@@ -1,8 +1,8 @@
 package com.cb.service;
 
-import com.cb.rq.NotificationRq;
 import freemarker.template.TemplateException;
 import jakarta.mail.MessagingException;
+import org.cb.commons.notification.rq.NotificationRq;
 
 import java.io.IOException;
 
