@@ -1,6 +1,6 @@
 package com.cb;
 
-import com.cb.service.NotificationService;
+import com.cb.notification.service.INotificationService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
@@ -10,9 +10,7 @@ import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
-import org.cb.commons.notification.rq.NotificationRq;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
@@ -54,7 +52,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 public class WeshopifyNotificationServiceApplication{
 
     @Autowired
-    private NotificationService service;
+    private INotificationService service;
 
     public static void main(String[] args) {
         SpringApplication.run(WeshopifyNotificationServiceApplication.class, args);

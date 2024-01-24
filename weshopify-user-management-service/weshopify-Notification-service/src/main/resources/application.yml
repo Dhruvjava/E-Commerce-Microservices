@@ -39,7 +39,11 @@ mail:
   from:
     email: jcodebrains@gmail.com
     name: Dhruv Kumar
-
+user:
+  verify:
+    url: http://localhost:8062/dev/api/users/USER_ID/verify
+  login:
+    url: #
 # Log Config
 logging:
   file:
@@ -77,6 +81,7 @@ spring:
 mail:
   from:
     email: jcodebrains@gmail.com
+    name: CodeBrains Notification
 
 ---
 # Profiles Config=========================
@@ -100,4 +105,5 @@ spring:
 mail:
   from:
     email: jcodebrains@gmail.com
+    name: CodeBrains Notification
 

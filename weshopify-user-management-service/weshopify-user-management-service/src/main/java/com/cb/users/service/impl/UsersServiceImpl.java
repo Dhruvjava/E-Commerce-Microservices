@@ -23,8 +23,8 @@ import com.cb.users.service.IRolesService;
 import com.cb.users.service.IUsersSerice;
 import com.cb.util.Utils;
 import lombok.extern.slf4j.Slf4j;
-import org.cb.commons.notification.rq.EmailRequest;
-import org.cb.commons.notification.rq.NotificationRq;
+import org.cb.commons.email.rq.NotificationRq;
+import org.cb.commons.email.rs.EmailNameRs;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -33,7 +33,6 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -71,19 +70,20 @@ public class UsersServiceImpl implements IUsersSerice {
             provisioning(users);
 
             users = usersRepo.save(users);
-            Optional.of(users).filter(user -> user.getId()>0).ifPresentOrElse(user->{
-                EmailRequest emailRq = EmailRequest.builder()
-                        .email(user.getEmail()).userId(user.getUserid())
-                        .id(user.getId()).build();
-                String contentType =messages.getEmailProperty("notification.email.contentType");
+            Optional.of(users).filter(user -> user.getId() > 0).ifPresentOrElse(user -> {
+//                NotificationRq emailRq = NotificationRq.builder()
+//                                .to(new EmailNameRs(user.getEmail(),
+//                                                user.getFirstname() + " " + user.getLastname()))
+//                                .subject("Email Verification").build();
                 String subject = messages.getEmailProperty("notification.email.subject");
                 NotificationRq notificationRq = NotificationRq.builder()
-                        .contentType(contentType).subject(subject)
-                        .to(List.of(emailRq)).build();
-            },()->{
+                                .to(new EmailNameRs(user.getEmail(),
+                                                user.getFirstname() + " " + user.getLastname()))
+                                .subject(subject).build();
+            }, () -> {
 
             });
-            if (users.getId() != 0){
+            if (users.getId() != 0) {
 
             }
             UsersRs userRs = UsersMapper.maptoUserRs(users, mapper);
@@ -96,7 +96,8 @@ public class UsersServiceImpl implements IUsersSerice {
             List<ErrorRs> errors = new ArrayList<>();
             if (ex.getMessage().contains(rq.getEmail())) {
                 ErrorRs error = new ErrorRs();
-                String errorMessages = messages.getErrorProperty(ErrorCodes.EC_USER_EMAIL_ALREADY_EXISTS);
+                String errorMessages =
+                                messages.getErrorProperty(ErrorCodes.EC_USER_EMAIL_ALREADY_EXISTS);
                 log.info(errorMessages);
                 error.setCode(ErrorCodes.EC_USER_EMAIL_ALREADY_EXISTS);
                 error.setMessage(errorMessages);
@@ -104,7 +105,8 @@ public class UsersServiceImpl implements IUsersSerice {
             }
             if (ex.getMessage().contains(rq.getUserid())) {
                 ErrorRs error = new ErrorRs();
-                String errorMessages = messages.getErrorProperty(ErrorCodes.EC_USER_USERID_ALREADY_EXISTS);
+                String errorMessages =
+                                messages.getErrorProperty(ErrorCodes.EC_USER_USERID_ALREADY_EXISTS);
                 log.info(errorMessages);
                 error.setCode(ErrorCodes.EC_USER_USERID_ALREADY_EXISTS);
                 error.setMessage(errorMessages);
@@ -112,13 +114,15 @@ public class UsersServiceImpl implements IUsersSerice {
             }
             if (ex.getMessage().contains(rq.getMobile())) {
                 ErrorRs error = new ErrorRs();
-                String errorMessages = messages.getErrorProperty(ErrorCodes.EC_USER_MOBILE_ALREADY_EXISTS);
+                String errorMessages =
+                                messages.getErrorProperty(ErrorCodes.EC_USER_MOBILE_ALREADY_EXISTS);
                 log.info(errorMessages);
                 error.setCode(ErrorCodes.EC_USER_MOBILE_ALREADY_EXISTS);
                 error.setMessage(errorMessages);
                 errors.add(error);
             }
-            throw new UsersDuplicateFieldVoilationException(ErrorCodes.EC_INVALID_INPUT, errorMessage, errors);
+            throw new UsersDuplicateFieldVoilationException(ErrorCodes.EC_INVALID_INPUT,
+                            errorMessage, errors);
         } catch (Exception e) {
             log.error("Exception in createUsers(UsersRq rq) -> {0}", e);
             throw e;
@@ -210,7 +214,8 @@ public class UsersServiceImpl implements IUsersSerice {
             } else {
                 String errorMessage = messages.getErrorProperty(ErrorCodes.EC_USER_NOT_FOUND);
                 log.info(errorMessage + " with id : " + id);
-                throw new UsersException(ErrorCodes.EC_USER_NOT_FOUND, errorMessage + " with id : " + id);
+                throw new UsersException(ErrorCodes.EC_USER_NOT_FOUND,
+                                errorMessage + " with id : " + id);
             }
             String message = messages.getMessageProperty(MessageCodes.MC_DELETED_SUCCESSFUL);
             return new UsersDataRs(message);
@@ -258,23 +263,25 @@ public class UsersServiceImpl implements IUsersSerice {
             log.debug("Executing provisioning(int roleId) ->");
         }
         try {
-            Roles roles = Optional.of(userBO.getRole()).map(role -> rolesRepo.findById(role.getId())).get()
-                    .orElseThrow(() -> {
-                        String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
-                        log.warn(errorMessage);
-                        return new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
-                    });
-//            Roles role = null;
-//            if (rolesOpt.isPresent()) {
-//                role = rolesOpt.get();
-//            } else {
-//                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
-//                log.warn(errorMessage);
-//                throw new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
-//            }
+            Roles roles = Optional.of(userBO.getRole())
+                            .map(role -> rolesRepo.findById(role.getId())).get().orElseThrow(() -> {
+                                String errorMessage = messages.getErrorProperty(
+                                                ErrorCodes.EC_ROLE_NOT_FOUND);
+                                log.warn(errorMessage);
+                                return new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND,
+                                                errorMessage);
+                            });
+            //            Roles role = null;
+            //            if (rolesOpt.isPresent()) {
+            //                role = rolesOpt.get();
+            //            } else {
+            //                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
+            //                log.warn(errorMessage);
+            //                throw new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
+            //            }
             userBO.setRole(roles);
-//            String message = messages.getMessageProperty(MessageCodes.MC_USER_WITH_ROLE_PROVISIONING_SUCCESSFUL);
-//            return new UserProvisioningDataRs(message, userBO);
+            //            String message = messages.getMessageProperty(MessageCodes.MC_USER_WITH_ROLE_PROVISIONING_SUCCESSFUL);
+            //            return new UserProvisioningDataRs(message, userBO);
         } catch (Exception e) {
             log.error("Exception in provisioning(int roleId) -> {0}", e);
             throw e;
@@ -287,14 +294,17 @@ public class UsersServiceImpl implements IUsersSerice {
             log.debug("Executing deProvisioning(int roleId) ->");
         }
         try {
-            Optional.of(userBO.getRole()).map(role -> rolesRepo.findById(role.getId())).orElseThrow(() -> {
-                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
-                log.warn(errorMessage);
-                return new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
-            });
+            Optional.of(userBO.getRole()).map(role -> rolesRepo.findById(role.getId()))
+                            .orElseThrow(() -> {
+                                String errorMessage = messages.getErrorProperty(
+                                                ErrorCodes.EC_ROLE_NOT_FOUND);
+                                log.warn(errorMessage);
+                                return new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND,
+                                                errorMessage);
+                            });
             userBO.setRole(null);
-//            String message = messages.getMessageProperty(MessageCodes.MC_USER_WITH_ROLE_PROVISIONING_SUCCESSFUL);
-//            return new UserProvisioningDataRs(message, userBO);
+            //            String message = messages.getMessageProperty(MessageCodes.MC_USER_WITH_ROLE_PROVISIONING_SUCCESSFUL);
+            //            return new UserProvisioningDataRs(message, userBO);
         } catch (Exception e) {
             log.error("Exception in deProvisioning(int roleId) -> {0}", e);
             throw e;

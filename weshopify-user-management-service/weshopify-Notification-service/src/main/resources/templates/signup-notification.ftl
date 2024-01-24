@@ -528,7 +528,7 @@
                                             also offer <a href="{{live_chat_url}}">live chat</a> during business hours.
                                         </p>
                                         <p>Thanks,
-                                            <br>${sender_name} and the CodeBrains team</p>
+                                            <br>CodeBrains team</p>
 
                                         <!-- Sub copy -->
                                         <table class="body-sub" role="presentation">

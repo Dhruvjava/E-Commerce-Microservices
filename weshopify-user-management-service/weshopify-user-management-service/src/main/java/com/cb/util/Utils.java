@@ -5,7 +5,10 @@ import com.cb.base.rs.ErrorRs;
 import com.cb.constants.StringConstants;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,20 +17,108 @@ public class Utils {
 
     private static final Pattern EMAIL_PATTERN_REGIX = Pattern.compile("^([A-Za-z0-9_.-]+)@([\\da-z\\.-]+)\\.([a-z]{2,})$");
 
+    public static boolean isEmpty(String str) {
+        return (((null == str) || (str.trim().isEmpty())) ? true : false);
+    }
+
+    public static boolean isEmpty(String str, String ignoreStr) {
+        return (((null == str) || (str.trim().isEmpty())) || str.equals(ignoreStr) ? true : false);
+    }
+
+    public static boolean isNotEmpty(String str) {
+        return !(isEmpty(str));
+    }
+
+    public static boolean isEmpty(String[] strings) {
+        return (((null == strings) || (0 == strings.length)) ? true : false);
+    }
+
+    public static boolean isNotEmpty(String[] strings) {
+        return !(isEmpty(strings));
+    }
+
+    public static boolean isEmpty(byte[] bytes) {
+        return (((null == bytes) || (0 == bytes.length)) ? true : false);
+    }
+
+    public static boolean isNotEmpty(byte[] bytes) {
+        return !(isEmpty(bytes));
+    }
+
+    @SuppressWarnings("rawtypes")
     public static boolean isEmpty(List list) {
-        return null == list || list.isEmpty();
+        return (((null == list) || (list.isEmpty())) ? true : false);
     }
 
-    public static boolean isEmpty(String string) {
-        return null == string || string.trim().isEmpty();
-    }
-
-    public static boolean isNotEmpty(String string) {
-        return !isEmpty(string);
-    }
-
+    @SuppressWarnings("rawtypes")
     public static boolean isNotEmpty(List list) {
-        return !isEmpty(list);
+        return !(isEmpty(list));
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static boolean isEmpty(ArrayList arrList) {
+        return (((null == arrList) || (arrList.isEmpty())) ? true : false);
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static boolean isNotEmpty(ArrayList arrList) {
+        return !(isEmpty(arrList));
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static boolean isEmpty(Map map) {
+        return (((null == map) || (map.isEmpty())) ? true : false);
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static boolean isNotEmpty(Map map) {
+        return !(isEmpty(map));
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static boolean isEmpty(Set set) {
+        return (((null == set) || (set.isEmpty())) ? true : false);
+    }
+
+    public static boolean isEmpty(Object[] objs) {
+        return (((null == objs) || (0 == objs.length)) ? true : false);
+    }
+
+    public static boolean isNotEmpty(Object[] objs) {
+        return !(isEmpty(objs));
+    }
+
+    public static boolean isEmpty(int[] values) {
+        return (((null == values) || (0 == values.length)) ? true : false);
+    }
+
+    public static boolean isNotEmpty(int[] values) {
+        return !(isEmpty(values));
+    }
+
+    public static boolean isEmpty(long[] values) {
+        return (((null == values) || (0 == values.length)) ? true : false);
+    }
+
+    public static boolean isNotEmpty(long[] values) {
+        return !(isEmpty(values));
+    }
+
+    public static boolean isEmpty(Double value) {
+        return (((null == value) || (Double.isNaN(value))) ? true : false);
+    }
+
+    public static boolean isNullOrZero(Integer value) {
+        return (((null == value) || (value == 0)) ? true : false);
+    }
+
+    public static boolean isPositive(Integer value) {
+        return (((null != value) && (value > 0)) ? true : false);
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static boolean isNotEmpty(Set set) {
+        return !(isEmpty(set));
     }
 
     public static ErrorRs populateErrorRSs(String codes, Messages message) {
