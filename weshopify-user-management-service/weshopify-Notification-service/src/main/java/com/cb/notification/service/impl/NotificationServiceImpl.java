@@ -48,7 +48,7 @@ public class NotificationServiceImpl implements INotificationService {
 
 
     @Override
-    public BaseDataRs sendNotification(NotificationRq rq) {
+    public BaseDataRs sendNotification(NotificationRq rq) throws TemplateException, IOException {
         if (log.isDebugEnabled()) {
             log.debug("Executing sendNotification(NotificationRq) -> ");
         }
@@ -71,9 +71,7 @@ public class NotificationServiceImpl implements INotificationService {
                 emailRq.setMessageText(html);
                 try {
                     emailService.sendHtmlEmail(emailRq);
-                } catch (MessagingException e) {
-                    throw new RuntimeException(e);
-                } catch (UnsupportedEncodingException e) {
+                } catch (MessagingException | UnsupportedEncodingException e) {
                     throw new RuntimeException(e);
                 }
             }, () -> {
@@ -85,13 +83,7 @@ public class NotificationServiceImpl implements INotificationService {
             String message = messages.getMessageProperty(MessageCodes.MC_EMAIL_SENT_SUCCESSFULLY);
             return new BaseDataRs(message);
         } catch (Exception e) {
-            try {
                 throw e;
-            } catch (TemplateException ex) {
-                throw new RuntimeException(ex);
-            } catch (IOException  ex) {
-                throw new RuntimeException(ex);
-            }
         }
     }
 }
