@@ -1,4 +1,0 @@
-notification:
-  email:
-    subject: Verify Email
-    contentType: text/html

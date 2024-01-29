@@ -3,10 +3,8 @@ package com.cb.users.service.impl;
 import com.cb.Messages;
 import com.cb.base.data.rs.BaseDataRs;
 import com.cb.base.rs.ErrorRs;
-import com.cb.exceptions.RolesNotFoundException;
-import com.cb.exceptions.UsersDuplicateFieldVoilationException;
-import com.cb.exceptions.UsersException;
-import com.cb.exceptions.UsersNotFoundException;
+import com.cb.client.NotificationsClient;
+import com.cb.exceptions.*;
 import com.cb.users.constants.ErrorCodes;
 import com.cb.users.constants.MessageCodes;
 import com.cb.users.datars.UsersDataRSs;
@@ -28,6 +26,8 @@ import org.cb.commons.email.rs.EmailNameRs;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -54,6 +54,9 @@ public class UsersServiceImpl implements IUsersSerice {
     @Autowired
     private RolesRepo rolesRepo;
 
+    @Autowired
+    private NotificationsClient notificationsClient;
+
     @Override
     public BaseDataRs createUsers(UsersRq rq) {
         if (log.isDebugEnabled()) {
@@ -70,22 +73,28 @@ public class UsersServiceImpl implements IUsersSerice {
             provisioning(users);
 
             users = usersRepo.save(users);
-            Optional.of(users).filter(user -> user.getId() > 0).ifPresentOrElse(user -> {
-//                NotificationRq emailRq = NotificationRq.builder()
-//                                .to(new EmailNameRs(user.getEmail(),
-//                                                user.getFirstname() + " " + user.getLastname()))
-//                                .subject("Email Verification").build();
+            Optional.of(users).filter(user -> user.getId() > 0).ifPresent(user -> {
                 String subject = messages.getEmailProperty("notification.email.subject");
                 NotificationRq notificationRq = NotificationRq.builder()
                                 .to(new EmailNameRs(user.getEmail(),
                                                 user.getFirstname() + " " + user.getLastname()))
+                                .username(user.getUserid())
                                 .subject(subject).build();
-            }, () -> {
-
+                try {
+                    ResponseEntity<BaseDataRs> emailResponse =
+                                    notificationsClient.sendNotification(notificationRq);
+                    Optional.of(emailResponse.getStatusCode())
+                                    .filter(HttpStatusCode::is2xxSuccessful).ifPresent(success -> {
+                                        log.info("Notifications Sent Successfully");
+                                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    String errorMessage = messages.getErrorProperty(
+                                    ErrorCodes.EC_USER_EMAIL_VERIFY_FAILED_TO_SEND);
+                    throw new NotificationsException(ErrorCodes.EC_USER_EMAIL_VERIFY_FAILED_TO_SEND,
+                                    errorMessage);
+                }
             });
-            if (users.getId() != 0) {
-
-            }
             UsersRs userRs = UsersMapper.maptoUserRs(users, mapper);
             String message = messages.getMessageProperty(MessageCodes.MC_CREATED_SUCCESSFUL);
             return new UsersDataRs(message, userRs);

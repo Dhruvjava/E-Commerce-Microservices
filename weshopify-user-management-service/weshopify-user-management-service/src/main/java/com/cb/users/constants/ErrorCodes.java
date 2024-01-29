@@ -203,4 +203,6 @@ public class ErrorCodes {
 
     public static final String EC_USER_NOT_FOUND = "EC_USER_NOT_FOUND";
 
+    public static final String EC_USER_EMAIL_VERIFY_FAILED_TO_SEND = "EC_USER_EMAIL_VERIFY_FAILED_TO_SEND";
+
 }

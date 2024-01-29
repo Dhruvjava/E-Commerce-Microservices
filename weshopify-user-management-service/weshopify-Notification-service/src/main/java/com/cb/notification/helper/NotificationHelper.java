@@ -54,8 +54,7 @@ public class NotificationHelper {
         try {
             String templateName = messages.getEmailProperty("email.signup.template.name");
             Template template = templateConfig.getTemplate(templateName);
-//            return FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
-            return null;
+            return FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
         } catch (Exception e) {
             log.error("Exception in prepareVerifyEmailTempate(Messages, Map<String, Object>) -> ",
                             e);

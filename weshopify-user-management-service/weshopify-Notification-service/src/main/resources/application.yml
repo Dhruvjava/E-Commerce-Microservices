@@ -59,6 +59,13 @@ logging:
       quartz: ERROR
       cb: DEBUG
     hibernate: ERROR
+#Eureka Config
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
 ---
 # Profiles Config=========================
 spring:
@@ -82,7 +89,13 @@ mail:
   from:
     email: jcodebrains@gmail.com
     name: CodeBrains Notification
-
+#Eureka Config
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
 ---
 # Profiles Config=========================
 spring:
@@ -107,3 +120,10 @@ mail:
     email: jcodebrains@gmail.com
     name: CodeBrains Notification
 
+#Eureka Config
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka

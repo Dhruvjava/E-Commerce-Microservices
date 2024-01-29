@@ -41,7 +41,7 @@ public class Messages {
         errorPropertiesAccessor = new MessageSourceAccessor(errorProperties, Locale.ENGLISH);
         messagePropertiesAccessor = new MessageSourceAccessor(messageProperties, Locale.ENGLISH);
 //        reportPropertiesAccessor = new MessageSourceAccessor(reportProperties, Locale.ENGLISH);
-//        emailPropertiesAccessor = new MessageSourceAccessor(emailProperties, Locale.ENGLISH);
+        emailPropertiesAccessor = new MessageSourceAccessor(emailProperties, Locale.ENGLISH);
     }
 
     public String getErrorProperty(String code) {

@@ -9,6 +9,6 @@ import java.io.IOException;
 
 public interface INotificationService {
 
-    public BaseDataRs sendNotification(NotificationRq rq) throws TemplateException, IOException;
+    public BaseDataRs sendNotification(NotificationRq rq);
 
 }

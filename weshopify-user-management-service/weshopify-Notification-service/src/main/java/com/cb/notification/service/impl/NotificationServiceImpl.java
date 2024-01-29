@@ -48,7 +48,7 @@ public class NotificationServiceImpl implements INotificationService {
 
 
     @Override
-    public BaseDataRs sendNotification(NotificationRq rq) throws TemplateException, IOException {
+    public BaseDataRs sendNotification(NotificationRq rq){
         if (log.isDebugEnabled()) {
             log.debug("Executing sendNotification(NotificationRq) -> ");
         }
@@ -64,7 +64,7 @@ public class NotificationServiceImpl implements INotificationService {
             model.put("login_page", LOGIN_URL);
             String html = NotificationHelper.prepareVerifyEmailTempate(templateConfig, messages,
                             model);
-            Optional.ofNullable(html).filter(Utils::isEmpty).ifPresentOrElse(htm -> {
+            Optional.ofNullable(html).filter(Utils::isNotEmpty).ifPresentOrElse(htm -> {
                 EmailRq emailRq = new EmailRq();
                 emailRq.setSubject(rq.getSubject());
                 emailRq.setToEmailAddr(rq.getTo());
@@ -83,7 +83,11 @@ public class NotificationServiceImpl implements INotificationService {
             String message = messages.getMessageProperty(MessageCodes.MC_EMAIL_SENT_SUCCESSFULLY);
             return new BaseDataRs(message);
         } catch (Exception e) {
+            try {
                 throw e;
+            } catch (TemplateException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }
