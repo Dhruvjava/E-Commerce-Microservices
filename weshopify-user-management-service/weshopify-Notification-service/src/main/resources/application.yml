@@ -1,7 +1,7 @@
 # Profiles Active ========================
 spring:
   profiles:
-    active: ${DB_PROFILE:dev}
+    active: ${APP_PROFILE:dev}
   # APP NAME ===============================
   application:
     name: ${APP_NAME:WESHOPIFY-NOTIFICATION-SVC}
@@ -37,17 +37,17 @@ spring:
     allow-circular-references: true
 mail:
   from:
-    email: jcodebrains@gmail.com
-    name: Dhruv Kumar
+    email: ${MAIL_FROM_EMAIL:jcodebrains@gmail.com}
+    name: ${MAIL_FROM_NAME:Dhruv Kumar}
 user:
   verify:
-    url: http://localhost:8062/dev/api/users/USER_ID/verify
+    url: ${VERIFY_USER_LINK:http://localhost:8062/dev/api/users/USER_ID/verify}
   login:
-    url: #
+    url: ${LOGIN_USER_LINK:#}
 # Log Config
 logging:
   file:
-    name: D:\logs\codebrains\log
+    name: ${LOG_FILE_PATH:D:\logs\codebrains\log}
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{5} [%file:%line] - %msg%n'
     file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{20} [%file:%line] - %msg%n'
@@ -65,7 +65,7 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
 ---
 # Profiles Config=========================
 spring:
