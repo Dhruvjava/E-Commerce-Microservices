@@ -1,2 +1,10 @@
-package org.cb.authn.service;public interface IAuthenticationService {
+package org.cb.authn.service;
+
+import org.cb.authn.rq.AuthenticationRq;
+import org.cb.base.datars.BaseDataRs;
+
+public interface IAuthenticationService {
+
+    public BaseDataRs token(AuthenticationRq rq);
+
 }
