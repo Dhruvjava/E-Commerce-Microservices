@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.servers.Server;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -48,6 +50,8 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
         type = SecuritySchemeType.HTTP,
         in = SecuritySchemeIn.HEADER
 )
+@EnableDiscoveryClient
+@EnableFeignClients
 public class WeshopifyUserManagementServiceApplication {
 
     public static void main(String[] args) {
@@ -87,13 +91,13 @@ public class WeshopifyUserManagementServiceApplication {
 //        return messageSource;
 //    }
 
-//    @Bean(name = "emailProperties")
-//    public MessageSource emailProperties() {
-//        ReloadableResourceBundleMessageSource messageSource =
-//                new ReloadableResourceBundleMessageSource();
-//        messageSource.setBasenames("classpath:/bundles/email_templates");
-//        // messageSource.setCacheSeconds(10); //reload messages every 10 seconds
-//        return messageSource;
-//    }
+    @Bean(name = "emailProperties")
+    public MessageSource emailProperties() {
+        ReloadableResourceBundleMessageSource messageSource =
+                new ReloadableResourceBundleMessageSource();
+        messageSource.setBasenames("classpath:/bundles/email_templates");
+        // messageSource.setCacheSeconds(10); //reload messages every 10 seconds
+        return messageSource;
+    }
 
 }

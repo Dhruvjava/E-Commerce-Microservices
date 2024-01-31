@@ -1,0 +1,15 @@
+#Server Port Config
+server:
+  port: 8761
+
+#App Name
+spring:
+  application:
+    name: WESHOPIFY-SERVICE-REGISTRY
+
+
+#EUREKA CONFIG
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false

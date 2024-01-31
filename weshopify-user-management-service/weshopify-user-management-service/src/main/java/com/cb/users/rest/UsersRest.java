@@ -131,4 +131,18 @@ public class UsersRest {
         }
     }
 
+    @GetMapping("/{id}/verify")
+    @Operation(summary = "UNLOCK USERS BY ID", description = "Unlock Weshopify Users By Id")
+    public ResponseEntity<BaseDataRs> verifyUser(@PathVariable int id) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing RESTFull Services [ GET : /api/users] ->");
+        }
+        try {
+            return ResponseEntity.ok(usersSerice.unlockUser(id));
+        } catch (Exception e) {
+            log.error("Exception in RESTFull Services [ GET : /api/users] -> {0}", e);
+            throw e;
+        }
+    }
+
 }

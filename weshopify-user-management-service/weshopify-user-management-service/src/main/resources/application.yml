@@ -51,6 +51,13 @@ spring:
 #          auth: true
 #          starttls:
 #            enable: true
+#Eureka Config
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
 
 ---
 #QA Profile
@@ -73,4 +80,12 @@ spring:
   config:
     activate:
       on-profile: qa
+
+#Eureka Config
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
 ---
