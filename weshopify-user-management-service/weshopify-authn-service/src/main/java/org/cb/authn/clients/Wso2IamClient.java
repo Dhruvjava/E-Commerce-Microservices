@@ -26,39 +26,43 @@ import java.util.Base64;
 public class Wso2IamClient {
 
     private final RestTemplate restTemplate;
+
     private final ObjectMapper objectMapper;
+
     @Value("${iam.wso2.client-id}")
     private String clientId;
-    @Value("${iam.wso2.client-secrete}}")
+    @Value("${iam.wso2.client-secrete}")
     private String clientSecrete;
     @Value("${iam.wso2.scope}")
     private String scope;
     @Value("${iam.wso2.grant-type}")
     private String grantType;
-    @Value("${iam.wso2.base-uri}")
-    private String baseUri;
+    @Value("${iam.wso2.token_uri}")
+    private String tokenUri;
 
     public Wso2TokenRs getAuthToekn(String username, String password)
                     throws JsonProcessingException {
-        var wso2TokenRq =
+        Wso2TokenRq wso2TokenRq =
                         Wso2TokenRq.builder().grant_type(grantType).scope(scope).username(username)
                                         .password(password).build();
-        byte[] encodedCreds =
-                        Base64.getEncoder().encode((clientId + ":" + clientSecrete).getBytes());
-        String payload = objectMapper.writeValueAsString(wso2TokenRq);
-        System.out.println("Authentication data : "+payload);
+        String encodedCreds = Base64.getEncoder()
+                        .encodeToString((clientId + ":" + clientSecrete).getBytes());
+        log.debug("encodedCreds value : Basic " + encodedCreds);
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
-        headers.add(HttpHeaders.AUTHORIZATION, "Basic " + new String(encodedCreds));
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        headers.add(HttpHeaders.AUTHORIZATION, "Basic " + encodedCreds);
+        String payload = objectMapper.writeValueAsString(wso2TokenRq);
+        System.out.println("Authentication data : " + payload);
         HttpEntity<String> entity = new HttpEntity<>(payload, headers);
-        String tokenUri = baseUri + "/oauth2/token";
+        log.debug("Ignoring ssll certificates : ->");
         ignoreCertificates();
+        log.debug("token uri: " + tokenUri);
         ResponseEntity<Wso2TokenRs> wso2TokenRs =
-                        restTemplate.postForEntity(tokenUri, entity, Wso2TokenRs.class);
+                        restTemplate.exchange(tokenUri, HttpMethod.POST, entity, Wso2TokenRs.class);
         Wso2TokenRs respone = null;
-        if (wso2TokenRs != null && wso2TokenRs.getStatusCode().value() == HttpStatus.OK.value()) {
+        if (wso2TokenRs.getStatusCode().value() == HttpStatus.OK.value()) {
             respone = wso2TokenRs.getBody();
-            log.info("Response data is :\t" + respone);
+            log.info("Response data is :\t" + wso2TokenRs.getBody());
         }
         return respone;
     }

@@ -50,6 +50,7 @@ iam:
     scope: ${IAM_SCOPE:openid}
     grant-type: ${IAM_GRANT_TYPE:password}
     base-uri: https://${IAM_HOST:localhost}:${IAM_PORT:9443}
+    token_uri: ${iam.wso2.base-uri}/oauth2/token
 
 ---
 #Profile Config
