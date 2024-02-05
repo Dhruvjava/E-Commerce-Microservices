@@ -40,8 +40,7 @@ public class Wso2IamClient {
     @Value("${iam.wso2.token_uri}")
     private String tokenUri;
 
-    public Wso2TokenRs getAuthToekn(String username, String password)
-                    throws JsonProcessingException {
+    public Wso2TokenRs getAuthToekn(String username, String password) {
         Wso2TokenRq wso2TokenRq =
                         Wso2TokenRq.builder().grant_type(grantType).scope(scope).username(username)
                                         .password(password).build();
@@ -51,7 +50,12 @@ public class Wso2IamClient {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         headers.add(HttpHeaders.AUTHORIZATION, "Basic " + encodedCreds);
-        String payload = objectMapper.writeValueAsString(wso2TokenRq);
+        String payload = null;
+        try {
+            payload = objectMapper.writeValueAsString(wso2TokenRq);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println("Authentication data : " + payload);
         HttpEntity<String> entity = new HttpEntity<>(payload, headers);
         log.debug("Ignoring ssll certificates : ->");

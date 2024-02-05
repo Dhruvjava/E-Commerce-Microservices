@@ -1,59 +1,30 @@
 package org.cb.utils;
 
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import lombok.extern.slf4j.Slf4j;
+import org.cb.base.constants.IntegerConstants;
+import org.cb.base.constants.StringConstants;
+
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
-import org.springframework.web.multipart.MultipartFile;
-
-import com.dt.bo.common.FieldMinBO;
-import com.dt.constants.IntegerConstants;
-import com.dt.constants.StringConstants;
-import com.dt.etd.constants.ErrorCodes;
-import com.dt.vm.common.ErrorRs;
-import com.dt.vm.core.BaseErrorRs;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Girish
- *
  */
 @Slf4j
 public class Utils implements Serializable {
 
-    private static final long serialVersionUID = -9058103104198899675L;
-
     public static final String REGEX_UNSIGNED_DECIMAL = "^(\\d*\\.?[0-9]\\d*)$";
-
     public static final String REGEX_DECIMAL = "^([+-]?\\d*\\.?[0-9]\\d*)$";
-
     public static final String REGEX_NUMBER = "^(\\d*)$";
-
     public static final String REGEX_NUMBER_WITH_NEGETIVE = "^([+-]?\\d*)$";
-
     public static final String REGEX_NUMBER_ALPHABETS = "^[a-zA-Z0-9]*$";
-
     public static final String REGEX_ALPHABETS = "^[a-zA-Z]*$";
-
     public static final String REGEX_PAN_NUM = "[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}";
-
     static final String ATTACHMENT_NAME_REPLACE_REGEXP = "[^a-zA-Z0-9\\.\\(\\)\\s\\#\\$\\&]+";
+    private static final long serialVersionUID = -9058103104198899675L;
 
     public static String getValidString(String str) {
         return ((null == str) ? StringConstants.EMPTY : str.trim());
@@ -286,7 +257,7 @@ public class Utils implements Serializable {
 
     /**
      * To check whether the items in the lists are same or not.(case sensitive)
-     * 
+     *
      * @param list1 - Should not be null, can be empty
      * @param list2 - Should not be null, can be empty
      * @return
@@ -312,7 +283,7 @@ public class Utils implements Serializable {
 
     /**
      * To check whether the items in the lists are same (With Order)or not.(case sensitive)
-     * 
+     *
      * @param list1 - Should not be null, can be empty
      * @param list2 - Should not be null, can be empty
      * @return
@@ -518,55 +489,6 @@ public class Utils implements Serializable {
         }
     }
 
-    public static List<FieldMinBO> getKeyValueBOs(Object obj, List<String> excludeFields) {
-
-        if (log.isDebugEnabled()) {
-            log.debug("Executing getKeyValueBOs(Object, ExcludeFields) ->");
-        }
-        try {
-            if (obj == null) {
-                return Collections.emptyList();
-            }
-            Class<?> cls = obj.getClass();
-            BeanInfo beanInfo = Introspector.getBeanInfo(cls);
-            if (beanInfo == null || Utils.isEmpty(beanInfo.getPropertyDescriptors())) {
-                return Collections.emptyList();
-            }
-            List<FieldMinBO> bos = new ArrayList<FieldMinBO>();
-            for (PropertyDescriptor pd : beanInfo.getPropertyDescriptors()) {
-                if (Utils.isNotEmpty(excludeFields) && excludeFields.contains(pd.getName())) {
-                    continue;
-                }
-                FieldMinBO bo = new FieldMinBO();
-                bo.setKey(pd.getName());
-                String valueStr = StringConstants.EMPTY;
-                Object value = pd.getReadMethod().invoke(obj);
-                if (value != null) {
-                    if (value instanceof String) {
-                        valueStr = value.toString();
-                    } else if (value instanceof Integer) {
-                        valueStr = value.toString();
-                    } else if (value instanceof Double) {
-                        valueStr = value.toString();
-                    } else if (value instanceof LocalDateTime) {
-                        valueStr = LocalDateTimeUtils.convertLdtToDateString((LocalDateTime) value);
-                    } else if (value instanceof LocalDate) {
-                        valueStr = LocalDateTimeUtils.convertLdToDateString((LocalDate) value,
-                                        LocalDateTimeUtils.ddDotMMDotyyyy);
-                    } else {
-                        valueStr = value.toString();
-                    }
-                }
-                bo.setValue(valueStr);
-                bos.add(bo);
-            }
-            return bos;
-        } catch (Exception e) {
-            log.debug("Exception in  getKeyValueBOs(Object, ExcludeFields) -> " + e);
-            return Collections.emptyList();
-        }
-    }
-
     public static Double parseToDouble(String str, String ignoreStr) throws Exception {
 
         if (log.isDebugEnabled()) {
@@ -721,58 +643,6 @@ public class Utils implements Serializable {
         }
     }
 
-    public static String getErrorsDesc(BaseErrorRs rs) {
-        if (rs == null || Utils.isEmpty(rs.getErrors())) {
-            return StringConstants.EMPTY;
-        }
-        List<String> errorMessages = rs.getErrors().stream().map(ErrorRs::getMessage)
-                        .collect(Collectors.toList());
-        if (Utils.isEmpty(errorMessages)) {
-            return StringConstants.EMPTY;
-        }
-        return String.join(StringConstants.COMMA, errorMessages);
-    }
-
-    public static int totalRecords(MultipartFile file, String header) throws Exception {
-
-        if (log.isDebugEnabled()) {
-            log.debug("Executing totalRecords(MultipartFile, Header) ->");
-        }
-        BufferedReader br = null;
-        try {
-            if (file == null || Utils.isEmpty(header)) {
-                log.error(ErrorCodes.EC_REQUIRED_FILE);
-                return -1;
-            }
-            br = new BufferedReader(new InputStreamReader(file.getInputStream()));
-            String line = StringConstants.EMPTY;
-            boolean found = false;
-            int recNum = 0;
-            while ((line = br.readLine()) != null) {
-                if (Utils.isEmpty(line)) {
-                    continue;
-                }
-                if (header.equals(line) && !found) {
-                    found = true;
-                    continue;
-                } else if (!found) {
-                    continue;
-                }
-                if (found) {
-                    recNum++;
-                }
-            }
-            return recNum;
-        } catch (Exception e) {
-            log.debug("Exception in totalRecords(MultipartFile, Header) - " + e);
-            throw new Exception(e.getMessage());
-        } finally {
-            if (br != null) {
-                br.close();
-            }
-        }
-    }
-
     public static String getAttFilename(String reportIdParam, String prefix, String suffix,
                     String fileType) {
 
@@ -789,8 +659,8 @@ public class Utils implements Serializable {
             if (Utils.isNotEmpty(prefix)) {
                 name += Utils.getValidString(prefix)
                                 .replace(StringConstants.HYPHEN, StringConstants.UNDERSCORE)
-                                .replace(StringConstants.SPACE, StringConstants.UNDERSCORE)
-                                + StringConstants.UNDERSCORE;
+                                .replace(StringConstants.SPACE,
+                                                StringConstants.UNDERSCORE) + StringConstants.UNDERSCORE;
             }
             if (Utils.isNotEmpty(suffix)) {
                 name += StringConstants.UNDERSCORE + Utils.getValidString(suffix)
@@ -801,8 +671,8 @@ public class Utils implements Serializable {
                             .replace(StringConstants.COLON, StringConstants.EMPTY)
                             .replace(StringConstants.SPACE, StringConstants.UNDERSCORE);
 
-            String fileName = Utils.getValidString(name).replaceAll(ATTACHMENT_NAME_REPLACE_REGEXP,
-                            StringConstants.UNDERSCORE);
+            String fileName = Utils.getValidString(name)
+                            .replaceAll(ATTACHMENT_NAME_REPLACE_REGEXP, StringConstants.UNDERSCORE);
             if (Utils.isNotEmpty(fileType)) {
                 if (StringConstants.FILE_CSV.equals(fileType)) {
                     return fileName + ".csv";
