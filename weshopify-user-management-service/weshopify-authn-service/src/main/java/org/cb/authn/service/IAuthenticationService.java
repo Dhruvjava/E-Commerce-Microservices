@@ -7,4 +7,6 @@ public interface IAuthenticationService {
 
     public BaseDataRs token(AuthenticationRq rq);
 
+    public BaseDataRs logout(String accessToken);
+
 }
