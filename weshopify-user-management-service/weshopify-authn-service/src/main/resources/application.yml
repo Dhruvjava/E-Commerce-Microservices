@@ -1,7 +1,7 @@
 
 #Server Config
 server:
-  port: ${APP_PORT:8064}
+  port: ${AUTH_APP_PORT:8064}
   servlet:
     context-path: /dev
 
@@ -9,9 +9,9 @@ server:
 #Application Config
 spring:
   application:
-    name: ${APP_NAME:WESHOPIFY-AUTHN-SVC}
+    name: ${AUTH_APP_NAME:WESHOPIFY-AUTHN-SVC}
   profiles:
-    active: ${APP_PROFILE:dev}
+    active: ${AUTH_APP_PROFILE:dev}
 
 ---
 #Profile Config
