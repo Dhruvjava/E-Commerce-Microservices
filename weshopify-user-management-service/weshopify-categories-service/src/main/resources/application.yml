@@ -58,8 +58,8 @@ spring:
     password: ${CATEGORIES_DB_PASSWORD:}
   h2:
     console:
-      enabled: true
-      path: /h2Console
+      enabled: ${CATEGORIES_H2_ENABLED:true}
+      path: ${CATEGORIES_h2_CONSOLE:/h2Console}
 
 #Log Config
 logging:
@@ -89,6 +89,12 @@ spring:
   config:
     activate:
       on-profile: prod
+#DB Config
+  datasource:
+    driver-class-name: ${CATEGORIES_DB_DRIVER_NAME:com.mysql.cj.jdbc.Driver}
+    url: ${CATEGORIES_DB_PROTOCOL:jdbc}:${CATEGORIES_DB_TYPE:mysql}://${CATEGORIES_DB_HOST:localhost}:${CATEGORIES_DB_PORT:3306}/${CATEGORIES_DB_SCHEMA:categories-svc-db}?createDatabaseIfNotExist=true
+    username: ${CATEGORIES_DB_USERNAME:root}
+    password: ${CATEGORIES_DB_PASSWORD:root}
 
 #Log Config
 logging:
