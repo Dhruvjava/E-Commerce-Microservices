@@ -1,5 +1,6 @@
 package org.cb.advice.handler;
 
+import org.cb.exception.CategoryNotFoundException;
 import org.cb.exception.InvalidCategoryException;
 import org.cb.utils.Utils;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,17 @@ public class CategoryAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
         problemDetail.setTitle(ex.getCode());
         problemDetail.setDetail(ex.getMessage());
-        Optional.of(ex.getErrors()).filter(Utils::isNotEmpty).ifPresent(err -> problemDetail.setProperty("errors", err));
+        Optional.of(ex.getErrors()).filter(Utils::isNotEmpty)
+                        .ifPresent(err -> problemDetail.setProperty("errors", err));
+        return ResponseEntity.badRequest().body(problemDetail);
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<ProblemDetail> handleCategoryNotFoundException(
+                    CategoryNotFoundException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        problemDetail.setTitle(ex.getCode());
+        problemDetail.setDetail(ex.getMessage());
         return ResponseEntity.badRequest().body(problemDetail);
     }
 

@@ -21,6 +21,12 @@ spring:
     url: ${CATEGORIES_DB_PROTOCOL:jdbc}:${CATEGORIES_DB_TYPE:mysql}://${CATEGORIES_DB_HOST:localhost}:${CATEGORIES_DB_PORT:3306}/${CATEGORIES_DB_SCHEMA:categories-svc-db}?createDatabaseIfNotExist=true
     username: ${CATEGORIES_DB_USERNAME:root}
     password: ${CATEGORIES_DB_PASSWORD:root}
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    generate-ddl: true
+    database-platform:
 
 #Log Config
 logging:

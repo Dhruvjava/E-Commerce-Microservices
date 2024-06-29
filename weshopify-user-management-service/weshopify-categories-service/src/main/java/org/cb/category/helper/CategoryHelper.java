@@ -17,7 +17,7 @@ public class CategoryHelper {
     private CategoryHelper() {
     }
 
-    public static List<ErrorRs> validateCreatCategory(CategoryRq rq, Messages messages) {
+    public static List<ErrorRs> validateCreateCategory(CategoryRq rq, Messages messages) {
         Optional.of(log.isDebugEnabled()).ifPresent(l -> log.debug(
                         "Executing validateCreateCategory(CategoryRq) -> "));
         try {
@@ -37,6 +37,26 @@ public class CategoryHelper {
             return errors;
         } catch (Exception e) {
             log.error("Exception in validateCreatCategory(CategoryRq) -> {0}", e);
+            throw e;
+        }
+    }
+
+    public static List<ErrorRs> validateUpdateCategory(CategoryRq rq, Messages messages) {
+        Optional.of(log.isDebugEnabled()).ifPresent(l -> log.debug(
+                        "Executing validateUpdateCategory(CategoryRq) -> "));
+        try {
+            List<ErrorRs> errors = new ArrayList<>();
+            if (rq.getId() == null && rq.getId() <= 0) {
+                log.error(ErrorCodes.EC_REQUIRED_CATEGORY_ID);
+                errors.add(Utils.populateErrorRSs(ErrorCodes.EC_REQUIRED_CATEGORY_ID, messages));
+            }
+            List<ErrorRs> errorRs = validateCreateCategory(rq, messages);
+            if (Utils.isNotEmpty(errorRs)) {
+                errors.addAll(errorRs);
+            }
+            return errors;
+        } catch (Exception e) {
+            log.error("Exception in validateUpdateCategory(CategoryRq) -> {0}", e);
             throw e;
         }
     }

@@ -8,21 +8,23 @@ import lombok.Setter;
 import org.cb.base.datars.BaseDataRs;
 import org.cb.category.rs.CategoryRs;
 
+import java.util.List;
+
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class CategoryDataRs extends BaseDataRs {
+public class CategoryDataRSs extends BaseDataRs {
 
-    private CategoryRs category;
+    private List<CategoryRs> categories;
 
-    public CategoryDataRs(String message, CategoryRs category) {
+    public CategoryDataRSs(String message, List<CategoryRs> categories) {
         super(message);
-        this.category = category;
+        this.categories = categories;
     }
 
-    public CategoryDataRs(String message) {
+    public CategoryDataRSs(String message) {
         super(message);
     }
 }
