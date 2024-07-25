@@ -1,11 +1,11 @@
 #Server Port Config
 server:
-  port: 8761
+  port: ${REGISTRY_APP_PORT:8761}
 
 #App Name
 spring:
   application:
-    name: WESHOPIFY-SERVICE-REGISTRY
+    name: ${REGISTRY_APP_NAME:WESHOPIFY-SERVICE-REGISTRY}
 
 
 #EUREKA CONFIG

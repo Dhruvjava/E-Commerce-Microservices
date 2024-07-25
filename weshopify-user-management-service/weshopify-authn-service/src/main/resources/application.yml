@@ -1,7 +1,7 @@
 
 #Server Config
 server:
-  port: ${APP_PORT:8064}
+  port: ${AUTH_APP_PORT:8064}
   servlet:
     context-path: /dev
 
@@ -9,9 +9,9 @@ server:
 #Application Config
 spring:
   application:
-    name: ${APP_NAME:WESHOPIFY-AUTHN-SVC}
+    name: ${AUTH_APP_NAME:WESHOPIFY-AUTHN-SVC}
   profiles:
-    active: ${APP_PROFILE:dev}
+    active: ${AUTH_APP_PROFILE:dev}
 
 ---
 #Profile Config
@@ -19,6 +19,13 @@ spring:
   config:
     activate:
       on-profile: dev
+#Redis Config
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      #password: ${REDIS_PASSWORD:password}
+      #username: ${REDIS_USERNAME:username}
 
 #LOG Config
 logging:
@@ -50,6 +57,7 @@ iam:
     scope: ${IAM_SCOPE:openid}
     grant-type: ${IAM_GRANT_TYPE:password}
     base-uri: https://${IAM_HOST:localhost}:${IAM_PORT:9443}
+    token_uri: ${iam.wso2.base-uri}/oauth2/token
 
 ---
 #Profile Config
@@ -80,6 +88,16 @@ eureka:
     service-url:
       defaultZone: ${EUERKA_URL:http://localhost:8761/eureka}
 
+#Wso2 Config
+iam:
+  wso2:
+    client-id: ${IAM_CLIENT_ID:N3rhcKXRGAAHpokMSbGUHS4WP_8a}
+    client-secrete: ${IAM_CLIENT_SECRET:6of6wwSAgA38L1wpWAI8v8UfJKca}
+    scope: ${IAM_SCOPE:openid}
+    grant-type: ${IAM_GRANT_TYPE:password}
+    base-uri: https://${IAM_HOST:localhost}:${IAM_PORT:9443}
+    token_uri: ${iam.wso2.base-uri}/oauth2/token
+
 ---
 spring:
   config:
@@ -108,3 +126,13 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: ${EUERKA_URL:http://localhost:8761/eureka}
+
+#Wso2 Config
+iam:
+  wso2:
+    client-id: ${IAM_CLIENT_ID:N3rhcKXRGAAHpokMSbGUHS4WP_8a}
+    client-secrete: ${IAM_CLIENT_SECRET:6of6wwSAgA38L1wpWAI8v8UfJKca}
+    scope: ${IAM_SCOPE:openid}
+    grant-type: ${IAM_GRANT_TYPE:password}
+    base-uri: https://${IAM_HOST:localhost}:${IAM_PORT:9443}
+    token_uri: ${iam.wso2.base-uri}/oauth2/token

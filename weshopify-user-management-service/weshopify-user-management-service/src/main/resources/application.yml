@@ -2,7 +2,7 @@
 
 spring:
   application:
-    name: ${APP_NAME:WESHOPIFY-USER_MGMT-SVC}
+    name: ${USER_APP_NAME:WESHOPIFY-USER_MGMT-SVC}
 
 
 #sendgrid api api key = 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
@@ -10,13 +10,13 @@ spring:
 #Profile
 
   profiles:
-    active: ${DB_PROFILE:dev}
+    active: ${USER_APP_PROFILE:dev}
 
 #Datasource
 
 # Server Port
 server:
-  port: ${APP_PORT:8061}
+  port: ${USER_APP_PORT:8061}
 # context-path
   servlet:
     context-path: /dev
@@ -26,10 +26,10 @@ server:
 #Dev Profile
 spring:
   datasource:
-    driver-class-name: ${DB_DRIVER_NAME:com.mysql.cj.jdbc.Driver}
-    url: ${DB_PROTOCOL:jdbc}:${DB_TYPE:mysql}://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_SCHEMA:weshopify_users}
-    username: ${DB_USER:root}
-    password: ${DB_PASS:root}
+    driver-class-name: ${USER_DB_DRIVER_NAME:com.mysql.cj.jdbc.Driver}
+    url: ${USER_DB_PROTOCOL:jdbc}:${USER_DB_TYPE:mysql}://${USER_DB_HOST:localhost}:${USER_DB_PORT:3306}/${USER_DB_SCHEMA:weshopify_users}
+    username: ${USER_DB_USER:root}
+    password: ${USER_DB_PASS:root}
 
   config:
     activate:
@@ -40,39 +40,27 @@ spring:
     show-sql: true
     database-platform: org.hibernate.dialect.MySQLDialect
 
-#  mail:
-#    host: smtp.gmail.com
-#    port: 25
-#    username: javabydhruv@gmail.com
-#    password: xyz
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          starttls:
-#            enable: true
 #Eureka Config
 eureka:
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${EUERKA_URL:http://localhost:8761/eureka}
 
 ---
 #QA Profile
 spring:
   datasource:
-    driver-class-name: ${DB_DRIVER_NAME:org.h2.Driver}
-    url: ${DB_PROTOCOL:jdbc}:${DB_TYPE:h2}:${DB_HOST:mem}:${DB_SCHEMA:weshopify_users}
-    username: ${DB_USER:sa}
+    driver-class-name: ${USER_DB_DRIVER_NAME:org.h2.Driver}
+    url: ${USER_DB_PROTOCOL:jdbc}:${USER_DB_TYPE:h2}:${USER_DB_HOST:mem}:${USER_DB_SCHEMA:weshopify_users}
+    username: ${USER_DB_USER:sa}
     password:
 
   jpa:
     hibernate:
       ddl-auto: create
     show-sql: true
-#    database-platform: org.hibernate.dialect.MySQLDialect
   h2:
     console:
       enabled: true
@@ -87,5 +75,5 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${EUERKA_URL:http://localhost:8761/eureka}
 ---

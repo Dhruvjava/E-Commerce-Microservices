@@ -1,14 +1,11 @@
-package com.cb.util;
+package org.cb.utils;
+
+import lombok.extern.slf4j.Slf4j;
+import org.cb.base.constants.StringConstants;
+import org.cb.base.constants.TmplConstants;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.Year;
-import java.time.YearMonth;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
@@ -16,18 +13,11 @@ import java.time.temporal.WeekFields;
 import java.util.Date;
 import java.util.Locale;
 
-
-import com.cb.constants.StringConstants;
-import lombok.extern.slf4j.Slf4j;
-
 /**
- * @author Dhruv k
- *
+ * @author Girish
  */
 @Slf4j
 public class LocalDateTimeUtils implements Serializable {
-
-    private static final long serialVersionUID = -5948653276588477749L;
 
     /******************************************************************************
      * HOURS - Format Types * h - Hours without leading zeros for single-digit hours (12-hour clock)
@@ -40,82 +30,49 @@ public class LocalDateTimeUtils implements Serializable {
      *******************************************************************************/
 
     public static final String HH_mm = "HH:mm";
-
     public static final String HH_00 = "HH:'00'";
-
     public static final String HH_mm_ss = "HH:mm:ss";
-
     public static final String dd = "dd";
-
     public static final String MMM_yy = "MMM-yy";
-
     public static final String MMM_yyyy = "MMM-yyyy";
-
     public static final String dd_MMM_yy = "dd-MMM-yy";
-
-    // public static final String dd_MMM_yyyy = "dd-MMM-yyyy";
-
     public static final String ddMMyyyy = "ddMMyyyy";
 
+    // public static final String dd_MMM_yyyy = "dd-MMM-yyyy";
     public static final String yyyy_MM_dd = "yyyy-MM-dd";
-
-    // public static final String dd_MMM_yyyy_HH_mm = "dd-MMM-yyyy HH:mm";
-
     public static final String dd_MMM_yyyy_HH_00 = "dd-MMM-yyyy HH:'00'";
 
+    // public static final String dd_MMM_yyyy_HH_mm = "dd-MMM-yyyy HH:mm";
     public static final String dd_MMM_yyyy_HH_mm_ss = "dd-MMM-yyyy HH:mm:ss";
-
     public static final String yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
-
     public static final String yyyy = "yyyy";
-
     public static final String UTC_PATTERN = "yyyyMMdd'T'HHmmss";
-
     public static final String REGEX_TIME =
                     "^([0-9]|0[0-9]|1[0-9]|2[0-4]):[0-5][0-9](:[0-5][0-9])?$";
-
     public static final String yyyy_ww = "yyyy-ww";
-
     public static final String yyyy_MM = "yyyy-MM";
-
     public static final String yy_mm_dd = "yy/MM/dd";
-
     public static final String yymmdd = "yyMMdd";
-
     public static final String yyyyMM = "yyyyMM";
-
     public static final String yy = "yy";
-
     public static final String HH = "HH";
-
     public static final String mm = "mm";
-
     public static final String ss = "ss";
-
     public static final String MM = "MM";
-
     public static final String MMM = "MMM";
-
     public static final String ddDotMMDotyyyy = "dd.MM.yyyy";
-
     public static final String ddDotMMDotyyyy_HH_mm = "dd.MM.yyyy HH:mm";
-
+    public static final String ddDotMMDotyyyy_HH_mm_ss = "dd.MM.yyyy HH:mm:ss";
+    public static final String yyyyMMddHHmm = "yyyyMMddHHmm";
+    public static final String yyyyMMdd = "yyyyMMdd";
+    public static final String yyyyMMddHHmmss = "yyyyMMddHHmmss";
+    private static final long serialVersionUID = -5948653276588477749L;
     public static DateTimeFormatter DEFAULT_DATE_FORMATTER =
                     DateTimeFormatter.ofPattern(ddDotMMDotyyyy);
-
     public static DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER =
                     DateTimeFormatter.ofPattern(ddDotMMDotyyyy_HH_mm);
-
     public static DateTimeFormatter DEFAULT_YEAR_MONTH_FORMATTER =
                     DateTimeFormatter.ofPattern(yyyyMM);
-
-    public static final String ddDotMMDotyyyy_HH_mm_ss = "dd.MM.yyyy HH:mm:ss";
-
-    public static final String yyyyMMddHHmm = "yyyyMMddHHmm";
-
-    public static final String yyyyMMdd = "yyyyMMdd";
-
-    public static final String yyyyMMddHHmmss = "yyyyMMddHHmmss";
 
     public static LocalDateTime getStartOfDay(LocalDate localDate) {
 
@@ -179,8 +136,8 @@ public class LocalDateTimeUtils implements Serializable {
 
         try {
             WeekFields weekFields = WeekFields.of(Locale.getDefault());
-            return getStartOfDay(dateTime
-                            .with(TemporalAdjusters.previous(weekFields.getFirstDayOfWeek())));
+            return getStartOfDay(dateTime.with(TemporalAdjusters.previous(
+                            weekFields.getFirstDayOfWeek())));
         } catch (Exception e) {
             log.error("Exception in getWeekFirstDateStartOfDay(dateTime) -" + e);
             return null;
@@ -881,11 +838,11 @@ public class LocalDateTimeUtils implements Serializable {
             int year = currYm.getYear();
             String fiscalYear;
             if (currYm.getMonthValue() >= Month.APRIL.getValue()) { // fy starts in April
-                fiscalYear = year + StringConstants.HYPHEN
-                                + convertYearToString(Year.of(year + 1), yy);
+                fiscalYear = year + StringConstants.HYPHEN + convertYearToString(Year.of(year + 1),
+                                yy);
             } else {
-                fiscalYear = (year - 1) + StringConstants.HYPHEN
-                                + convertYearToString(Year.of(year), yy);
+                fiscalYear = (year - 1) + StringConstants.HYPHEN + convertYearToString(
+                                Year.of(year), yy);
             }
             return fiscalYear;
         } catch (Exception e) {
@@ -944,6 +901,7 @@ public class LocalDateTimeUtils implements Serializable {
         if (Utils.isEmpty(ay)) {
             return false;
         }
+        String fromFy = getCurrentFinancialYear().split(StringConstants.HYPHEN)[0];
         String fromYear = ay.split(StringConstants.HYPHEN)[0];
         LocalDate currentDate = LocalDate.now();
         Year currentYear = Year.from(currentDate);
@@ -952,8 +910,9 @@ public class LocalDateTimeUtils implements Serializable {
             // TODO need to consider march to feb
             Year startYear = LocalDateTimeUtils.convertStringToYear(fromYear,
                             LocalDateTimeUtils.yyyy);
+            Year startFy = LocalDateTimeUtils.convertStringToYear(fromFy, LocalDateTimeUtils.yyyy);
             // Year endYear = startYear.plusYears(1);
-            if (startYear.isAfter(currentYear)) {
+            if (startYear.isAfter(currentYear) || startYear.isAfter(startFy)) {
                 return true;
             }
         } catch (Exception e) {
@@ -962,14 +921,15 @@ public class LocalDateTimeUtils implements Serializable {
         return false;
     }
 
-    public static boolean isValidAy(String ay) {
+    public static boolean isPastAy(String ay) {
 
         if (log.isDebugEnabled()) {
-            log.debug("Executing isValidFy(ay) ->");
+            log.debug("Executing isFutureAy(ay) ->");
         }
         if (Utils.isEmpty(ay)) {
             return false;
         }
+        Year fromAy = getStartofCurrentAY();
         String fromYear = ay.split(StringConstants.HYPHEN)[0];
         LocalDate currentDate = LocalDate.now();
         Year currentYear = Year.from(currentDate);
@@ -979,13 +939,30 @@ public class LocalDateTimeUtils implements Serializable {
             Year startYear = LocalDateTimeUtils.convertStringToYear(fromYear,
                             LocalDateTimeUtils.yyyy);
             // Year endYear = startYear.plusYears(1);
-            if (startYear.isBefore(currentYear)) {
+            if (startYear.isBefore(currentYear) || startYear.isBefore(fromAy)) {
                 return true;
             }
         } catch (Exception e) {
-            log.error("Exception in isValidFy(StartAyYear)");
+            log.error("Exception in isFutureAy(StartAyYear)");
         }
         return false;
+    }
+
+    public static Year getStartofCurrentAY() {
+
+        if (log.isDebugEnabled()) {
+            log.debug("Executing getStartofCurrentAY() ->");
+        }
+        try {
+            YearMonth currYm = YearMonth.now();
+            if (currYm.getMonthValue() >= Month.APRIL.getValue()) { // AY starts in April
+                return Year.now().plusYears(1);
+            }
+            return Year.now();
+        } catch (Exception e) {
+            log.error("Exception in getStartofCurrentAY() ->");
+            return null;
+        }
     }
 
     public static String convertAyToFy(String ay) {
@@ -1012,74 +989,74 @@ public class LocalDateTimeUtils implements Serializable {
         }
     }
 
-//    public static String replace(String tmpl, LocalDateTime time) {
-//
-//        if (log.isDebugEnabled()) {
-//            log.debug("Executing replace(Tmpl, Time) ->");
-//        }
-//
-//        try {
-//            if (Utils.isEmpty(tmpl)) {
-//                return StringConstants.EMPTY;
-//            }
-//            if (log.isDebugEnabled()) {
-//                log.debug("BEFORE REPLACE - " + tmpl);
-//            }
-//
-//            if (time == null) {
-//                time = LocalDateTime.now();
-//            }
-//            if (tmpl.contains(TmplConstants.YYYYMMDDHHMMSS)) {
-//                String tsStr = convertLdtToString(time, yyyyMMddHHmmss);
-//                tmpl = tmpl.replace(TmplConstants.YYYYMMDDHHMMSS, tsStr);
-//            }
-//            if (tmpl.contains(TmplConstants.YYYYMMDDHHMM)) {
-//                String tsStr = convertLdtToString(time, yyyyMMddHHmm);
-//                tmpl = tmpl.replace(TmplConstants.YYYYMMDDHHMM, tsStr);
-//            }
-//            if (tmpl.contains(TmplConstants.YYYYMMDD)) {
-//                String tsStr = convertLdtToString(time, yyyyMMdd);
-//                tmpl = tmpl.replace(TmplConstants.YYYYMMDD, tsStr);
-//            }
-//            if (tmpl.contains(TmplConstants.DDMMYYYY)) {
-//                String tsStr = convertLdtToString(time, ddMMyyyy);
-//                tmpl = tmpl.replace(TmplConstants.DDMMYYYY, tsStr);
-//            }
-//            if (tmpl.contains(TmplConstants.YYYY)) {
-//                String yyyyStr = convertLdtToString(time, yyyy);
-//                tmpl = tmpl.replace(TmplConstants.YYYY, yyyyStr);
-//            }
-//            if (tmpl.contains(TmplConstants.MM)) {
-//                String mmStr = convertLdtToString(time, MM);
-//                tmpl = tmpl.replace(TmplConstants.MM, mmStr);
-//            }
-//            if (tmpl.contains(TmplConstants.DD)) {
-//                String ddStr = convertLdtToString(time, dd);
-//                tmpl = tmpl.replace(TmplConstants.DD, ddStr);
-//            }
-//            if (tmpl.contains(TmplConstants.YY)) {
-//                String ddStr = convertLdtToString(time, yy);
-//                tmpl = tmpl.replace(TmplConstants.YY, ddStr);
-//            }
-//            if (tmpl.contains(TmplConstants.HH)) {
-//                String hhStr = convertLdtToString(time, HH);
-//                tmpl = tmpl.replace(TmplConstants.HH, hhStr);
-//            }
-//            if (tmpl.contains(TmplConstants.mm)) {
-//                String mmStr = convertLdtToString(time, mm);
-//                tmpl = tmpl.replace(TmplConstants.mm, mmStr);
-//            }
-//            if (tmpl.contains(TmplConstants.ss)) {
-//                String ssStr = convertLdtToString(time, ss);
-//                tmpl = tmpl.replace(TmplConstants.ss, ssStr);
-//            }
-//            if (log.isDebugEnabled()) {
-//                log.debug("AFTER REPLACE - " + tmpl);
-//            }
-//            return tmpl;
-//        } catch (Exception e) {
-//            log.error("Exception in replace(Tmpl, Time) - " + e);
-//            return StringConstants.EMPTY;
-//        }
-//    }
+    public static String replace(String tmpl, LocalDateTime time) {
+
+        if (log.isDebugEnabled()) {
+            log.debug("Executing replace(Tmpl, Time) ->");
+        }
+
+        try {
+            if (Utils.isEmpty(tmpl)) {
+                return StringConstants.EMPTY;
+            }
+            if (log.isDebugEnabled()) {
+                log.debug("BEFORE REPLACE - " + tmpl);
+            }
+
+            if (time == null) {
+                time = LocalDateTime.now();
+            }
+            if (tmpl.contains(TmplConstants.YYYYMMDDHHMMSS)) {
+                String tsStr = convertLdtToString(time, yyyyMMddHHmmss);
+                tmpl = tmpl.replace(TmplConstants.YYYYMMDDHHMMSS, tsStr);
+            }
+            if (tmpl.contains(TmplConstants.YYYYMMDDHHMM)) {
+                String tsStr = convertLdtToString(time, yyyyMMddHHmm);
+                tmpl = tmpl.replace(TmplConstants.YYYYMMDDHHMM, tsStr);
+            }
+            if (tmpl.contains(TmplConstants.YYYYMMDD)) {
+                String tsStr = convertLdtToString(time, yyyyMMdd);
+                tmpl = tmpl.replace(TmplConstants.YYYYMMDD, tsStr);
+            }
+            if (tmpl.contains(TmplConstants.DDMMYYYY)) {
+                String tsStr = convertLdtToString(time, ddMMyyyy);
+                tmpl = tmpl.replace(TmplConstants.DDMMYYYY, tsStr);
+            }
+            if (tmpl.contains(TmplConstants.YYYY)) {
+                String yyyyStr = convertLdtToString(time, yyyy);
+                tmpl = tmpl.replace(TmplConstants.YYYY, yyyyStr);
+            }
+            if (tmpl.contains(TmplConstants.MM)) {
+                String mmStr = convertLdtToString(time, MM);
+                tmpl = tmpl.replace(TmplConstants.MM, mmStr);
+            }
+            if (tmpl.contains(TmplConstants.DD)) {
+                String ddStr = convertLdtToString(time, dd);
+                tmpl = tmpl.replace(TmplConstants.DD, ddStr);
+            }
+            if (tmpl.contains(TmplConstants.YY)) {
+                String ddStr = convertLdtToString(time, yy);
+                tmpl = tmpl.replace(TmplConstants.YY, ddStr);
+            }
+            if (tmpl.contains(TmplConstants.HH)) {
+                String hhStr = convertLdtToString(time, HH);
+                tmpl = tmpl.replace(TmplConstants.HH, hhStr);
+            }
+            if (tmpl.contains(TmplConstants.mm)) {
+                String mmStr = convertLdtToString(time, mm);
+                tmpl = tmpl.replace(TmplConstants.mm, mmStr);
+            }
+            if (tmpl.contains(TmplConstants.ss)) {
+                String ssStr = convertLdtToString(time, ss);
+                tmpl = tmpl.replace(TmplConstants.ss, ssStr);
+            }
+            if (log.isDebugEnabled()) {
+                log.debug("AFTER REPLACE - " + tmpl);
+            }
+            return tmpl;
+        } catch (Exception e) {
+            log.error("Exception in replace(Tmpl, Time) - " + e);
+            return StringConstants.EMPTY;
+        }
+    }
 }
