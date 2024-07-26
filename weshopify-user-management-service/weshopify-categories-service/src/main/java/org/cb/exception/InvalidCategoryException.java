@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.cb.base.rs.ErrorRs;
+import org.cb.commons.base.rs.ErrorRs;
 
 import java.util.List;
 

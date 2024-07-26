@@ -1,7 +1,7 @@
 package org.cb.category.service;
 
-import org.cb.base.datars.BaseDataRs;
 import org.cb.category.rq.CategoryRq;
+import org.cb.commons.base.datars.BaseDataRs;
 
 public interface ICategoryService {
 

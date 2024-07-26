@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.cb.base.datars.BaseDataRs;
 import org.cb.category.rs.CategoryRs;
+import org.cb.commons.base.datars.BaseDataRs;
 
 import java.util.List;
 

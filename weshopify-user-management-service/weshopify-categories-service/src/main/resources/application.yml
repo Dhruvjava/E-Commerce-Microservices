@@ -20,10 +20,10 @@ spring:
     driver-class-name: ${CATEGORIES_DB_DRIVER_NAME:com.mysql.cj.jdbc.Driver}
     url: ${CATEGORIES_DB_PROTOCOL:jdbc}:${CATEGORIES_DB_TYPE:mysql}://${CATEGORIES_DB_HOST:localhost}:${CATEGORIES_DB_PORT:3306}/${CATEGORIES_DB_SCHEMA:categories-svc-db}?createDatabaseIfNotExist=true
     username: ${CATEGORIES_DB_USERNAME:root}
-    password: ${CATEGORIES_DB_PASSWORD:root}
+#    password: ${CATEGORIES_DB_PASSWORD:root}
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     generate-ddl: true
     database-platform:

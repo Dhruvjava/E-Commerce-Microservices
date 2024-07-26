@@ -16,4 +16,8 @@ public class ErrorCodes {
 
     public static final String EC_REQUIRED_CATEGORY = "EC_REQUIRED_CATEGORY";
 
+    public static final String EC_PARENT_CATEGORY_NOT_FOUND = "EC_PARENT_CATEGORY_NOT_FOUND";
+
+    public static final String EC_CATEGORY_NOT_FOUND = "EC_CATEGORY_NOT_FOUND";
+
 }

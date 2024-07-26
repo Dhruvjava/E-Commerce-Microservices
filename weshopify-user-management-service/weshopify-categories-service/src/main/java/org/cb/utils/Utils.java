@@ -2,7 +2,7 @@ package org.cb.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cb.Messages;
-import org.cb.base.rs.ErrorRs;
+import org.cb.commons.base.rs.ErrorRs;
 import org.cb.constants.StringConstants;
 
 import java.util.ArrayList;

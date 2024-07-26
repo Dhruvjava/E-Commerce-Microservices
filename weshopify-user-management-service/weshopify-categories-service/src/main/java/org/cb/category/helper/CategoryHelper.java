@@ -2,9 +2,9 @@ package org.cb.category.helper;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cb.Messages;
-import org.cb.base.rs.ErrorRs;
 import org.cb.category.constants.ErrorCodes;
 import org.cb.category.rq.CategoryRq;
+import org.cb.commons.base.rs.ErrorRs;
 import org.cb.utils.Utils;
 
 import java.util.ArrayList;
