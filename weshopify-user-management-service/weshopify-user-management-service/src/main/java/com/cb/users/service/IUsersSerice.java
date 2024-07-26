@@ -1,8 +1,8 @@
 package com.cb.users.service;
 
-import com.cb.base.data.rs.BaseDataRs;
 import com.cb.users.entity.Users;
 import com.cb.users.rq.UsersRq;
+import org.cb.commons.base.datars.BaseDataRs;
 
 public interface IUsersSerice {
 

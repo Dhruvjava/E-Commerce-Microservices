@@ -1,7 +1,5 @@
 package com.cb.handlers;
 
-import com.cb.exceptions.PermissionsException;
-import com.cb.exceptions.PermissionsNotFoundException;
 import com.cb.exceptions.RolesException;
 import com.cb.exceptions.RolesNotFoundException;
 import com.cb.util.Utils;

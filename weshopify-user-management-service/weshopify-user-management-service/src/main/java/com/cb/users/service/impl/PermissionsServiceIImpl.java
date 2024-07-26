@@ -1,10 +1,6 @@
 package com.cb.users.service.impl;
 
 import com.cb.Messages;
-import com.cb.base.data.rs.BaseDataRs;
-import com.cb.base.rs.ErrorRs;
-import com.cb.exceptions.PermissionsException;
-import com.cb.exceptions.PermissionsNotFoundException;
 import com.cb.users.constants.ErrorCodes;
 import com.cb.users.constants.MessageCodes;
 import com.cb.users.datars.PermissionsDataRSs;
@@ -13,6 +9,10 @@ import com.cb.users.entity.Permissions;
 import com.cb.users.helper.PermissionsHelper;
 import com.cb.users.mapper.PermissionsMapper;
 import com.cb.users.repo.PermissionsRepo;
+import org.cb.commons.base.datars.BaseDataRs;
+import org.cb.commons.base.rs.ErrorRs;
+import com.cb.exceptions.PermissionsException;
+import com.cb.exceptions.PermissionsNotFoundException;
 import com.cb.users.rq.PermissionsRq;
 import com.cb.users.rs.PermissionsRs;
 import com.cb.users.service.IPermissionsService;

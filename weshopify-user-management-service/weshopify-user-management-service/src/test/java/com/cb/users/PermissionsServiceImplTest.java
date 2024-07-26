@@ -1,20 +1,11 @@
 package com.cb.users;
 
-import com.cb.Messages;
 import com.cb.users.datars.PermissionsDataRSs;
 import com.cb.users.datars.PermissionsDataRs;
-import com.cb.users.entity.Permissions;
-import com.cb.users.repo.PermissionsRepo;
 import com.cb.users.rq.PermissionsRq;
-import com.cb.users.rs.PermissionsRs;
-import com.cb.users.service.IPermissionsService;
 import com.cb.users.service.impl.PermissionsServiceIImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;

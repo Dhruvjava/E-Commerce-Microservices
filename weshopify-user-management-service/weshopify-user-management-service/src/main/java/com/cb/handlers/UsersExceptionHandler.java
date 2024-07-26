@@ -1,18 +1,14 @@
 package com.cb.handlers;
 
-import com.cb.base.rs.ErrorRs;
 import com.cb.exceptions.*;
 import com.cb.util.Utils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.util.Collections;
 
 @RestControllerAdvice
 @Slf4j

@@ -1,11 +1,11 @@
 package com.cb.users.rest;
 
-import com.cb.base.data.rs.BaseDataRs;
 import com.cb.users.rq.UsersRq;
 import com.cb.users.service.IUsersSerice;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.cb.commons.base.datars.BaseDataRs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

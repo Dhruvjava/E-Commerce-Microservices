@@ -1,11 +1,11 @@
 package com.cb.users.datars;
 
-import com.cb.base.data.rs.BaseDataRs;
 import com.cb.users.rs.PermissionsRs;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.cb.commons.base.datars.BaseDataRs;
 
 import java.util.Collections;
 import java.util.List;

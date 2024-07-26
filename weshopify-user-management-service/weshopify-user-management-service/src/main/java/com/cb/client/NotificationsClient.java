@@ -1,6 +1,6 @@
 package com.cb.client;
 
-import com.cb.base.data.rs.BaseDataRs;
+import org.cb.commons.base.datars.BaseDataRs;
 import org.cb.commons.email.rq.NotificationRq;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

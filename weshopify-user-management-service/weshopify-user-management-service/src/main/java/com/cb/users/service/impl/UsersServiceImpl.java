@@ -1,20 +1,20 @@
 package com.cb.users.service.impl;
 
 import com.cb.Messages;
-import com.cb.base.data.rs.BaseDataRs;
-import com.cb.base.rs.ErrorRs;
-import com.cb.client.NotificationsClient;
-import com.cb.exceptions.*;
 import com.cb.users.constants.ErrorCodes;
-import com.cb.users.constants.MessageCodes;
 import com.cb.users.datars.UsersDataRSs;
 import com.cb.users.datars.UsersDataRs;
 import com.cb.users.entity.Roles;
 import com.cb.users.entity.Users;
 import com.cb.users.helper.UsersHelper;
 import com.cb.users.mapper.UsersMapper;
-import com.cb.users.repo.RolesRepo;
 import com.cb.users.repo.UsersRepo;
+import org.cb.commons.base.datars.BaseDataRs;
+import org.cb.commons.base.rs.ErrorRs;
+import com.cb.client.NotificationsClient;
+import com.cb.exceptions.*;
+import com.cb.users.constants.MessageCodes;
+import com.cb.users.repo.RolesRepo;
 import com.cb.users.rq.UsersRq;
 import com.cb.users.rs.UsersRs;
 import com.cb.users.service.IRolesService;

@@ -1,9 +1,6 @@
 package com.cb.handlers;
 
 import com.cb.exceptions.NotificationsException;
-import com.cb.exceptions.UsersDuplicateFieldVoilationException;
-import com.cb.exceptions.UsersException;
-import com.cb.exceptions.UsersNotFoundException;
 import com.cb.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

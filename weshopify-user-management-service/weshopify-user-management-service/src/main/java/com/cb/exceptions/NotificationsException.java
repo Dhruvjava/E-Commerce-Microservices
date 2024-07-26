@@ -1,6 +1,6 @@
 package com.cb.exceptions;
 
-import com.cb.base.rs.ErrorRs;
+import org.cb.commons.base.rs.ErrorRs;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

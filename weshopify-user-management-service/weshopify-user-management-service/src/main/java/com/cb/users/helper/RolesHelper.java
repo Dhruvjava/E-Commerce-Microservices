@@ -1,7 +1,7 @@
 package com.cb.users.helper;
 
 import com.cb.Messages;
-import com.cb.base.rs.ErrorRs;
+import org.cb.commons.base.rs.ErrorRs;
 import com.cb.users.constants.ErrorCodes;
 import com.cb.users.rq.RolesRq;
 import com.cb.users.rq.UserRoleRq;

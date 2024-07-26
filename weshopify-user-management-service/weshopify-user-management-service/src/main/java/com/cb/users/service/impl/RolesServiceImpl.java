@@ -1,10 +1,6 @@
 package com.cb.users.service.impl;
 
 import com.cb.Messages;
-import com.cb.base.data.rs.BaseDataRs;
-import com.cb.base.rs.ErrorRs;
-import com.cb.exceptions.RolesException;
-import com.cb.exceptions.RolesNotFoundException;
 import com.cb.users.constants.ErrorCodes;
 import com.cb.users.constants.MessageCodes;
 import com.cb.users.datars.RolesDataRSs;
@@ -14,8 +10,12 @@ import com.cb.users.helper.RolesHelper;
 import com.cb.users.mapper.RolesMapper;
 import com.cb.users.repo.PermissionsRepo;
 import com.cb.users.repo.RolesRepo;
-import com.cb.users.rq.RolesRq;
 import com.cb.users.rs.RolesRs;
+import org.cb.commons.base.datars.BaseDataRs;
+import org.cb.commons.base.rs.ErrorRs;
+import com.cb.exceptions.RolesException;
+import com.cb.exceptions.RolesNotFoundException;
+import com.cb.users.rq.RolesRq;
 import com.cb.users.service.IRolesService;
 import com.cb.util.Utils;
 import lombok.extern.slf4j.Slf4j;

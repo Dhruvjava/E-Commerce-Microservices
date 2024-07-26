@@ -1,12 +1,12 @@
 package com.cb.users.datars;
 
-import com.cb.base.data.rs.BaseDataRs;
 import com.cb.users.rs.UsersRs;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.cb.commons.base.datars.BaseDataRs;
 
 @Setter
 @Getter

@@ -1,9 +1,9 @@
 package com.cb.users.service;
 
-import com.cb.base.data.rs.BaseDataRs;
 import com.cb.exceptions.RolesException;
 import com.cb.exceptions.RolesNotFoundException;
 import com.cb.users.rq.RolesRq;
+import org.cb.commons.base.datars.BaseDataRs;
 
 public interface IRolesService {
 

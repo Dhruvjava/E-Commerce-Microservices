@@ -1,9 +1,9 @@
 package com.cb.users.service;
 
-import com.cb.base.data.rs.BaseDataRs;
 import com.cb.exceptions.PermissionsException;
 import com.cb.exceptions.PermissionsNotFoundException;
 import com.cb.users.rq.PermissionsRq;
+import org.cb.commons.base.datars.BaseDataRs;
 
 public interface IPermissionsService {
 
