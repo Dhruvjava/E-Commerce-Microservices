@@ -1,4 +1,4 @@
-package com.cb.base.rq;
+package org.cb.commons.base.rq;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

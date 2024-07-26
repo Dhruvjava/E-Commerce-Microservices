@@ -1,4 +1,4 @@
-package com.cb.base.rs;
+package org.cb.commons.base.rs;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

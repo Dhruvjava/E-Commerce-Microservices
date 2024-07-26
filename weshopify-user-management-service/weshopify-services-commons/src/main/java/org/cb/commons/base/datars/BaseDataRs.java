@@ -1,4 +1,4 @@
-package org.cb.base.datars;
+package org.cb.commons.base.datars;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
