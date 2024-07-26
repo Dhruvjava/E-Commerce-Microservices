@@ -1,4 +1,4 @@
-package com.cb.users.constants;
+package org.cb.commons.users.constants;
 
 public class MessageCodes {
 

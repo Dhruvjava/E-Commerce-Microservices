@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.cb.authn.rs.Wso2TokenRs;
-import org.cb.base.datars.BaseDataRs;
+import org.cb.commons.base.datars.BaseDataRs;
 
 @Setter
 @Getter

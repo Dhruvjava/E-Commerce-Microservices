@@ -1,8 +1,6 @@
-package com.cb.util;
+package org.cb.commons.util;
 
-import com.cb.Messages;
-import com.cb.base.rs.ErrorRs;
-import com.cb.constants.StringConstants;
+import org.cb.commons.base.rs.ErrorRs;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;

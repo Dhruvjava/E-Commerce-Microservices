@@ -2,7 +2,7 @@ package org.cb.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cb.base.constants.IntegerConstants;
-import org.cb.base.constants.StringConstants;
+import org.cb.constants.StringConstants;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -639,48 +639,6 @@ public class Utils implements Serializable {
             return result;
         } catch (Exception e) {
             log.error("Exception in convertToIndianNumberFormat(Number) - " + e);
-            return StringConstants.EMPTY;
-        }
-    }
-
-    public static String getAttFilename(String reportIdParam, String prefix, String suffix,
-                    String fileType) {
-
-        if (log.isDebugEnabled()) {
-            log.debug("Executing getAttFilename(reportIdParam, prefix, suffix) ->");
-        }
-
-        try {
-            String name = StringConstants.EMPTY;
-            LocalDateTime date = LocalDateTime.now();
-            String strDate = LocalDateTimeUtils.convertLdtToString(date,
-                            LocalDateTimeUtils.dd_MMM_yyyy_HH_mm_ss);
-            // String repId = Utils.getValidString(reportIdParam).toUpperCase();
-            if (Utils.isNotEmpty(prefix)) {
-                name += Utils.getValidString(prefix)
-                                .replace(StringConstants.HYPHEN, StringConstants.UNDERSCORE)
-                                .replace(StringConstants.SPACE,
-                                                StringConstants.UNDERSCORE) + StringConstants.UNDERSCORE;
-            }
-            if (Utils.isNotEmpty(suffix)) {
-                name += StringConstants.UNDERSCORE + Utils.getValidString(suffix)
-                                .replace(StringConstants.HYPHEN, StringConstants.UNDERSCORE);
-            }
-
-            name += StringConstants.UNDERSCORE + Utils.getValidString(strDate)
-                            .replace(StringConstants.COLON, StringConstants.EMPTY)
-                            .replace(StringConstants.SPACE, StringConstants.UNDERSCORE);
-
-            String fileName = Utils.getValidString(name)
-                            .replaceAll(ATTACHMENT_NAME_REPLACE_REGEXP, StringConstants.UNDERSCORE);
-            if (Utils.isNotEmpty(fileType)) {
-                if (StringConstants.FILE_CSV.equals(fileType)) {
-                    return fileName + ".csv";
-                }
-            }
-            return fileName + ".xlsx";
-        } catch (Exception e) {
-            log.error("Exception getAttFilename(reportIdParam, prefix, suffix) ->" + e);
             return StringConstants.EMPTY;
         }
     }

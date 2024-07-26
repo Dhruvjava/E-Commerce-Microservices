@@ -22,7 +22,7 @@ spring:
 #Redis Config
   data:
     redis:
-      host: ${REDIS_HOST:localhost}
+      host: ${REDIS_HOST:127.0.0.1}
       port: ${REDIS_PORT:6379}
       #password: ${REDIS_PASSWORD:password}
       #username: ${REDIS_USERNAME:username}
@@ -52,8 +52,8 @@ eureka:
 #Wso2 Config
 iam:
   wso2:
-    client-id: ${IAM_CLIENT_ID:N3rhcKXRGAAHpokMSbGUHS4WP_8a}
-    client-secrete: ${IAM_CLIENT_SECRET:6of6wwSAgA38L1wpWAI8v8UfJKca}
+    client-id: ${IAM_CLIENT_ID:ZpZSep2ILpnHf_WPOMVNMu6GwIUa}
+    client-secrete: ${IAM_CLIENT_SECRET:vmbcf_AKrtlSmHOON3H0XbW6gzmNkgUqgkTQSAQcfuEa}
     scope: ${IAM_SCOPE:openid}
     grant-type: ${IAM_GRANT_TYPE:password}
     base-uri: https://${IAM_HOST:localhost}:${IAM_PORT:9443}

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.cb.authn.rq.AuthenticationRq;
 import org.cb.authn.service.IAuthenticationService;
-import org.cb.base.datars.BaseDataRs;
+import org.cb.commons.base.datars.BaseDataRs;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

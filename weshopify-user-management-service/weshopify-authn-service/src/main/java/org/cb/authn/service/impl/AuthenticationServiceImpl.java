@@ -10,7 +10,7 @@ import org.cb.authn.datars.Wso2TokenDataRs;
 import org.cb.authn.rq.AuthenticationRq;
 import org.cb.authn.rs.Wso2TokenRs;
 import org.cb.authn.service.IAuthenticationService;
-import org.cb.base.datars.BaseDataRs;
+import org.cb.commons.base.datars.BaseDataRs;
 import org.cb.utils.Utils;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;

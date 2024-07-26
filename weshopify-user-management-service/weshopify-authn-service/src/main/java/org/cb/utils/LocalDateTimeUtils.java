@@ -1,8 +1,8 @@
 package org.cb.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cb.base.constants.StringConstants;
 import org.cb.base.constants.TmplConstants;
+import org.cb.constants.StringConstants;
 
 import java.io.Serializable;
 import java.time.*;

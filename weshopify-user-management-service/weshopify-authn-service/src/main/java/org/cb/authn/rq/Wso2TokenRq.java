@@ -1,7 +1,7 @@
 package org.cb.authn.rq;
 
 import lombok.*;
-import org.cb.base.rq.BaseRq;
+import org.cb.commons.base.rq.BaseRq;
 
 @Setter
 @Getter
