@@ -1,0 +1,88 @@
+#Server-Config
+server:
+    port: ${BRAND_APP_PORT:8068}
+    servlet:
+        context-path: /dev
+
+#App Config
+spring:
+    application:
+        name: ${BRAND_APP_NAME:WESHOPIFY-BRAND-SERVICE}
+    profiles:
+        active: ${BRAND_APP_PROFILE:dev}
+
+---
+spring:
+    config:
+        activate:
+            on-profile: dev
+#MongoDB Config
+    data:
+        mongodb:
+            host: ${BRAND_APP_MONGO_HOST:localhost}
+            port: ${BRAND_APP_MONGO_PORT:27017}
+#            username: ${BRANS_APP_MONGO_USERNAME:mongo}
+#            password: ${BRANS_APP_MONGO_PASS:mongo}
+            auto-index-creation: ${BRAND_APP_MONGO_INDEX:true}
+
+#Log Config
+logging:
+    file:
+        name: ${BRAND_APP_LOG_FILE:D:/logs/codebrains/brands/logs}
+    pattern:
+        console: '%d{yyyy-mm-dd HH:mm:ss.SSS} %-5level %logger{5} [%file:%line] - %msg%n'
+        file: '%d{yyyy-mm-dd HH:mm:ss.SSS} [%thread] %-5level &logger{20} [%file:%line] - %msg%n'
+    level:
+        root: ERROR
+        org:
+            springframework: ERROR
+            cb: DEBUG
+
+#Eureka Config
+eureka:
+    client:
+        fetch-registry: true
+        register-with-eureka: true
+        service-url:
+            defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+    instance:
+        instance-id: ${spring.application.name}:${random.uuid}
+
+---
+spring:
+    config:
+        activate:
+            on-profile: qa
+    #H2 Config
+    h2:
+        console:
+            enabled: true
+            path: /h2-console
+    datasource:
+        driver-class-name: org.h2.Driver
+        username: sa
+        password: sa
+        url: jdbc:h2:mem:weshopify-brands-svc
+
+#Log Config
+logging:
+    file:
+        name: ${BRAND_APP_LOG_FILE:D:/logs/codebrains/brands/logs}
+    pattern:
+        console: '%d{yyyy-mm-dd HH:mm:ss.SSS} %-5level %logger{5} [%file:%line] - %msg%n'
+        file: '%d{yyyy-mm-dd HH:mm:ss.SSS} [%thread] %-5level &logger{20} [%file:%line] - %msg%n'
+    level:
+        root: ERROR
+        org:
+            springframework: ERROR
+            cb: DEBUG
+
+#Eureka Config
+eureka:
+    client:
+        fetch-registry: true
+        register-with-eureka: true
+        service-url:
+            defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+    instance:
+        instance-id: ${spring.application.name}:${random.uuid}
