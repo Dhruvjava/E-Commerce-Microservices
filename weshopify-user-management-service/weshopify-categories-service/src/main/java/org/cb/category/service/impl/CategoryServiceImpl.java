@@ -116,7 +116,7 @@ public class CategoryServiceImpl implements ICategoryService {
             String message = messages.getMessageProperties(MessageCodes.MC_UPDATED_SUCCESSFULL);
             return new CategoryDataRs(message, rs);
         } catch (Exception e) {
-            log.error("Exception in createCategory(CategoryRq) -> {}", e);
+            log.error("Exception in createCategory(CategoryRq) -> {0}", e);
             throw e;
         }
     }

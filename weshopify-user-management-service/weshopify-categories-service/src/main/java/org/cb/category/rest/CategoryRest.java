@@ -2,6 +2,7 @@ package org.cb.category.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.cb.category.rq.CategoryRq;
@@ -25,7 +26,7 @@ public class CategoryRest {
     @PostMapping
     @Operation(summary = "CREATE CATEGORY",
                     description = "This functionality is used to create category")
-    public ResponseEntity<BaseDataRs> createCategory(@RequestBody CategoryRq rq) {
+    public ResponseEntity<BaseDataRs> createCategory(@RequestBody @Valid CategoryRq rq) {
         Optional.of(log.isDebugEnabled()).ifPresent(l -> log.debug(
                         "Executing RESTFull Services [POST : /api/category] -> "));
         return new ResponseEntity<>(categoryService.createCategory(rq), HttpStatus.CREATED);
@@ -34,7 +35,7 @@ public class CategoryRest {
     @PutMapping
     @Operation(summary = "UPDATE CATEGORY",
                     description = "This functionality is used to update category")
-    public ResponseEntity<BaseDataRs> updateCategory(@RequestBody CategoryRq rq) {
+    public ResponseEntity<BaseDataRs> updateCategory(@RequestBody @Valid CategoryRq rq) {
         Optional.of(log.isDebugEnabled()).ifPresent(l -> log.debug(
                         "Executing RESTFull Services [PUT : /api/category] -> "));
         return ResponseEntity.ok(categoryService.updateCategory(rq));

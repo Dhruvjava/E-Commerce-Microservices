@@ -22,14 +22,6 @@ public class CategoryHelper {
                         "Executing validateCreateCategory(CategoryRq) -> "));
         try {
             List<ErrorRs> errors = new ArrayList<>();
-            if (Utils.isEmpty(rq.getName())) {
-                log.error(ErrorCodes.EC_REQUIRED_CATEGORY_NAME);
-                errors.add(Utils.populateErrorRSs(ErrorCodes.EC_REQUIRED_CATEGORY_NAME, messages));
-            }
-            if (Utils.isEmpty(rq.getAlias())) {
-                log.error(ErrorCodes.EC_REQUIRED_CATEGORY_ALIAS);
-                errors.add(Utils.populateErrorRSs(ErrorCodes.EC_REQUIRED_CATEGORY_ALIAS, messages));
-            }
             if (Utils.isEmpty(rq.getImage())) {
                 log.error(ErrorCodes.EC_REQUIRED_CATEGORY_IMAGE);
                 errors.add(Utils.populateErrorRSs(ErrorCodes.EC_REQUIRED_CATEGORY_IMAGE, messages));
