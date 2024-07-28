@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="weshopify-categories-service" />
+        <module name="weshopify-Notification-service" />
+        <module name="weshopify-user-management-service" />
+        <module name="weshopify-services-commons" />
+        <module name="weshopify-authn-service" />
+        <module name="weshopify-service-registry" />
+        <module name="weshopify-brand-service" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="weshopify-Notification-service" options="-parameters" />
+      <module name="weshopify-authn-service" options="-parameters" />
+      <module name="weshopify-brand-service" options="-parameters" />
+      <module name="weshopify-categories-service" options="-parameters" />
+      <module name="weshopify-service-registry" options="-parameters" />
+      <module name="weshopify-user-management-service" options="-parameters" />
+    </option>
+  </component>
+</project>

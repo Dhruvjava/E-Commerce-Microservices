@@ -1,0 +1,127 @@
+#Server Config
+server:
+  port: ${CATEGORIES_APP_PORT:8066}
+  servlet:
+    context-path: /dev
+#APP NAME
+spring:
+  application:
+    name: ${CATEGORIES_APP_NAME:WESHOPIFY-CATEGORIES-SVC}
+  profiles:
+    active: ${CATEGORIES_APP_PROFILE:dev}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+#DB Config
+  datasource:
+    driver-class-name: ${CATEGORIES_DB_DRIVER_NAME:com.mysql.cj.jdbc.Driver}
+    url: ${CATEGORIES_DB_PROTOCOL:jdbc}:${CATEGORIES_DB_TYPE:mysql}://${CATEGORIES_DB_HOST:localhost}:${CATEGORIES_DB_PORT:3306}/${CATEGORIES_DB_SCHEMA:categories-svc-db}?createDatabaseIfNotExist=true
+    username: ${CATEGORIES_DB_USERNAME:root}
+#    password: ${CATEGORIES_DB_PASSWORD:root}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    generate-ddl: true
+    database-platform:
+
+#Log Config
+logging:
+  file:
+    name: ${LOG_FILE-PATH:D:/logs/codebrains/logs}
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{5} [%file:%line] - %msg%n'
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level &logger{20} [%file:%line] - %msg%n'
+  level:
+    root: ERROR
+    org:
+      springframework: ERROR
+      cb: DEBUG
+    hibernate: ERROR
+
+#Eureka Config
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}
+---
+spring:
+  config:
+    activate:
+      on-profile: qa
+#DB Config
+  datasource:
+    driver-class-name: ${CATEGORIES_DB_DRIVER_NAME:org.h2.Driver}
+    url: ${CATEGORIES_DB_PROTOCOL:jdbc}:${CATEGORIES_DB_TYPE:h2}:${CATEGORIES_DB_HOST:mem}:${CATEGORIES_DB_SCHEMA:categories-svc-db}
+    username: ${CATEGORIES_DB_USERNAME:sa}
+    password: ${CATEGORIES_DB_PASSWORD:}
+  h2:
+    console:
+      enabled: ${CATEGORIES_H2_ENABLED:true}
+      path: ${CATEGORIES_h2_CONSOLE:/h2Console}
+
+#Log Config
+logging:
+  file:
+    name: ${LOG_FILE-PATH:D:/logs/codebrains/logs}
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{5} [%file:%line] - %msg%n'
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level &logger{20} [%file:%line] - %msg%n'
+  level:
+    root: ERROR
+    org:
+      springframework: ERROR
+      cb: DEBUG
+    hibernate: ERROR
+
+#Eureka Config
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+#DB Config
+  datasource:
+    driver-class-name: ${CATEGORIES_DB_DRIVER_NAME:com.mysql.cj.jdbc.Driver}
+    url: ${CATEGORIES_DB_PROTOCOL:jdbc}:${CATEGORIES_DB_TYPE:mysql}://${CATEGORIES_DB_HOST:localhost}:${CATEGORIES_DB_PORT:3306}/${CATEGORIES_DB_SCHEMA:categories-svc-db}?createDatabaseIfNotExist=true
+    username: ${CATEGORIES_DB_USERNAME:root}
+    password: ${CATEGORIES_DB_PASSWORD:root}
+
+#Log Config
+logging:
+  file:
+    name: ${LOG_FILE-PATH:D:/logs/codebrains/logs}
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{5} [%file:%line] - %msg%n'
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level &logger{20} [%file:%line] - %msg%n'
+  level:
+    root: ERROR
+    org:
+      springframework: ERROR
+      cb: DEBUG
+    hibernate: ERROR
+
+#Eureka Config
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}

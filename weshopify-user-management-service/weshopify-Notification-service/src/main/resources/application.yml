@@ -1,0 +1,129 @@
+# Profiles Active ========================
+spring:
+  profiles:
+    active: ${NOTI_APP_PROFILE:dev}
+  # APP NAME ===============================
+  application:
+    name: ${NOTI_APP_NAME:WESHOPIFY-NOTIFICATION-SVC}
+
+# Server Port
+server:
+  port: ${NOTI_APP_PORT:8062}
+  servlet:
+    context-path: /dev
+---
+# Profiles Config=========================
+spring:
+  config:
+    activate:
+      on-profile: dev
+  #  Email Config =========================
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:jcodebrains@gmail.com}
+#    username: ${MAIL_USERNAME:d.k.dhakarey1999@gmail.com}
+    password: ${MAIL_PASSWORD:rupd nqjq kmqa gpph}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  freemarker:
+    template-loader-path: classpath:/templates
+    suffix: .ftl
+  main:
+    allow-circular-references: true
+mail:
+  from:
+    email: ${MAIL_FROM_EMAIL:jcodebrains@gmail.com}
+    name: ${MAIL_FROM_NAME:Dhruv Kumar}
+user:
+  verify:
+    url: ${VERIFY_USER_LINK:http://localhost:8062/dev/api/users/USER_ID/verify}
+  login:
+    url: ${LOGIN_USER_LINK:#}
+# Log Config
+logging:
+  file:
+    name: ${LOG_FILE_PATH:D:\logs\codebrains\log}
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{5} [%file:%line] - %msg%n'
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{20} [%file:%line] - %msg%n'
+  level:
+    root: ERROR
+    org:
+      springframework: ERROR
+    com:
+      quartz: ERROR
+      cb: DEBUG
+    hibernate: ERROR
+#Eureka Config
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+---
+# Profiles Config=========================
+spring:
+  config:
+    activate:
+      on-profile: qa
+  #  Email Config =========================
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:jcodebrains@gmail.com}
+    password: ${MAIL_PASSWORD:rupd nqjq kmqa gpph}}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+mail:
+  from:
+    email: jcodebrains@gmail.com
+    name: CodeBrains Notification
+#Eureka Config
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+---
+# Profiles Config=========================
+spring:
+  config:
+    activate:
+      on-profile: prod
+  #  Email Config =========================
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:jcodebrains@gmail.com}
+    password: ${MAIL_PASSWORD:rupd nqjq kmqa gpph}}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+mail:
+  from:
+    email: jcodebrains@gmail.com
+    name: CodeBrains Notification
+
+#Eureka Config
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka

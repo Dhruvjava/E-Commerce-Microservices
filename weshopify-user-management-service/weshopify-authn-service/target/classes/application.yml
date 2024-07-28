@@ -1,0 +1,138 @@
+
+#Server Config
+server:
+  port: ${AUTH_APP_PORT:8064}
+  servlet:
+    context-path: /dev
+
+
+#Application Config
+spring:
+  application:
+    name: ${AUTH_APP_NAME:WESHOPIFY-AUTHN-SVC}
+  profiles:
+    active: ${AUTH_APP_PROFILE:dev}
+
+---
+#Profile Config
+spring:
+  config:
+    activate:
+      on-profile: dev
+#Redis Config
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+      #password: ${REDIS_PASSWORD:password}
+      #username: ${REDIS_USERNAME:username}
+
+#LOG Config
+logging:
+  file:
+    name: ${LOG_FILE_PATH:D:/logs/codebrains/logs}
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{5} [%file:%line] - %msg%n'
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{20} [%file:%line] - %msg%n'
+  level:
+    root: ERROR
+    org:
+      springframework: ERROR
+      cb: DEBUG
+    hibernate: ERROR
+
+#Eureka Config
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUERKA_URL:http://localhost:8761/eureka}
+
+#Wso2 Config
+iam:
+  wso2:
+    client-id: ${IAM_CLIENT_ID:ZpZSep2ILpnHf_WPOMVNMu6GwIUa}
+    client-secrete: ${IAM_CLIENT_SECRET:vmbcf_AKrtlSmHOON3H0XbW6gzmNkgUqgkTQSAQcfuEa}
+    scope: ${IAM_SCOPE:openid}
+    grant-type: ${IAM_GRANT_TYPE:password}
+    base-uri: https://${IAM_HOST:localhost}:${IAM_PORT:9443}
+    token_uri: ${iam.wso2.base-uri}/oauth2/token
+
+---
+#Profile Config
+spring:
+  config:
+    activate:
+      on-profile: qa
+
+#LOG Config
+logging:
+  file:
+    name: ${LOG_FILE_PATH:D:/logs/codebrains/logs}
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{5} [%file:%line] - %msg%n'
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{20} [%file:%line] - %msg%n'
+  level:
+    root: ERROR
+    org:
+      springframework: ERROR
+      cb: DEBUG
+    hibernate: ERROR
+
+#Eureka Config
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUERKA_URL:http://localhost:8761/eureka}
+
+#Wso2 Config
+iam:
+  wso2:
+    client-id: ${IAM_CLIENT_ID:N3rhcKXRGAAHpokMSbGUHS4WP_8a}
+    client-secrete: ${IAM_CLIENT_SECRET:6of6wwSAgA38L1wpWAI8v8UfJKca}
+    scope: ${IAM_SCOPE:openid}
+    grant-type: ${IAM_GRANT_TYPE:password}
+    base-uri: https://${IAM_HOST:localhost}:${IAM_PORT:9443}
+    token_uri: ${iam.wso2.base-uri}/oauth2/token
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+
+#LOG Config
+logging:
+  file:
+    name: ${LOG_FILE_PATH:D:/logs/codebrains/logs}
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{5} [%file:%line] - %msg%n'
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{20} [%file:%line] - %msg%n'
+  level:
+    root: ERROR
+    org:
+      springframework: ERROR
+      cb: DEBUG
+    hibernate: ERROR
+
+#Eureka Config
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUERKA_URL:http://localhost:8761/eureka}
+
+#Wso2 Config
+iam:
+  wso2:
+    client-id: ${IAM_CLIENT_ID:N3rhcKXRGAAHpokMSbGUHS4WP_8a}
+    client-secrete: ${IAM_CLIENT_SECRET:6of6wwSAgA38L1wpWAI8v8UfJKca}
+    scope: ${IAM_SCOPE:openid}
+    grant-type: ${IAM_GRANT_TYPE:password}
+    base-uri: https://${IAM_HOST:localhost}:${IAM_PORT:9443}
+    token_uri: ${iam.wso2.base-uri}/oauth2/token
