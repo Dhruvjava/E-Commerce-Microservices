@@ -31,9 +31,9 @@ public class BrandNotFoundException extends RuntimeException{
         this.message = message;
     }
 
-    public BrandNotFoundException(String code, String message, List<ErrorRs> errors) {
-        this.code = code;
-        this.message = message;
-        this.errors = errors;
-    }
+//    public BrandNotFoundException(String code, String message, List<ErrorRs> errors) {
+//        this.code = code;
+//        this.message = message;
+//        this.errors = errors;
+//    }
 }

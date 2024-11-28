@@ -3,7 +3,7 @@ package org.cb.category.mapper;
 import lombok.extern.slf4j.Slf4j;
 import org.cb.category.entity.Category;
 import org.cb.category.rq.CategoryRq;
-import org.cb.category.rs.CategoryRs;
+import org.cb.commons.base.category.rs.CategoryRs;
 import org.cb.utils.LocalDateTimeUtils;
 import org.modelmapper.ModelMapper;
 

@@ -12,6 +12,7 @@ import java.util.Optional;
 @Slf4j
 public class BrandMapper {
 
+    private BrandMapper(){}
 
     public static Brand mapToBrand(BrandRq rq, ModelMapper mapper) {
         Optional.of(log.isDebugEnabled()).ifPresent(l -> log.debug("Executing mapToBrand(BrandRq) ->"));
@@ -33,7 +34,7 @@ public class BrandMapper {
             }
             if (brand.getUpdatedon() != null) {
                 String updateOn = LocalDateTimeUtils.convertLdtToString(brand.getUpdatedon(), LocalDateTimeUtils.dd_MMM_yyyy_HH_mm_ss);
-                rs.setCreatedOn(updateOn);
+                rs.setUpdatedOn(updateOn);
             }
             return rs;
         } catch (Exception e) {

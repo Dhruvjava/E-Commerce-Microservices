@@ -12,4 +12,6 @@ public class ErrorCodes {
 
     public static final String EC_BRAND_NOT_FOUND = "EC_BRAND_NOT_FOUND";
 
+    public static final String EC_INVALID_CATEGORIES = "EC_INVALID_CATEGORIES";
+
 }

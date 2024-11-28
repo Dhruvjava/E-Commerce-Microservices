@@ -24,6 +24,7 @@ spring:
 #            username: ${BRANS_APP_MONGO_USERNAME:mongo}
 #            password: ${BRANS_APP_MONGO_PASS:mongo}
             auto-index-creation: ${BRAND_APP_MONGO_INDEX:true}
+            database: weshopify_brands
 
 #Log Config
 logging:

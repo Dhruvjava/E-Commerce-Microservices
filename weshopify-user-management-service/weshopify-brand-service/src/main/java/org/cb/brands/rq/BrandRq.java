@@ -1,6 +1,7 @@
 package org.cb.brands.rq;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,7 @@ public class BrandRq extends BaseRq {
     @NotBlank(message=ErrorCodes.EC_REQUIRED_BRAND_NAME)
     private String name;
 
-    @NotBlank(message = ErrorCodes.EC_REQUIRED_BRAND_CATEGORY)
+    @NotNull(message = ErrorCodes.EC_REQUIRED_BRAND_CATEGORY)
     private Set<String> categories;
 
 }

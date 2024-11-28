@@ -1,6 +1,7 @@
 package org.cb.brands.entity;
 
 import lombok.*;
+import org.cb.base.bo.BaseBO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -17,24 +18,21 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Brand implements Serializable {
+public class Brand extends BaseBO {
 
     @Serial
-    private static final long serialVersionUID = -3228412039681957830L;
-
-    @Id
-    private String id;
+    private static final long serialVersionUID = 8973764831122361288L;
 
     @Indexed(unique = true)
     private String name;
 
     private Set<String> categories;
 
-    private String createdby;
-
-    private LocalDateTime createdon;
-
-    private String updatedby;
-
-    private LocalDateTime updatedon;
+//    private String createdby;
+//
+//    private LocalDateTime createdon;
+//
+//    private String updatedby;
+//
+//    private LocalDateTime updatedon;
 }
