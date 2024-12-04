@@ -1,25 +1,14 @@
-#Application Configuration
-spring:
-  application:
-    name: ${WESHOPIFY_GATEWAY_APP_NAME:weshopify-gateway-server}
-
 #Server Config
 server:
   port: ${WESHOPIFY_GATEWAY_PORT:80}
 
-#Profiles Config
-  profile: ${WESHOPIFY_GATEWAY_PROFILE:dev}
-
----
+#Application Configuration
 spring:
-  config:
-    activate:
-      on-profile: dev
+  application:
+    name: ${WESHOPIFY_GATEWAY_APP_NAME:weshopify-gateway-server}
 #Gateway Metrices enabled
   cloud:
     gateway:
-      metrics:
-        enabled: true
 # Discovery Service enabled
       discovery:
         locator:
@@ -32,11 +21,11 @@ spring:
             - Path=/weshopify/auth/**
           uri: lb://WESHOPIFY-AUTHN-SVC
           filters:
-            - RewritePath=/weshopify/auth/?(?<segment>.*),/$\{segment}
+            - RewritePath=/weshopify/auth/?(?<segment>.*), /$\{segment}
             - name: CircuitBreaker
               args:
-                name: weshopify-authn-circuit-breaker
-                fallbackUri: forward:/api/gateway/authn/failed
+                name: WESHOPIFY-AUTHN-CIRCUIT-BREAKER
+                fallbackUri: forward:/auth-fallback
 
 #Actuator Configuration
 management:
@@ -53,6 +42,8 @@ management:
     health:
       probes:
         enabled: true
+    gateway:
+      enabled: true
 
 #Eureka Config
 eureka:
@@ -63,3 +54,17 @@ eureka:
       defaultZone: ${WESHOPIFY_REGISTRY_PROTOCOL:http}://${WESHOPIFY_REGISTRY_HOST:localhost}:${WESHOPIFY_REGISTRY_PORT:8761}/eureka
   instance:
     hostname: ${WESHOPIFY_REGISTRY_HOST:localhost}
+
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: DEBUG
+          circuitbreaker: DEBUG
+    io:
+    github:
+      resilience4j: DEBUG
+
+
