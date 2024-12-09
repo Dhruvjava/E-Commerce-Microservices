@@ -49,6 +49,57 @@ eureka:
     instance:
         instance-id: ${spring.application.name}:${random.uuid}
 
+#Circuit Breaker Configuration
+resilience4j:
+    circuitbreaker:
+        metrics:
+            enabled: true
+            # This Property is used to register all circuit breakers health related information
+            # to microservices actuator. By default, this configuration is disabled.
+        configs:
+            default:
+                register-health-indicator: true
+        instances:
+            create-brands-circuitbreaker:
+                # This will inform to circuit breaker to monitor the minimum of 5 request to our
+                # api, to Open or close the circuit the default value is 50
+                minimum-number-of-calls: 5
+                # Informing to circuit breaker to consider the threashold open the circuit
+                # here 50% means, the 50% of 5 request coming example : 2.5 ~ 3 are failing
+                # then the circuit will open, So that it will open the circuit fail fast and will give the response
+                failure-rate-threshold: 50
+
+                wait-duration-in-open-state: 30000
+                permitted-number-of-calls-in-half-open-state: 2
+    retry:
+        metrics:
+            enabled: true
+        instances:
+            create-brands-retry:
+                max-attempts: 3
+                wait-duration: 2s
+    ratelimiter:
+        configs:
+          default:
+              register-health-indicator: true
+        instances:
+            create-brands-ratelimiter:
+                limit-for-period: 10
+                limit-refresh-period: 30s
+                timeout-duration: 120s
+
+#Actuator Config
+management:
+    endpoint:
+        health:
+            probes:
+                enabled: true
+        circuitbreakers:
+            enabled: true
+    endpoints:
+        web:
+            exposure:
+                include: '*'
 ---
 spring:
     config:
@@ -87,3 +138,26 @@ eureka:
             defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
     instance:
         instance-id: ${spring.application.name}:${random.uuid}
+
+#Circuit Breaker Configuration
+resilience4j:
+    circuitbreaker:
+        metrics:
+            enabled: true
+            # This Property is used to register all circuit breakers health related information
+            # to microservices actuator. By default, this configuration is disabled.
+        configs:
+            default:
+                register-health-indicator: true
+        instances:
+            create-brands-circuitbreaker:
+                # This will inform to circuit breaker to monitor the minimum of 5 request to our
+                # api, to Open or close the circuit the default value is 50
+                minimum-number-of-calls: 5
+                # Informing to circuit breaker to consider the threashold open the circuit
+                # here 50% means, the 50% of 5 request coming example : 2.5 ~ 3 are failing
+                # then the circuit will open, So that it will open the circuit fail fast and will give the response
+                failure-rate-threshold: 50
+
+                wait-duration-in-open-state: 30000
+                permitted-number-of-calls-in-half-open-state: 2

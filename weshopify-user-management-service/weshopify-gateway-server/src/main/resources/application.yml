@@ -6,6 +6,8 @@ server:
 spring:
   application:
     name: ${WESHOPIFY_GATEWAY_APP_NAME:weshopify-gateway-server}
+# Redish Config
+
 #Gateway Metrices enabled
   cloud:
     gateway:
@@ -14,6 +16,10 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+      redis-rate-limiter:
+        config:
+           replanishRate: 3
+           burstCapacity: 5
       #Routes Config
       routes:
         - id: 01-weshopify-authn-svc
@@ -22,10 +28,59 @@ spring:
           uri: lb://WESHOPIFY-AUTHN-SVC
           filters:
             - RewritePath=/weshopify/auth/?(?<segment>.*), /$\{segment}
+            - name: RedisRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                redis-rate-limiter.requestedTokens: 1
             - name: CircuitBreaker
               args:
                 name: WESHOPIFY-AUTHN-CIRCUIT-BREAKER
                 fallbackUri: forward:/auth-fallback
+        - id: 01-weshopify-brand-svc
+          predicates:
+            - Path=/weshopify/brand/**
+          uri: lb://WESHOPIFY-BRAND-SERVICE
+          filters:
+            - RewritePath=/weshopify/brand/?(?<segment>.*), /$\{segment}
+            - name: CircuitBreaker
+              args:
+                name: WESHOPIFY-BRAND-CIRCUIT-BREAKER
+                fallbackUri: forward:/brand-fallback
+        - id: 01-weshopify-category-svc
+          predicates:
+            - Path=/weshopify/category/**
+          uri: lb://WESHOPIFY-CATEGORIES-SVC
+          filters:
+            - RewritePath=/weshopify/category/?(?<segment>.*), /$\{segment}
+            - name: CircuitBreaker
+              args:
+                name: WESHOPIFY-CAT-CIRCUIT-BREAKER
+                fallbackUri: forward:/cat-fallback
+        - id: 01-weshopify-notfication-svc
+          predicates:
+            - Path=/weshopify/notification/**
+          uri: lb://WESHOPIFY-NOTIFICATION-SVC
+          filters:
+            - RewritePath=/weshopify/notification/?(?<segment>.*), /$\{segment}
+            - name: CircuitBreaker
+              args:
+                name: WESHOPIFY-NOTIF-CIRCUIT-BREAKER
+                fallbackUri: forward:/notif-fallback
+        - id: 01-weshopify-user-mgmt-svc
+          predicates:
+            - Path=/weshopify/usermgmt/**
+          uri: lb://WESHOPIFY-USER_MGMT-SVC
+          filters:
+            - RewritePath=/weshopify/usermgmt/?(?<segment>.*), /$\{segment}
+            - name: CircuitBreaker
+              args:
+                name: WESHOPIFY-USER-CIRCUIT-BREAKER
+                fallbackUri: forward:/user-fallback
+  data:
+    redis:
+      host: ${WESHOPIFY_GATEWAY_REDIS_HOST:localhost}
+      port: ${WESHOPIFY_GATEWAY_REDIS_PORT:6379}
 
 #Actuator Configuration
 management:
@@ -37,6 +92,8 @@ management:
     readinessstate:
       enabled: true
     livenessstate:
+      enabled: true
+    redis:
       enabled: true
   endpoint:
     health:
